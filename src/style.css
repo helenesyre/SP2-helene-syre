@@ -1,0 +1,157 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+
+@import "tailwindcss";
+
+@theme {
+  /* ────────────────────── Fonts ────────────────────── */
+  --font-helvetica: "helvetica-neue-lt-pro", sans-serif;
+  --font-inter: "Inter", sans-serif;
+
+  /* ────────────────────── Colors ────────────────────── */
+
+  /* Blue */
+  --color-blue-50: #e6e8f6;
+  --color-blue-100: #b2b7e2;
+  --color-blue-200: #8c95d5;
+  --color-blue-300: #5864c1;
+  --color-blue-400: #3746b5;
+  --color-blue-500: #0518a3;
+  --color-blue-600: #051694;
+  --color-blue-700: #041174;
+  --color-blue-800: #030d5a;
+  --color-blue-900: #020a44;
+
+  /* Medium blue */
+  --color-blue-medium-50: #e8effa;
+  --color-blue-medium-100: #b8cdef;
+  --color-blue-medium-200: #96b5e8;
+  --color-blue-medium-300: #6694dd;
+  --color-blue-medium-400: #487fd6;
+  --color-blue-medium-500: #1a5fcc;
+  --color-blue-medium-600: #1856ba;
+  --color-blue-medium-700: #124391;
+  --color-blue-medium-800: #0e3470;
+  --color-blue-medium-900: #0b2856;
+
+  /* Light blue */
+  --color-blue-light-50: #fbfdff;
+  --color-blue-light-100: #f2f8fd;
+  --color-blue-light-200: #ecf5fd;
+  --color-blue-light-300: #e4f1fc;
+  --color-blue-light-400: #deeefb;
+  --color-blue-light-500: #d6eafa;
+  --color-blue-light-600: #c3d5e4;
+  --color-blue-light-700: #98a6b2;
+  --color-blue-light-800: #76818a;
+  --color-blue-light-900: #5a6269;
+
+  /* Green */
+  --color-green-50: #ebf0e7;
+  --color-green-100: #c2d1b4;
+  --color-green-200: #a4bb90;
+  --color-green-300: #7b9c5e;
+  --color-green-400: #61893e;
+  --color-green-500: #3a6b0e;
+  --color-green-600: #35610d;
+  --color-green-700: #294c0a;
+  --color-green-800: #203b08;
+  --color-green-900: #182d06;
+
+  /* Light green */
+  --color-green-light-50: #fdfefa;
+  --color-green-light-100: #f8fcee;
+  --color-green-light-200: #f4fae6;
+  --color-green-light-300: #f0f8da;
+  --color-green-light-400: #edf7d3;
+  --color-green-light-500: #e8f5c8;
+  --color-green-light-600: #d3dfb6;
+  --color-green-light-700: #a5ae8e;
+  --color-green-light-800: #80876e;
+  --color-green-light-900: #616754;
+
+  /* Black */
+  --color-black-50: #e6e6e8;
+  --color-black-100: #b1b1b8;
+  --color-black-200: #8c8b96;
+  --color-black-300: #575666;
+  --color-black-400: #363548;
+  --color-black-500: #04031a;
+  --color-black-600: #040318;
+  --color-black-700: #030212;
+  --color-black-800: #02020e;
+  --color-black-900: #02010b;
+
+  /* Gray */
+  --color-gray-50: #fefefe;
+  --color-gray-100: #fafafa;
+  --color-gray-200: #f8f8f8;
+  --color-gray-300: #f5f5f5;
+  --color-gray-400: #f3f3f3;
+  --color-gray-500: #f0f0f0;
+  --color-gray-600: #dadada;
+  --color-gray-700: #aaaaaa;
+  --color-gray-800: #848484;
+  --color-gray-900: #656565;
+
+  /* White */
+  --color-white-50: #ffffff;
+  --color-white-100: #fefefe;
+  --color-white-200: #fdfdfd;
+  --color-white-300: #fcfcfc;
+  --color-white-400: #fcfcfc;
+  --color-white-500: #fbfbfb;
+  --color-white-600: #e4e4e4;
+  --color-white-700: #b2b2b2;
+  --color-white-800: #8a8a8a;
+  --color-white-900: #696969;
+
+  /* ────────────────────── Color usage ────────────────────── */
+
+  /* Backgrounds */
+  --color-bg: var(--color-white-500); /* main background */
+  --color-nav: var(--color-white-200); /* navigation */
+  --color-surface: var(--color-white-100); /* cards and modals */
+
+  /* Text */
+  --color-text-primary: var(--color-black-500); /* main text */
+  --color-text-secondary: var(--color-black-300); /* secondary text */
+  --color-text-placeholder: var(--color-black-100); /* placeholders */
+  --color-text-number: var(--color-blue-medium-500); /* numbers/credits */
+
+  /* Borders */
+  --color-border: var(--color-gray-500); /* default border color */
+
+  /* ────────────────────── Border radius ────────────────────── */
+
+  --radius-default: 0.5rem; /* 8px */
+  --radius-medium: 1rem; /* 16px */
+  --radius-full: 9999px; /* fully rounded */
+
+  /* ────────────────────── Gradients ────────────────────── */
+}
+
+@layer components {
+  h1 {
+    @apply font-helvetica text-4xl font-bold;
+  }
+
+  h2 {
+    @apply font-helvetica text-3xl font-semibold;
+  }
+
+  h3 {
+    @apply font-helvetica text-2xl font-medium;
+  }
+
+  h4 {
+    @apply font-helvetica text-xl font-medium;
+  }
+
+  h5 {
+    @apply font-helvetica text-lg font-medium;
+  }
+
+  h6 {
+    @apply font-helvetica text-base font-medium;
+  }
+}
