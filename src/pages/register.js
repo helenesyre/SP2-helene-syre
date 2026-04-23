@@ -1,16 +1,21 @@
+import { registerForm, setupRegisterFormListeners } from "../assets/js/components/forms/registerForm";
+
+
+/**
+ * Renders the registration page with a form for creating a new account.
+ * @returns {string} HTML string representing the registration page content.
+ */
 export function register() {
+  const form = registerForm();
+
+  // Schedule listener setup for next tick to ensure form is in DOM
+  setTimeout(() => setupRegisterFormListeners(), 0);
+
   return `
     <div class="flex flex-col items-center gap-6 py-16">
-      <h1 class="text-4xl font-bold">Register</h1>
-      <p class="text-lg">Create a new account to access all features. Stay tuned for updates!</p>
-      <div class="flex flex-wrap gap-4 justify-center">
-        <a href="#/" class="btn-small btn-border">Go to Home</a>
-        <a href="#/listing" class="btn-small btn-border">Go to Listing</a>
-        <a href="#/profile" class="btn-small btn-border">Go to Profile</a>
-        <a href="#/login" class="btn-small btn-border">Go to Login</a>
-        <a href="#/coming-soon" class="btn-small btn-border">Go to Coming Soon</a>
-        <a href="#/page-not-found" class="btn-small btn-border">Go to Page Not Found</a>
-      </div>
+      <h1 class="text-3xl">Create an account </h1>
+      ${form}
+      <p class="text-sm">Already have an account? <a href="#/login" class="text-blue-500 hover:underline">Log in</a>.</p>
     </div>
   `;
-}
+};
