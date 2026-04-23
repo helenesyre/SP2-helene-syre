@@ -126,8 +126,39 @@
   --radius-default: 0.5rem; /* 8px */
   --radius-medium: 1rem; /* 16px */
   --radius-full: 9999px; /* fully rounded */
+}
 
-  /* ────────────────────── Gradients ────────────────────── */
+/* ────────────────────── Button sizes ────────────────────── */
+
+@utility btn-small {
+  @apply font-helvetica inline-flex gap-2 items-center justify-center px-3 py-1.5 rounded-default text-sm/5.5 font-bold;
+}
+
+@utility btn-medium {
+  @apply font-helvetica inline-flex gap-2 items-center justify-center px-4 py-2 rounded-default text-base/5.5 font-bold;
+}
+
+@utility btn-large {
+  @apply font-helvetica inline-flex gap-2 items-center justify-center px-5 py-3 rounded-default text-lg/5.5 font-bold;
+}
+
+/* ────────────────────── Gradients ────────────────────── */
+
+@utility footer-gradient {
+  background-color: hsla(232, 94%, 32%, 1);
+  background-image:
+    radial-gradient(at 96% 24%, hsla(241, 79%, 5%, 1) 0px, transparent 50%),
+    radial-gradient(at 94% 14%, hsla(241, 79%, 5%, 1) 0px, transparent 50%),
+    radial-gradient(at 67% 9%, hsla(232, 94%, 32%, 1) 0px, transparent 50%),
+    radial-gradient(at 65% 32%, hsla(232, 94%, 32%, 1) 0px, transparent 50%),
+    radial-gradient(at 72% 77%, hsla(232, 94%, 32%, 1) 0px, transparent 50%),
+    radial-gradient(at 12% 69%, hsla(242, 79%, 5%, 1) 0px, transparent 50%),
+    radial-gradient(at 44% 86%, hsla(232, 94%, 32%, 1) 0px, transparent 50%),
+    radial-gradient(at 91% 45%, hsla(242, 79%, 5%, 1) 0px, transparent 50%),
+    radial-gradient(at 7% 10%, hsla(242, 79%, 5%, 1) 0px, transparent 50%),
+    radial-gradient(at 21% 44%, hsla(242, 79%, 5%, 1) 0px, transparent 50%),
+    radial-gradient(at 0% 100%, hsla(206, 78%, 90%, 1) 0px, transparent 50%),
+    radial-gradient(at 100% 99%, hsla(0, 0%, 100%, 1) 0px, transparent 50%);
 }
 
 @layer components {
@@ -137,7 +168,7 @@
   }
 
   h2 {
-    @apply font-helvetica text-3xl font-semibold;
+    @apply font-helvetica text-4xl font-medium;
   }
 
   h3 {
@@ -156,18 +187,7 @@
     @apply font-helvetica text-base font-medium;
   }
 
-  /* Buttons */
-  .btn-small {
-    @apply font-helvetica inline-flex gap-2 items-center px-3 py-1.5 rounded-default text-sm/5.5 font-bold;
-  }
-
-  .btn-medium {
-    @apply font-helvetica inline-flex gap-2 items-center px-4 py-2 rounded-default text-base/5.5 font-bold;
-  }
-
-  .btn-large {
-    @apply font-helvetica inline-flex gap-2 items-center px-5 py-3 rounded-default text-lg/5.5 font-bold;
-  }
+  /* Buttons color/style variants */
 
   .btn-primary {
     @apply bg-blue-500 text-white-500 cursor-pointer hover:bg-blue-700 hover:drop-shadow-sm/16;
@@ -192,5 +212,10 @@
   /* Tags */
   .tag {
     @apply font-helvetica inline-flex gap-1 items-center pl-3 pr-4 py-1 rounded-default text-sm font-bold bg-blue-light-300 border border-blue-light-600 text-blue-medium-500;
+  }
+
+  /* Input fields */
+  .input-field {
+    @apply bg-white-500 border border-gray-600 rounded-default px-4 py-2.25 w-full text-sm text-text-primary placeholder:text-text-placeholder focus:outline-none focus:ring-2 focus:ring-blue-medium-100;
   }
 }
