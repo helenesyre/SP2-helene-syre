@@ -1,4 +1,9 @@
 import './style.css'
+import { renderNavbar } from './assets/js/components/navigation/navbar.js'
+import { renderFooter } from './assets/js/components/footer/footer.js';
+
+// Recommended way, to include only the icons you need.
+import { createIcons, Menu, CirclePlus, CircleDollarSign, X, User, Home, LogIn, LogOut } from 'lucide';
 
 document.querySelector('#app').innerHTML = `
 <section id="center">
@@ -11,9 +16,24 @@ document.querySelector('#app').innerHTML = `
     <h6>Test 6</h6>
     <p class="my-8">Edit <code>src/main.js</code> and save to test <code>HMR</code></p>
   </div>
-  <button id="counter" type="button" class="bg-red-500 text-white px-4 py-2 rounded cursor-pointer">test</button>
 </section>
 
 <div class="ticks"></div>
 <section id="spacer"></section>
 `
+
+renderNavbar();
+renderFooter();
+
+createIcons({
+  icons: {
+    Menu,
+    CirclePlus,
+    CircleDollarSign,
+    X,
+    User,
+    Home,
+    LogIn,
+    LogOut
+  }
+});
