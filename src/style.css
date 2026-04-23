@@ -131,6 +131,7 @@
 }
 
 @layer components {
+  /* Typography */
   h1 {
     @apply font-helvetica text-4xl font-bold;
   }
@@ -153,5 +154,43 @@
 
   h6 {
     @apply font-helvetica text-base font-medium;
+  }
+
+  /* Buttons */
+  .btn-small {
+    @apply font-helvetica inline-flex gap-2 items-center px-3 py-1.5 rounded-default text-sm/5.5 font-bold;
+  }
+
+  .btn-medium {
+    @apply font-helvetica inline-flex gap-2 items-center px-4 py-2 rounded-default text-base/5.5 font-bold;
+  }
+
+  .btn-large {
+    @apply font-helvetica inline-flex gap-2 items-center px-5 py-3 rounded-default text-lg/5.5 font-bold;
+  }
+
+  .btn-primary {
+    @apply bg-blue-500 text-white-500 cursor-pointer hover:bg-blue-700 hover:drop-shadow-sm/16;
+  }
+
+  .btn-secondary {
+    @apply bg-green-light-500 text-black-500 cursor-pointer hover:bg-green-light-600 hover:drop-shadow-sm/16;
+  }
+
+  .btn-ghost {
+    @apply bg-transparent text-black-500 cursor-pointer hover:bg-gray-500 hover:drop-shadow-sm/16;
+  }
+
+  .btn-border {
+    @apply border border-gray-600 text-black-500 cursor-pointer hover:bg-gray-500 hover:drop-shadow-sm/16;
+  }
+
+  .btn-border-black {
+    @apply border border-black-500 text-black-500 cursor-pointer hover:bg-gray-500 hover:drop-shadow-sm/16;
+  }
+
+  /* Tags */
+  .tag {
+    @apply font-helvetica inline-flex gap-1 items-center pl-3 pr-4 py-1 rounded-default text-sm font-bold bg-blue-light-300 border border-blue-light-600 text-blue-medium-500;
   }
 }
