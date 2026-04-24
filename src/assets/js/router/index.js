@@ -1,5 +1,7 @@
 import { routes } from './routes.js';
 import { pageNotFound } from '../../../pages/pageNotFound.js';
+import { renderNavbar } from '../components/navigation/navbar.js';
+import { renderIcons } from '../utils/icons.js';
 
 export function router() {
   async function handleRoute() {
@@ -16,6 +18,8 @@ export function router() {
       app.innerHTML = pageNotFound();
     }
 
+    renderNavbar();
+    renderIcons();
     window.scrollTo(0, 0);
   }
 

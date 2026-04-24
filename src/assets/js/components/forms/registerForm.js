@@ -35,7 +35,7 @@ export function setupRegisterFormListeners() {
             continue;
           } else {
             isValid = false;
-            event.target.querySelector('#password').parentElement.innerHTML += validationErrorMessageHTML('Password must be at least 8 characters long and include uppercase, lowercase, number, and special character.');
+            event.target.querySelector('#password').parentElement.innerHTML += validationErrorMessageHTML('Password must be at least 8 characters long and include uppercase, lowercase and number.');
           }
           break;
         default:

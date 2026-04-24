@@ -5,7 +5,9 @@
  * @param {number} [wait=5000] - The duration in milliseconds before the toast disappears
  * @returns {void}
  */
-export function showToast(message, type = "success", wait = 50000) {
+import { renderIcons } from '../../utils/icons.js';
+
+export function showToast(message, type = "success", wait = 5000) {
   const toast = document.createElement("div");
   const iconElement = document.createElement("i");
   const titleElement = document.createElement("h4");
@@ -17,16 +19,19 @@ export function showToast(message, type = "success", wait = 50000) {
     case "success":
       toast.classList.add(`bg-green-300`, `text-green-800`);
       textContentElement.appendChild(iconElement);
+      textContentElement.classList.add("flex", "items-center", "gap-2");
       iconElement.setAttribute("data-lucide", "circle-check");
       break;
     case "error":
       toast.classList.add(`bg-red-300`, `text-red-800`);
       textContentElement.appendChild(iconElement);
-      iconElement.setAttribute("data-lucide", "circle-alert");
+      textContentElement.classList.add("flex", "items-center", "gap-2");
+      iconElement.setAttribute("data-lucide", "alert-circle");
       break;
     default:
       toast.classList.add(`bg-gray-300`, `text-gray-800`);
       textContentElement.appendChild(iconElement);
+      textContentElement.classList.add("flex", "items-center", "gap-2");
       iconElement.setAttribute("data-lucide", "info");
   }
 
@@ -41,6 +46,7 @@ export function showToast(message, type = "success", wait = 50000) {
 
   const container = document.getElementById("toast-container");
   container.appendChild(toast);
+  renderIcons();
   setTimeout(() => {
     toast.remove();
   }, wait);
