@@ -31,7 +31,7 @@ export function renderFooter() {
             <!-- Column 2 -->
             <div class="flex flex-col gap-3">
               <h3 class="text-lg">Explore</h3>
-              <ul class="flex flex-col gap-2 text-white-500/70 text-base>
+              <ul class="flex flex-col gap-2 text-white-500/70 text-base">
                 <li><a href="#" class="hover:underline hover:text-white-500">Browse listings</a></li>
                 <li><a href="#" class="hover:underline hover:text-white-500">Search</a></li>
                 <li><a href="#" class="hover:underline hover:text-white-500">Ending soon</a></li>

@@ -2,6 +2,7 @@ import { routes } from './routes.js';
 import { pageNotFound } from '../../../pages/pageNotFound.js';
 import { renderNavbar } from '../components/navigation/navbar.js';
 import { renderIcons } from '../utils/icons.js';
+import { renderCta } from '../components/cta/cta.js';
 
 export function router() {
   async function handleRoute() {
@@ -19,6 +20,7 @@ export function router() {
     }
 
     renderNavbar();
+    renderCta();
     renderIcons();
     window.scrollTo(0, 0);
   }

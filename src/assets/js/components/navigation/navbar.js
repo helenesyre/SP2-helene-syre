@@ -29,7 +29,7 @@ function renderLoggedInNav() {
 
         <!-- Credits -->
         <li>
-          <span class="tag">
+          <span class="tag-icon tag-blue-light">
             <i data-lucide="circle-dollar-sign" width="18px" height="18px"></i>
             6,100
           </span>
@@ -103,7 +103,7 @@ function renderLoggedInNav() {
 
           <div>
             <p class="text-base font-bold mb-1">My credits:</p>
-            <span class="tag">
+            <span class="tag-icon tag-blue-light">
               <i data-lucide="circle-dollar-sign" width="18px" height="18px"></i>
               6,100
             </span>

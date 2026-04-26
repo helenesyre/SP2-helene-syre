@@ -188,7 +188,6 @@
   }
 
   /* Buttons color/style variants */
-
   .btn-primary {
     @apply bg-blue-500 text-white-500 cursor-pointer hover:bg-blue-700 hover:drop-shadow-sm/16;
   }
@@ -206,12 +205,32 @@
   }
 
   .btn-border-black {
-    @apply border border-black-500 text-black-500 cursor-pointer hover:bg-gray-500 hover:drop-shadow-sm/16;
+    @apply border border-black-500 text-black-500 cursor-pointer hover:bg-green-light-600 hover:drop-shadow-sm/16;
   }
 
   /* Tags */
-  .tag {
-    @apply font-helvetica inline-flex gap-1 items-center pl-3 pr-4 py-1 rounded-default text-sm font-bold bg-blue-light-300 border border-blue-light-600 text-blue-medium-500;
+  .tag-icon {
+    @apply font-helvetica inline-flex gap-1 items-center pl-3 pr-4 py-1 rounded-default text-sm font-bold;
+  }
+
+  .tag-large {
+    @apply font-helvetica inline-flex gap-1 items-center px-4 py-1 rounded-default text-base font-bold;
+  }
+
+  .tag-medium {
+    @apply font-helvetica inline-flex gap-1 items-center px-4 py-1 rounded-default text-sm font-bold;
+  }
+
+  .tag-blue-light {
+    @apply bg-blue-light-300 border border-blue-light-600 text-blue-medium-500;
+  }
+
+  .tag-green-light {
+    @apply bg-green-light-300 border border-green-light-600 text-green-500;
+  }
+
+  .tag-white-border {
+    @apply bg-transparent border border-white-500 text-white-500 hover:bg-white-500 hover:text-blue-500;
   }
 
   /* Input fields */
