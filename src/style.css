@@ -123,6 +123,7 @@
 
   /* ────────────────────── Border radius ────────────────────── */
 
+  --radius-small: 0.25rem; /* 4px */
   --radius-default: 0.5rem; /* 8px */
   --radius-medium: 1rem; /* 16px */
   --radius-full: 9999px; /* fully rounded */
@@ -233,8 +234,34 @@
     @apply bg-transparent border border-white-500 text-white-500 hover:bg-white-500 hover:text-blue-500;
   }
 
+  .tag-gray {
+    @apply bg-neutral-100 border border-neutral-200 text-neutral-500;
+  }
+
   /* Input fields */
   .input-field {
     @apply bg-white-500 border border-gray-600 rounded-default px-4 py-2.25 w-full text-sm text-text-primary placeholder:text-text-placeholder focus:outline-none focus:ring-2 focus:ring-blue-medium-100;
+  }
+
+  /* Card */
+  .card {
+    @apply bg-surface rounded-default p-3 shadow-sm hover:shadow-md transition-shadow duration-200;
+  }
+
+  /* Pagination buttons */
+  .pagination-btn {
+    @apply size-10 inline-flex items-center justify-center rounded-small text-base font-semibold;
+  }
+
+  .pagination-btn-default {
+    @apply bg-transparent text-black-500 hover:bg-blue-light-500 hover:text-blue-medium-700 cursor-pointer;
+  }
+
+  .pagination-btn-active {
+    @apply bg-blue-light-300 text-blue-medium-500 border-blue-light-600 cursor-default hover:bg-blue-light-500 hover:text-blue-medium-700;
+  }
+
+  .pagination-btn-disabled {
+    @apply bg-transparent text-black-500/30 cursor-not-allowed hover:bg-transparent hover:text-black-500/30;
   }
 }
