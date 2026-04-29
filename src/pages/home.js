@@ -31,12 +31,12 @@ export function home() {
       pagination.updatePageCount(response.meta.pageCount || 1);
 
       container.innerHTML = `
-      <h2 class="text-4xl font-medium mb-6">Active listings</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-4">
-        ${listings.map((listing) => listingCard(listing)).join('')}
-      </div>
-      <div id="pagination-controls" class="flex items-center justify-center gap-2 md:gap-4 mt-8"></div>
-    `;
+        <h2 class="text-4xl font-medium mb-6">Active listings</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-4" id="listing-container"></div>
+        <div id="pagination-controls" class="flex items-center justify-center gap-2 md:gap-4 mt-8"></div>
+      `;
+      const listingContainer = document.getElementById("listing-container");
+      listings.map((listing) => listingContainer.appendChild(listingCard(listing)));
       renderPaginationControls(pagination);
       countdownListings(listings);
     } catch (error) {
