@@ -5,7 +5,7 @@ import { useAuth } from '../../utils/useAuth.js';
 function renderVisitorNav() {
   return `
     <nav class="flex items-center justify-between p-6 md:px-8 lg:px-16 border-b border-border">
-      <a href="/" class="w-24 md:w-32 lg:w-40">${logo}</a>
+      <a href="#/" class="w-24 md:w-32 lg:w-40">${logo}</a>
       <ul class="flex flex-row items-center gap-2 md:gap-4">
         <li><a href="#/login" class="btn-small md:btn-medium btn-border">Log in</a></li>
         <li><a href="#/register" class="btn-small md:btn-medium btn-border">Register</a></li>
@@ -17,7 +17,7 @@ function renderVisitorNav() {
 function renderLoggedInNav() {
   return `
     <nav class="relative flex items-center justify-between p-6 md:px-8 lg:px-16 border-b border-border">
-      <a href="/" class="w-24 md:w-32 lg:w-40">${logo}</a>
+      <a href="#/" class="w-24 md:w-32 lg:w-40">${logo}</a>
       <ul class="flex flex-row items-center gap-2 md:gap-4">
       <!-- New listing -->
         <li class="hidden md:block">
@@ -74,7 +74,7 @@ function renderLoggedInNav() {
 
           <ul class="flex flex-col gap-1">
             <li>
-              <a href="#" class="flex gap-2 items-center px-4 py-2 rounded-default text-base/5.5 font-bold hover:bg-gray-200">
+              <a href="#/" class="flex gap-2 items-center px-4 py-2 rounded-default text-base/5.5 font-bold hover:bg-gray-200">
               <i data-lucide="home" width="18px" height="18px"></i>
                 Home
               </a>
