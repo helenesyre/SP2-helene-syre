@@ -34,9 +34,22 @@ export async function getPaginatedListings(page = 1, limit = 8, sort = 'created'
   return data;
 };
 
-/* Search listings */
-
 /* Single listing */
+export async function getListingById(id) {
+  const auth = useAuth();
+  const token = auth.getToken();
+  const data = await useFetch(`/auction/listings/${id}?_bids=true&_seller=true`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+      "X-Noroff-API-Key": API_KEY
+    },
+  });
+  return data;
+};
+
+/* Search listings */
 
 /* Create listing */
 
@@ -50,8 +63,34 @@ export async function getPaginatedListings(page = 1, limit = 8, sort = 'created'
 /* ────────────────────── Profiles ────────────────────── */
 
 /* All profiles */
+export async function getAllProfiles() {
+  const auth = useAuth();
+  const token = auth.getToken();
+  const data = await useFetch('/auction/profiles', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+      "X-Noroff-API-Key": API_KEY
+    },
+  });
+  return data;
+};
 
 /* Single profile */
+export async function getSingleProfileData(profileName) {
+  const auth = useAuth();
+  const token = auth.getToken();
+  const data = await useFetch(`/auction/profiles/${profileName}?_listings=true&_wins=true`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+      "X-Noroff-API-Key": API_KEY
+    },
+  });
+  return data;
+};
 
 /* Update profile */
 

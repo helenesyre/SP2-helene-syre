@@ -20,7 +20,7 @@ export const routes = [
     view: profile,
   },
   {
-    path: /^#\/listing$/,
+    path: /^#\/listing\/([^\/]+)/,
     view: listing,
   },
   {

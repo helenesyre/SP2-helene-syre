@@ -13,7 +13,7 @@ export function router() {
     const route = routes.find(route => route.path.test(hash));
 
     if (route) {
-      const content = route.view();
+      const content = await route.view();
       app.innerHTML = content;
     } else {
       app.innerHTML = pageNotFound();

@@ -5,6 +5,7 @@ import { getPaginatedListings } from '../assets/js/utils/fetch';
 import { showToast } from '../assets/js/components/toasts/toast';
 import { usePagination } from '../assets/js/utils/usePagination';
 import { renderPaginationControls } from '../assets/js/components/pagination/paginationControls.js';
+import { listingCountdown } from '../assets/js/utils/dateUtils.js';
 
 export function home() {
 
@@ -51,38 +52,12 @@ export function home() {
     renderIcons();
   }
 
-  // SOURCE: inspiration from https://www.youtube.com/watch?v=34kbdFLpff8 (27.apr. 2026)
   function countdownListings(listings) {
     listings.forEach((listing) => {
       const countdownElement = document.getElementById(`countdown-${listing.id}`);
-      if (!countdownElement) return;
-
-      function tick() {
-        const now = new Date();
-        const endsAtDate = new Date(listing.endsAt);
-        const timeRemaining = endsAtDate - now;
-
-        const daysRemaining = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
-        const hoursRemaining = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutesRemaining = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
-
-        countdownElement.textContent = timeRemaining > 0 ? `${daysRemaining}d ${hoursRemaining}h ${minutesRemaining}m left` : 'Auction ended';
-
-        if (timeRemaining <= 0) {
-          countdownElement.textContent = 'Auction ended';
-          countdownElement.classList.remove('tag-blue-light');
-          countdownElement.classList.add('tag-gray');
-        } else {
-          countdownElement.classList.remove('tag-gray');
-          countdownElement.classList.add('tag-blue-light');
-        }
-      }
-
-      tick();
-      setInterval(tick, 1000);
+      if (countdownElement) listingCountdown(countdownElement, listing.endsAt);
     });
   }
-
   setTimeout(loadListings, 0);
 
   return `
