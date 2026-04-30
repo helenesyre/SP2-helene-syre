@@ -52,6 +52,20 @@ export async function getListingById(id) {
 /* Search listings */
 
 /* Create listing */
+export async function createListing(listingData) {
+  const auth = useAuth();
+  const token = auth.getToken();
+  const data = await useFetch('/auction/listings', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+      "X-Noroff-API-Key": API_KEY
+    },
+    body: JSON.stringify(listingData)
+  });
+  return data;
+};
 
 /* Update listing */
 

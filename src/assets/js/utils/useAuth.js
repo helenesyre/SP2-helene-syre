@@ -54,11 +54,11 @@ export function useAuth() {
       password: password,
       bio: "This is my NightNode bio",
       avatar: {
-        url: "https://images.unsplash.com/photo-1579547945413-497e1b99dac0?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&q=80&h=400&w=400",
+        url: "https://images.unsplash.com/photo-1680355455579-e851904eb784?q=80&w=1015&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
         alt: "Placeholder avatar"
       },
       banner: {
-        url: "https://images.unsplash.com/photo-1579547945413-497e1b99dac0?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&q=80&h=400&w=400",
+        url: "https://images.unsplash.com/photo-1614850523011-8f49ffc73908?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
         alt: "Placeholder banner"
       }
     };
@@ -96,14 +96,14 @@ export function useAuth() {
   };
 
   /**
-   * Logs out the current user by clearing local storage and redirecting to the login page.
+   * Logs out the current user by clearing local storage and redirecting to the home page.
    */
   function logout() {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('profileName');
     localStorage.removeItem('userData');
-    showToast(`Logged out successfully! Redirecting to login...`, 'success');
-    window.location.hash = '#/login';
+    showToast(`Logged out successfully! Redirecting to home...`, 'success');
+    window.location.hash = '#/';
   };
 
   /**

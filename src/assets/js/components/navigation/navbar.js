@@ -1,6 +1,8 @@
 import { logo } from '../../../logo/logo.js';
 import userProfile from '../../../images/user-profile.jpg';
 import { useAuth } from '../../utils/useAuth.js';
+import useModal from '../../utils/useModal.js';
+import { createListingModal } from '../modals/createListingModal.js';
 
 function renderVisitorNav() {
   return `
@@ -15,13 +17,22 @@ function renderVisitorNav() {
 }
 
 function renderLoggedInNav() {
+  const { openModal } = useModal();
+  const modalContent = createListingModal();
+  addEventListener('click', (event) => {
+    if (event.target.closest('#new-listing-btn, #new-listing-btn-mobile')) {
+      event.preventDefault();
+      openModal(modalContent);
+    }
+  });
+
   return `
     <nav class="relative flex items-center justify-between p-6 md:px-8 lg:px-16 border-b border-border">
       <a href="#/" class="w-24 md:w-32 lg:w-40">${logo}</a>
       <ul class="flex flex-row items-center gap-2 md:gap-4">
       <!-- New listing -->
         <li class="hidden md:block">
-          <button class="btn-small md:btn-medium btn-ghost">
+          <button id="new-listing-btn" class="btn-small md:btn-medium btn-ghost">
             <i data-lucide="circle-plus" width="18px" height="18px"></i>
             New listing
           </button>
@@ -36,7 +47,7 @@ function renderLoggedInNav() {
         </li>
 
         <!-- User profile -->
-        <li class="hidden md:block"><a href="#"><img src="${userProfile}" alt="User Profile" class="size-10 object-cover rounded-default"></a></li>
+        <li class="hidden md:block"><a href="#/profile"><img src="${userProfile}" alt="User Profile" class="size-10 object-cover rounded-default"></a></li>
 
         <!-- Log out -->
         <li class="hidden md:block">
@@ -63,7 +74,7 @@ function renderLoggedInNav() {
           </div>
 
           <div class="flex flex-row items-center gap-4">
-            <a href="#"><img src="${userProfile}" alt="User Profile" class="size-14 object-cover rounded-default"></a>
+            <a href="#/profile"><img src="${userProfile}" alt="User Profile" class="size-14 object-cover rounded-default"></a>
             <div>
               <p class="text-lg font-bold text-black-500">Helene Syre</p>
               <p class="text-base font-normal text-black-300">@helenesyre</p>
@@ -80,7 +91,7 @@ function renderLoggedInNav() {
               </a>
             </li>
             <li>
-              <a href="#" class="flex gap-2 items-center px-4 py-2 rounded-default text-base/5.5 font-bold hover:bg-gray-200">
+              <a id="new-listing-btn-mobile" href="#" class="flex gap-2 items-center px-4 py-2 rounded-default text-base/5.5 font-bold hover:bg-gray-200">
               <i data-lucide="circle-plus" width="18px" height="18px"></i>
                 New listing
               </a>

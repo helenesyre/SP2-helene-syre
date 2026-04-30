@@ -58,3 +58,17 @@ export function validationErrorMessageHTML(message = "Validation error") {
   </div>
 `;
 };
+
+/**
+ * Validates an image URL.
+ * @param {string} url - The URL to validate.
+ * @returns {boolean} True if the URL is valid and uses HTTP or HTTPS, false otherwise.
+ */
+export function validateImgUrl(url) {
+  try {
+    const newUrl = new URL(url);
+    return newUrl.protocol === 'http:' || newUrl.protocol === 'https:';
+  } catch (err) {
+    return false;
+  }
+}
