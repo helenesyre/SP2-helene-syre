@@ -65,7 +65,7 @@ function renderLoggedInNav() {
       </ul>
 
       <!-- Mobile menu -->
-      <div id="mobile-backdrop" class="hidden fixed inset-0 bg-black/70 z-40">
+      <div id="mobile-backdrop" class="hidden fixed md:hidden  inset-0 bg-black/70 z-40">
         <div id="mobile-menu" class="hidden md:hidden absolute top-0 right-0 p-6 w-6/7 h-screen bg-white border border-border shadow-md z-50">
           <div class="flex justify-end">
             <button id="close-mobile-menu" class="text-black-500 hover:text-blue-500 cursor-pointer">
