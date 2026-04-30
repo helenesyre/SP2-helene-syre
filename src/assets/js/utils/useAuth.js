@@ -102,8 +102,8 @@ export function useAuth() {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('profileName');
     localStorage.removeItem('userData');
-    showToast(`Logged out successfully! Redirecting to home...`, 'success');
-    window.location.hash = '#/';
+    showToast(`Logged out successfully! Redirecting to home...`, 'success', 5000);
+    window.location.hash = '';
   };
 
   /**
