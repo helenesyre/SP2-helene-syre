@@ -1,5 +1,5 @@
 import { getListingById } from "../assets/js/utils/fetch";
-import { singleListingCountdown } from '../assets/js/utils/dateUtils.js';
+import { singleListingCountdown, formatEndDate } from '../assets/js/utils/dateUtils.js';
 
 export async function listing() {
   const id = window.location.hash.split('/')[2];
@@ -25,8 +25,8 @@ export async function listing() {
   const sellerImageAlt = listingData.seller?.avatar?.alt || `${sellerName}'s avatar`;
 
   /* Bids */
-  const currentBid = listingData.bids && listingData.bids.length > 0 ? listingData.bids[listingData.bids.length - 1].amount : 'No bids yet';
-  const minNextBid = typeof currentBid === 'number' ? `$${currentBid + 1}` : 'N/A';
+  const currentBid = listingData.bids && listingData.bids.length > 0 ? listingData.bids[listingData.bids.length - 1].amount : 0;
+  const minNextBid = typeof currentBid === 'number' ? `$${currentBid + 1}` : 'Cannot calculate next bid';
   const bidsPlaced = listingData.bids ? listingData.bids.length : 0;
 
   /* Bid history */
@@ -102,7 +102,7 @@ export async function listing() {
             <div class="flex items-center justify-between bg-gray-300 rounded-default p-4 mt-6">
               <div>
                 <p class="text-black-500 text-lg font-normal">Auction ends</p>
-                <p class="text-black-500 text-2xl font-semibold">${new Date(listingData.endsAt).toLocaleString()}</p>
+                <p class="text-black-500 text-2xl font-semibold">${formatEndDate(listingData.endsAt)}</p>
               </div>
               <span id="countdown-${listingData.id}" class="tag-medium tag-blue-border">1h 14m left</span>
             </div>

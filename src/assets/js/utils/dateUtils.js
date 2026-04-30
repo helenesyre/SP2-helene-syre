@@ -43,6 +43,10 @@ export function singleListingCountdown(element, endsAt) {
   return setInterval(tick, 1000);
 }
 
-export function formatEndDate() {
-
+export function formatEndDate(dateString) {
+  return new Date(dateString).toLocaleDateString('en-GB', {
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric'
+  });
 }
