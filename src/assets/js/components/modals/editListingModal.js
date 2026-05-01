@@ -1,59 +1,66 @@
 import useModal from '../../utils/useModal.js';
-import { createListing } from "../../utils/fetch.js";
+import { updateListing } from "../../utils/fetch.js";
 import { validateImgUrl } from "../../utils/validation.js";
 import { showToast } from '../toasts/toast.js';
 
 /**
- * Creates a modal for creating a new listing.
+ * Creates a modal for editing an existing listing.
  * @returns {HTMLElement} The modal element to be rendered in the DOM.
  */
-export function createListingModal() {
+export function editListingModal(listing) {
   const { closeModal } = useModal();
 
-  let imageUrls = [];
+  let imageUrls = listing.media ? [...listing.media] : [];
 
-  function addImageUrl() {
-    const url = imageUrlInput.value.trim();
-    const alt = imageAltInput.value.trim();
-    if (!url || !validateImgUrl(url)) {
+  function renderImageList() {
+    imageList.innerHTML = '';
+    imageUrls.forEach((image, index) => {
+      const list = document.createElement('li');
+      list.className = 'flex flex-col items-center gap-2';
+      const imageCoverContainer = document.createElement('div');
+      imageCoverContainer.className = 'relative';
+      const imagePreview = document.createElement('img');
+      imagePreview.src = image.url;
+      imagePreview.alt = image.alt || 'Image preview';
+      imagePreview.className = 'w-24 h-20 object-cover rounded-default';
+      imageCoverContainer.appendChild(imagePreview);
+      list.appendChild(imageCoverContainer);
+      if (index === 0) {
+        const coverLabel = document.createElement('span');
+        coverLabel.textContent = 'Cover';
+        coverLabel.className = 'absolute bottom-0 left-0 right-0 w-full bg-blue-light-500 text-blue-medium-500 text-xs font-semibold px-1 py-0.5 text-center rounded-b-default';
+        imageCoverContainer.appendChild(coverLabel);
+      }
+      const removeBtn = document.createElement('button');
+      removeBtn.textContent = 'Remove';
+      removeBtn.setAttribute('type', 'button');
+      removeBtn.className = 'text-black-200 text-sm font-medium hover:text-red-700 cursor-pointer';
+      removeBtn.onclick = () => {
+        const index = imageUrls.findIndex(img => img.url === image.url && img.alt === image.alt);
+        if (index !== -1) imageUrls.splice(index, 1);
+        list.remove();
+        if (imageUrls.length > 0 && !document.querySelector('.image-cover-label')) {
+          const firstImageCoverLabel = document.createElement('span');
+          firstImageCoverLabel.textContent = 'Cover';
+          firstImageCoverLabel.className = 'absolute bottom-0 left-0 right-0 w-full bg-blue-light-500 text-blue-medium-500 text-xs font-semibold px-1 py-0.5 text-center rounded-b-default';
+          imageList.querySelector('li .relative').appendChild(firstImageCoverLabel);
+        }
+      };
+      list.appendChild(removeBtn);
+      imageList.appendChild(list);
+    });
+  }
+
+  function addImageUrl(url = '', alt = '') {
+    const imageUrl = url || imageUrlInput.value.trim();
+    const imageAlt = alt || imageAltInput.value.trim();
+    if (!imageUrl || !validateImgUrl(imageUrl)) {
       showToast('Invalid image URL', 'error');
       return;
     }
-    imageUrls.push({ url, alt });
+    imageUrls.push({ url: imageUrl, alt: imageAlt });
     // render a list item showing the url with a remove button
-    const list = document.createElement('li');
-    list.className = 'flex flex-col items-center gap-2';
-    const imageCoverContainer = document.createElement('div');
-    imageCoverContainer.className = 'relative';
-    const imagePreview = document.createElement('img');
-    imagePreview.src = url;
-    imagePreview.alt = alt || 'Image preview';
-    imagePreview.className = 'w-24 h-20 object-cover rounded-default';
-    imageCoverContainer.appendChild(imagePreview);
-    list.appendChild(imageCoverContainer);
-    if (imageUrls.length === 1) {
-      const coverLabel = document.createElement('span');
-      coverLabel.textContent = 'Cover';
-      coverLabel.className = 'absolute bottom-0 left-0 right-0 w-full bg-blue-light-500 text-blue-medium-500 text-xs font-semibold px-1 py-0.5 text-center rounded-b-default';
-      imageCoverContainer.appendChild(coverLabel);
-    }
-    const removeBtn = document.createElement('button');
-    removeBtn.textContent = 'Remove';
-    removeBtn.setAttribute('type', 'button');
-    removeBtn.className = 'text-black-200 text-sm font-medium hover:text-red-700 cursor-pointer';
-    removeBtn.onclick = () => {
-      const index = imageUrls.findIndex(img => img.url === url && img.alt === alt);
-      if (index !== -1) imageUrls.splice(index, 1);
-      list.remove();
-      if (imageUrls.length > 0 && !document.querySelector('.image-cover-label')) {
-        const firstImageCoverLabel = document.createElement('span');
-        firstImageCoverLabel.textContent = 'Cover';
-        firstImageCoverLabel.className = 'absolute bottom-0 left-0 right-0 w-full bg-blue-light-500 text-blue-medium-500 text-xs font-semibold px-1 py-0.5 text-center rounded-b-default';
-        imageList.querySelector('li .relative').appendChild(firstImageCoverLabel);
-      }
-    };
-    list.appendChild(removeBtn);
-    imageList.appendChild(list);
+    renderImageList();
     imageUrlInput.value = '';
     imageAltInput.value = '';
   };
@@ -66,7 +73,8 @@ export function createListingModal() {
     const deadline = formData.get('deadline');
     const tags = formData.get('tags').split(',').map(t => t.trim()).filter(Boolean);
 
-    const response = await createListing({
+    const response = await updateListing(listing.id, {
+      id: listing.id,
       title,
       description: description ?? '',
       endsAt: new Date(deadline).toISOString(),
@@ -75,22 +83,13 @@ export function createListingModal() {
     });
 
     if (response.data) {
-      showToast('Listing created successfully!', 'success');
+      showToast('Listing updated successfully!', 'success');
       closeModal();
       setTimeout(() => window.location.reload(), 750);
     } else {
-      showToast('Failed to create listing. Please try again.', 'error');
+      showToast('Failed to update listing. Please try again.', 'error');
     }
   };
-
-  function clearForm() {
-    titleInput.value = '';
-    descriptionInput.value = '';
-    deadlineInput.value = '';
-    tagsInput.value = '';
-    imageUrls = [];
-    imageList.innerHTML = '';
-  }
 
   /* ---- Modal container ---- */
   const modal = document.createElement('div');
@@ -103,7 +102,6 @@ export function createListingModal() {
   /* ---- Form ---- */
   const form = document.createElement('form');
   form.onsubmit = handleSubmit;
-  document.addEventListener('modalClosed', clearForm);
 
   /* ---- Modal header ---- */
   const modalHeader = document.createElement('div');
@@ -111,7 +109,7 @@ export function createListingModal() {
 
   const modalTitle = document.createElement('h2');
   modalTitle.className = 'text-xl font-semibold text-black-500';
-  modalTitle.textContent = 'Create listing';
+  modalTitle.textContent = 'Edit listing';
 
   const closeButton = document.createElement('button');
   const closeIcon = document.createElement('i');
@@ -143,6 +141,7 @@ export function createListingModal() {
   titleInput.setAttribute('aria-label', 'Write the title of your listing');
   titleInput.classList = 'input-field';
   titleInput.required = true;
+  titleInput.value = listing.title;
 
   /* Tags */
   const tagsLabel = document.createElement('label');
@@ -159,6 +158,7 @@ export function createListingModal() {
   tagsInput.setAttribute('aria-label', 'Write the categories of your listing, separated by commas');
   tagsInput.classList = 'input-field';
   tagsInput.required = true;
+  tagsInput.value = listing.tags ? listing.tags.join(', ') : '';
 
   /* Auction deadline */
   const deadlineLabel = document.createElement('label');
@@ -178,6 +178,7 @@ export function createListingModal() {
   deadlineHelpText.className = 'text-sm text-black-500';
   deadlineHelpText.textContent = 'Must be a future date';
   deadlineInput.required = true;
+  deadlineInput.value = listing.endsAt ? new Date(listing.endsAt).toISOString().slice(0, 16) : '';
 
   /* Description */
   const descriptionLabel = document.createElement('label');
@@ -193,6 +194,7 @@ export function createListingModal() {
   descriptionInput.setAttribute('aria-label', 'Write a description for your listing');
   descriptionInput.classList = 'input-field h-32 resize-none';
   descriptionInput.required = true;
+  descriptionInput.value = listing.description;
   inputFields.appendChild(titleLabel);
   inputFields.appendChild(titleInput);
   inputFields.appendChild(tagsLabel);
@@ -242,7 +244,8 @@ export function createListingModal() {
   imageUrlAddButton.setAttribute('type', 'button');
   imageUrlAddButton.className = 'btn-medium btn-secondary';
   imageUrlAddButton.textContent = 'Add';
-  imageUrlAddButton.onclick = addImageUrl;
+  imageUrlAddButton.onclick = () => addImageUrl();
+  // add image url on click function here
 
   /* Image help text */
   const imageHelpText = document.createElement('p');
@@ -279,7 +282,7 @@ export function createListingModal() {
   cancelButton.onclick = closeModal;
   submitButton.setAttribute('type', 'submit');
   submitButton.className = 'btn-medium btn-primary';
-  submitButton.textContent = 'Create listing';
+  submitButton.textContent = 'Update listing';
 
   modalFooter.appendChild(cancelButton);
   modalFooter.appendChild(submitButton);
@@ -291,6 +294,8 @@ export function createListingModal() {
   form.appendChild(modalBody);
   form.appendChild(modalFooter);
   modal.appendChild(form);
+
+  renderImageList();
 
   return modal;
 };

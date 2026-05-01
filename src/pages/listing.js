@@ -1,16 +1,20 @@
 import { getListingById } from "../assets/js/utils/fetch";
 import { singleListingCountdown, formatEndDate } from '../assets/js/utils/dateUtils.js';
+import { useAuth } from '../assets/js/utils/useAuth.js';
+import useModal from '../assets/js/utils/useModal.js';
+import { editListingModal } from '../assets/js/components/modals/editListingModal.js';
+import { deleteListingModal } from '../assets/js/components/modals/deleteListingModal.js';
 
 export async function listing() {
   const id = window.location.hash.split('/')[2];
   const response = await getListingById(id);
   const listingData = response.data;
-
-  console.log('Fetched listing data:', listingData);
+  const { isLoggedIn, getUserData } = useAuth();
+  const user = getUserData();
   /* Listing details */
   const mainImage = listingData.media && listingData.media.length > 0 ? listingData.media[0].url : 'https://via.placeholder.com/400x300?text=No+Image';
   const imageAlt = listingData.media && listingData.media.length > 0 ? listingData.media[0].alt : listingData.title || 'Listing Image';
-  const multipleImages = listingData.media && listingData.media.length > 1;
+  /*const multipleImages = listingData.media && listingData.media.length > 1;*/
   const title = listingData.title || 'Untitled Listing';
   const description = listingData.description || 'No description available.';
   const tags = listingData.tags || [];
@@ -50,23 +54,44 @@ export async function listing() {
     ${isLast ? '' : '<hr class="border-border my-4">'}
     `;
     }).join('') || '<p class="text-black-500 text-center">No bids yet</p>';
-  console.log(tags)
 
   setTimeout(() => {
     const countdownElement = document.getElementById(`countdown-${listingData.id}`);
     if (countdownElement) singleListingCountdown(countdownElement, listingData.endsAt);
+
+    // Only show edit/delete buttons if the user is logged in and is the seller of the listing
+    if (isLoggedIn() && user.name === listingData.seller?.name) {
+      const { openModal } = useModal();
+      document.getElementById('edit-btn')?.addEventListener('click', () => openModal(editListingModal(listingData)));
+      document.getElementById('delete-btn')?.addEventListener('click', () => openModal(deleteListingModal(listingData.id)));
+    }
   }, 0);
 
   return `
     <article class="px-6 md:px-8 lg:px-16 py-12">
       <!-- Breadcrumbs -->
-      <nav class="text-base font-medium mb-4" aria-label="Breadcrumb">
-        <ol class="list-reset flex text-black-200">
-          <li><a href="#/" class="hover:underline">Home</a></li>
-          <li><span class="mx-2">/</span></li>
-          <li class="text-blue-500">${title}</li>
-        </ol>
-      </nav>
+      <div class="flex items-center justify-between mb-4">
+        <nav class="text-base font-medium" aria-label="Breadcrumb">
+          <ol class="list-reset flex text-black-200">
+            <li><a href="#/" class="hover:underline">Home</a></li>
+            <li><span class="mx-2">/</span></li>
+            <li class="text-blue-500">${title}</li>
+          </ol>
+        </nav>
+        ${(isLoggedIn() && user.name === listingData.seller?.name) ? `
+          <div id="seller-listings-actions" class="flex items-center gap-2">
+            <button id="edit-btn" class="btn-border btn-medium">
+              Edit listing
+              <i data-lucide="pencil" width="16px" height="16px"></i>
+            </button>
+            <button id="delete-btn" class="btn-icon btn-ghost hover:bg-red-100 hover:text-red-500">
+              <i data-lucide="trash-2" class="size-5"></i>
+            </button>
+          </div>
+          `
+      : ''
+    }
+      </div>
 
       <!-- Listing details -->
       <section class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-10 gap-8">

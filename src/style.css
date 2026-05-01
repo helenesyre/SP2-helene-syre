@@ -143,6 +143,10 @@
   @apply font-helvetica inline-flex gap-2 items-center justify-center px-5 py-3 rounded-default text-lg/5.5 font-bold;
 }
 
+@utility btn-icon {
+  @apply font-helvetica inline-flex items-center justify-center p-2.25 rounded-default text-sm/5.5 font-bold;
+}
+
 /* ────────────────────── Gradients ────────────────────── */
 
 @utility footer-gradient {

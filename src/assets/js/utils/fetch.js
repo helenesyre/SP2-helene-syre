@@ -68,8 +68,35 @@ export async function createListing(listingData) {
 };
 
 /* Update listing */
+export async function updateListing(listingId, listingData) {
+  const auth = useAuth();
+  const token = auth.getToken();
+  const data = await useFetch(`/auction/listings/${listingId}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+      "X-Noroff-API-Key": API_KEY
+    },
+    body: JSON.stringify(listingData)
+  });
+  return data;
+};
 
 /* Delete listing */
+export async function deleteListing(id) {
+  const auth = useAuth();
+  const token = auth.getToken();
+  const data = await useFetch(`/auction/listings/${id}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+      "X-Noroff-API-Key": API_KEY
+    },
+  });
+  return data;
+};
 
 /* Bid on listing */
 

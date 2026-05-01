@@ -1,3 +1,8 @@
+import { useAuth } from "../../utils/useAuth";
+import useModal from "../../utils/useModal.js";
+import { editListingModal } from "../modals/editListingModal.js";
+import { deleteListingModal } from "../modals/deleteListingModal.js";
+
 export function listingCard(listing) {
   const cardContainer = document.createElement('a');
   cardContainer.href = `#/listing/${listing.id}`;
@@ -67,18 +72,73 @@ export function listingCard(listing) {
   currentBidContainer.appendChild(currentBidValue);
   contentContainerBody.appendChild(currentBidContainer);
 
-  /* CC Container - Button */
-  const buttonLink = document.createElement('a');
-  buttonLink.classList = "btn-medium btn-primary";
-  buttonLink.textContent = "Bid now";
+  /* CC Container - Buttons */
+  const { getUserData, isLoggedIn } = useAuth();
+  const user = getUserData();
+  if (isLoggedIn && listing.seller?.email === user?.email) {
+    const buttonContainer = document.createElement('div');
+    buttonContainer.classList = "flex items-center gap-2";
 
-  const openLinkIcon = document.createElement('i');
-  openLinkIcon.dataset.lucide = "external-link";
-  openLinkIcon.width = "18px";
-  openLinkIcon.height = "18px";
+    const editButton = document.createElement('button');
+    editButton.classList = "btn-medium btn-primary";
+    editButton.id = "edit-btn";
+    editButton.textContent = "Edit";
 
-  buttonLink.appendChild(openLinkIcon);
-  contentContainerBody.appendChild(buttonLink);
+    const deleteBtn = document.createElement('button');
+    const deleteIcon = document.createElement('i');
+    deleteIcon.dataset.lucide = "trash-2";
+    deleteIcon.classList = "size-5";
+    deleteBtn.classList = "btn-icon btn-ghost hover:bg-red-100 hover:text-red-500";
+    deleteBtn.id = "delete-btn";
+    deleteBtn.appendChild(deleteIcon);
+
+    const { openModal } = useModal();
+    editButton.addEventListener('click', (event) => {
+      if (event.target.closest('#edit-btn')) {
+        event.preventDefault();
+        const modalEditContent = editListingModal(listing);
+        openModal(modalEditContent);
+      }
+    });
+
+    const modalDeleteContent = deleteListingModal(listing.id);
+    deleteBtn.addEventListener('click', (event) => {
+      if (event.target.closest('#delete-btn')) {
+        event.preventDefault();
+        openModal(modalDeleteContent);
+      }
+    });
+
+    buttonContainer.appendChild(editButton);
+    buttonContainer.appendChild(deleteBtn);
+    contentContainerBody.appendChild(buttonContainer);
+
+  } else if (isLoggedIn()) {
+    const buttonLink = document.createElement('a');
+    buttonLink.classList = "btn-medium btn-primary";
+    buttonLink.textContent = "Bid now";
+
+    const openLinkIcon = document.createElement('i');
+    openLinkIcon.dataset.lucide = "external-link";
+    openLinkIcon.classList = "size-5";
+
+    buttonLink.appendChild(openLinkIcon);
+    contentContainerBody.appendChild(buttonLink);
+
+  } else {
+    // user is not logged in
+    const loginPrompt = document.createElement('button');
+    loginPrompt.classList = "btn-medium btn-primary";
+    loginPrompt.textContent = "See listing";
+
+    const openLinkIcon = document.createElement('i');
+    openLinkIcon.dataset.lucide = "external-link";
+    openLinkIcon.classList = "size-5";
+
+    loginPrompt.appendChild(openLinkIcon);
+    contentContainerBody.appendChild(loginPrompt);
+  }
+
   contentContainer.appendChild(contentContainerBody);
   cardContainer.appendChild(contentContainer);
 

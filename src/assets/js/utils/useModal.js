@@ -31,6 +31,8 @@ export default function useModal() {
     modal.classList.add('hidden');
     modal.classList.remove('flex');
     isOpen = false;
+    const modalCloseEvent = new CustomEvent('modalClosed');
+    document.dispatchEvent(modalCloseEvent);
 
     modal.removeEventListener('click', onBackdropClick);
     document.removeEventListener('keydown', onKeyDown);
