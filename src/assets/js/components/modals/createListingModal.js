@@ -40,7 +40,7 @@ export function createListingModal() {
     const removeBtn = document.createElement('button');
     removeBtn.textContent = 'Remove';
     removeBtn.setAttribute('type', 'button');
-    removeBtn.className = 'text-black-200 text-sm font-medium hover:text-red-700 cursor-pointer';
+    removeBtn.className = 'text-black-200 text-sm font-medium hover:text-feedback-error-text cursor-pointer';
     removeBtn.onclick = () => {
       const index = imageUrls.findIndex(img => img.url === url && img.alt === alt);
       if (index !== -1) imageUrls.splice(index, 1);
@@ -133,7 +133,7 @@ export function createListingModal() {
   const titleRequiredAsterisk = document.createElement('span');
   titleLabel.textContent = 'Title ';
   titleRequiredAsterisk.textContent = '*';
-  titleRequiredAsterisk.className = 'text-red-500';
+  titleRequiredAsterisk.className = 'text-feedback-error-icon';
   titleLabel.appendChild(titleRequiredAsterisk);
 
   const titleInput = document.createElement('input');
@@ -149,7 +149,7 @@ export function createListingModal() {
   const tagsRequiredAsterisk = document.createElement('span');
   tagsLabel.textContent = 'Category ';
   tagsRequiredAsterisk.textContent = '*';
-  tagsRequiredAsterisk.className = 'text-red-500';
+  tagsRequiredAsterisk.className = 'text-feedback-error-icon';
   tagsLabel.appendChild(tagsRequiredAsterisk);
 
   const tagsInput = document.createElement('input');
@@ -165,7 +165,7 @@ export function createListingModal() {
   const deadlineRequiredAsterisk = document.createElement('span');
   deadlineLabel.textContent = 'Auction deadline ';
   deadlineRequiredAsterisk.textContent = '*';
-  deadlineRequiredAsterisk.className = 'text-red-500';
+  deadlineRequiredAsterisk.className = 'text-feedback-error-icon';
   deadlineLabel.appendChild(deadlineRequiredAsterisk);
 
   const deadlineInput = document.createElement('input');
@@ -184,7 +184,7 @@ export function createListingModal() {
   const descriptionRequiredAsterisk = document.createElement('span');
   descriptionLabel.textContent = 'Description ';
   descriptionRequiredAsterisk.textContent = '*';
-  descriptionRequiredAsterisk.className = 'text-red-500';
+  descriptionRequiredAsterisk.className = 'text-feedback-error-icon';
   descriptionLabel.appendChild(descriptionRequiredAsterisk);
 
   const descriptionInput = document.createElement('textarea');

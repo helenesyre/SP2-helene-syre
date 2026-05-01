@@ -31,10 +31,10 @@ export function singleListingCountdown(element, endsAt) {
     if (timeRemaining <= 0) {
       element.textContent = 'Auction ended';
       element.classList.remove('tag-medium', 'tag-blue-border');
-      element.classList.add('tag-gray');
+      element.classList.add('tag-medium', 'tag-blue-border');
     } else {
       element.textContent = `${days}d ${hours}h ${minutes}m left`;
-      element.classList.remove('tag-gray');
+      element.classList.remove('tag-medium', 'tag-blue-border');
       element.classList.add('tag-medium', 'tag-blue-border');
     }
   }

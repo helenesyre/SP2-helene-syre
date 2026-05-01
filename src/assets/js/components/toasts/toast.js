@@ -17,19 +17,20 @@ export function showToast(message, type = "success", wait = 5000) {
   toast.className = "rounded-default shadow-md flex justify-between items-start gap-4 p-4 text-lg animate-fadeIn";
   switch (type) {
     case "success":
-      toast.classList.add(`bg-green-300`, `text-green-800`);
+      toast.classList.add(`bg-feedback-success-bg`, `text-feedback-success-text`);
       textContentElement.appendChild(iconElement);
       textContentElement.classList.add("flex", "items-center", "gap-2");
       iconElement.setAttribute("data-lucide", "circle-check");
       break;
     case "error":
-      toast.classList.add(`bg-red-300`, `text-red-800`);
+      toast.classList.add(`bg-feedback-error-bg`, `text-feedback-error-text`);
       textContentElement.appendChild(iconElement);
       textContentElement.classList.add("flex", "items-center", "gap-2");
       iconElement.setAttribute("data-lucide", "alert-circle");
+      iconElement.classList.add("text-feedback-error-icon");
       break;
     default:
-      toast.classList.add(`bg-gray-300`, `text-gray-800`);
+      toast.classList.add(`bg-feedback-info-bg`, `text-feedback-info-text`);
       textContentElement.appendChild(iconElement);
       textContentElement.classList.add("flex", "items-center", "gap-2");
       iconElement.setAttribute("data-lucide", "info");

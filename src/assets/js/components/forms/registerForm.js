@@ -61,17 +61,17 @@ export function registerForm() {
 
   form.innerHTML = `
     <div class="flex flex-col gap-1">
-      <label for="username" class="font-semibold">Username<span class="text-red-600">*</span></label>
+      <label for="username" class="font-semibold">Username<span class="text-feedback-error-icon">*</span></label>
       <input type="text" id="username" name="username" aria-label="Username" placeholder="Username" class="input-field" required>
     </div>
 
     <div class="flex flex-col gap-1">
-      <label for="email" class="font-semibold">Email<span class="text-red-600">*</span></label>
+      <label for="email" class="font-semibold">Email<span class="text-feedback-error-icon">*</span></label>
       <input type="email" id="email" name="email" aria-label="Email" placeholder="Email" class="input-field" required>
     </div>
 
     <div class="flex flex-col gap-1">
-      <label for="password" class="font-semibold">Password<span class="text-red-600">*</span></label>
+      <label for="password" class="font-semibold">Password<span class="text-feedback-error-icon">*</span></label>
       <input type="password" id="password" name="password" aria-label="Password" placeholder="Password" class="input-field" required>
     </div>
     <button type="submit" class="btn-medium btn-primary w-full">Register</button>

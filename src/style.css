@@ -105,6 +105,23 @@
   --color-white-800: #8a8a8a;
   --color-white-900: #696969;
 
+  /* Feedback colors */
+  --color-feedback-error-bg: #fceaea;
+  --color-feedback-error-icon: #a32e2d;
+  --color-feedback-error-text: #791f1f;
+
+  --color-feedback-warning-bg: #fff4cd;
+  --color-feedback-warning-icon: #f59e0c;
+  --color-feedback-warning-text: #92400d;
+
+  --color-feedback-success-bg: var(--color-green-light-500);
+  --color-feedback-success-icon: var(--color-green-600);
+  --color-feedback-success-text: var(--color-green-600);
+
+  --color-feedback-info-bg: var(--color-blue-light-500);
+  --color-feedback-info-icon: var(--color-blue-500);
+  --color-feedback-info-text: var(--color-blue-500);
+
   /* ────────────────────── Color usage ────────────────────── */
 
   /* Backgrounds */

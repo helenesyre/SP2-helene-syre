@@ -89,7 +89,7 @@ export async function listing() {
               Edit listing
               <i data-lucide="pencil" width="16px" height="16px"></i>
             </button>
-            <button id="delete-btn" class="btn-icon btn-ghost hover:bg-red-100 hover:text-red-500">
+            <button id="delete-btn" class="btn-icon btn-ghost hover:bg-feedback-error-bg hover:text-feedback-error-icon">
               <i data-lucide="trash-2" class="size-5"></i>
             </button>
           </div>
@@ -140,7 +140,7 @@ export async function listing() {
                 <p class="text-black-500 text-lg font-normal">Auction ends</p>
                 <p class="text-black-500 text-2xl font-semibold">${formatEndDate(listingData.endsAt)}</p>
               </div>
-              <span id="countdown-${listingData.id}" class="tag-medium tag-blue-border">1h 14m left</span>
+              <span id="countdown-${listingData.id}" class="tag-medium tag-blue-border"></span>
             </div>
 
             <form class="flex flex-col gap-4 items-center">
