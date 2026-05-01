@@ -250,7 +250,7 @@ export function editListingModal(listing) {
   /* Image help text */
   const imageHelpText = document.createElement('p');
   imageHelpText.className = 'text-sm text-black-500';
-  imageHelpText.textContent = 'First image will be the listing cover. Min 5 images, max 10 images.';
+  imageHelpText.textContent = 'First image will be the listing cover. Min 1 image, max 8 images.';
 
   imageInputContainer.appendChild(imageUrlInput);
   imageInputContainer.appendChild(imageAltInput);
