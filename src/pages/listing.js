@@ -4,6 +4,7 @@ import { useAuth } from '../assets/js/utils/useAuth.js';
 import useModal from '../assets/js/utils/useModal.js';
 import { editListingModal } from '../assets/js/components/modals/editListingModal.js';
 import { deleteListingModal } from '../assets/js/components/modals/deleteListingModal.js';
+import { renderImageGallery } from "../assets/js/components/imageGallery/imageGallery.js";
 
 export async function listing() {
   const id = window.location.hash.split('/')[2];
@@ -55,6 +56,8 @@ export async function listing() {
     `;
     }).join('') || '<p class="text-black-500 text-center">No bids yet</p>';
 
+  const mediaArr = listingData.media || [];
+
   setTimeout(() => {
     const countdownElement = document.getElementById(`countdown-${listingData.id}`);
     if (countdownElement) singleListingCountdown(countdownElement, listingData.endsAt);
@@ -65,12 +68,14 @@ export async function listing() {
       document.getElementById('edit-btn')?.addEventListener('click', () => openModal(editListingModal(listingData)));
       document.getElementById('delete-btn')?.addEventListener('click', () => openModal(deleteListingModal(listingData.id)));
     }
+
+    renderImageGallery(mediaArr);
   }, 0);
 
   return `
     <article class="px-6 md:px-8 lg:px-16 py-12">
       <!-- Breadcrumbs -->
-      <div class="flex items-center justify-between mb-4">
+      <div class="flex flex-wrap gap-2 items-center justify-between mb-6">
         <nav class="text-base font-medium" aria-label="Breadcrumb">
           <ol class="list-reset flex text-black-200">
             <li><a href="#/" class="hover:underline">Home</a></li>
@@ -94,9 +99,11 @@ export async function listing() {
       </div>
 
       <!-- Listing details -->
-      <section class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-10 gap-8">
-        <div class="flex flex-col gap-8 col-span-1 xl:col-span-6">
-          <img src="${mainImage}" alt="${imageAlt}" class="w-full h-108 object-cover rounded-default">
+      <section class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-12 gap-8">
+        <div class="flex flex-col gap-8 col-span-1 xl:col-span-7">
+          <div id="listing-images">
+            <!-- Image gallery will be rendered here -->
+          </div>
           <div class="card-large">
             <h2 class="text-xl font-semibold mb-2">About this listing</h2>
             <p class="text-black-500 text-base w-full xl:w-3/4">${description}</p>
@@ -111,33 +118,38 @@ export async function listing() {
           </div>
         </div>
 
-        <div class="flex flex-col gap-8 col-span-1 xl:col-span-4">
-          <div class="card-large">
-            <h1 class="mb-2">${title}</h1>
-            <div class="flex flex-wrap items-center gap-2 mb-4">
-              ${activeTag}
-              ${tags.map(tag => `<span class="tag-medium tag-blue-light">${tag}</span>`).join('')}
-              <span class="text-black-500 text-sm font-semibold">${bidsPlaced} bids placed</span>
+        <div class="flex flex-col gap-8 col-span-1 xl:col-span-5">
+          <div class="card-large flex flex-col gap-8">
+            <div>
+              <h1 class="mb-2 text-3xl mb:text-4xl">${title}</h1>
+              <div class="flex flex-wrap items-center gap-2">
+                ${activeTag}
+                ${tags.map(tag => `<span class="tag-medium tag-blue-light">${tag}</span>`).join('')}
+                <span class="text-black-500 text-sm font-semibold">${bidsPlaced} bids placed</span>
+              </div>
             </div>
+
             <div class="text-black-500 text-base font-medium">
               <p>Current bid</p>
-              <p class="text-5xl font-bold text-blue-medium-500">$${currentBid}</p>
+              <p class="text-3xl md:text-5xl font-bold text-blue-medium-500">$${currentBid}</p>
               <p>Minimum next bid: ${minNextBid}</p>
             </div>
-            <div class="flex items-center justify-between bg-gray-300 rounded-default p-4 mt-6">
-              <div>
+
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4 md:gap-0 bg-gray-300 rounded-default p-4">
+              <div class="text-center md:text-left">
                 <p class="text-black-500 text-lg font-normal">Auction ends</p>
                 <p class="text-black-500 text-2xl font-semibold">${formatEndDate(listingData.endsAt)}</p>
               </div>
               <span id="countdown-${listingData.id}" class="tag-medium tag-blue-border">1h 14m left</span>
             </div>
-            <form class="flex flex-col gap-4 mt-6">
-              <div class="flex flex-row gap-2">
+
+            <form class="flex flex-col gap-4 items-center">
+              <div class="flex flex-row gap-2 w-full">
                 <label for="bid-amount" class="sr-only">Your bid</label>
                 <input type="number" id="bid-amount" name="bid-amount" placeholder="Enter bid amount" class="input-field flex-1">
                 <button type="submit" class="btn-medium btn-primary">Place bid</button>
               </div>
-              <p>You have $6,100 available</p>
+              <p class="text-black-500/70 text-base font-normal">You have $6,100 available</p>
             </form>
           </div>
           <div class="card-large">

@@ -276,4 +276,9 @@
   .pagination-btn-disabled {
     @apply bg-transparent text-black-500/30 cursor-not-allowed hover:bg-transparent hover:text-black-500/30;
   }
+
+  /* Transitions */
+  .transition-listing-images {
+    @apply opacity-70 hover:opacity-100 active:scale-95 transition-all duration-300;
+  }
 }
