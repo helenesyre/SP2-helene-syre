@@ -263,9 +263,13 @@
     @apply bg-transparent border border-blue-500 text-blue-500;
   }
 
+  .tag-red {
+    @apply bg-feedback-error-bg border border-feedback-error-icon/20 text-feedback-error-text;
+  }
+
   /* Input fields */
   .input-field {
-    @apply bg-white-500 border border-gray-600 rounded-default px-4 py-2.25 w-full text-sm text-text-primary placeholder:text-text-placeholder focus:outline-none focus:ring-2 focus:ring-blue-medium-100;
+    @apply bg-transparent border border-gray-600 rounded-default px-4 py-2.25 w-full text-sm text-text-primary placeholder:text-text-placeholder focus:outline-none focus:ring-2 focus:ring-blue-medium-100;
   }
 
   /* Card */

@@ -14,6 +14,10 @@ export function listingCountdown(element, endsAt) {
       element.textContent = `${days}d ${hours}h ${minutes}m left`;
       element.classList.remove('tag-gray');
       element.classList.add('tag-blue-light');
+    } if (timeRemaining < 60000) {
+      element.textContent = `${Math.floor(timeRemaining / 1000)}s left`;
+      element.classList.remove('tag-blue-light');
+      element.classList.add('tag-red');
     }
   }
 
@@ -36,6 +40,10 @@ export function singleListingCountdown(element, endsAt) {
       element.textContent = `${days}d ${hours}h ${minutes}m left`;
       element.classList.remove('tag-medium', 'tag-blue-border');
       element.classList.add('tag-medium', 'tag-blue-border');
+    } if (timeRemaining < 60000) {
+      element.textContent = `${Math.floor(timeRemaining / 1000)}s left`;
+      element.classList.remove('tag-blue-light');
+      element.classList.add('tag-red');
     }
   }
 
