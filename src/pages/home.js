@@ -1,20 +1,113 @@
 import headerHome from '../assets/images/header-home.jpg';
 import { renderIcons } from '../assets/js/utils/icons';
 import { listingCard } from '../assets/js/components/cards/listingCard';
-import { getPaginatedListings } from '../assets/js/utils/fetch';
+import { filterListingsByTag, getPaginatedListings, searchListings } from '../assets/js/utils/fetch';
 import { showToast } from '../assets/js/components/toasts/toast';
 import { usePagination } from '../assets/js/utils/usePagination';
 import { renderPaginationControls } from '../assets/js/components/pagination/paginationControls.js';
 import { listingCountdown } from '../assets/js/utils/dateUtils.js';
 
 export function home() {
-
-  // Sorting
-  let currentSort = 'newest';
-
   // Pagination
-  const pagination = usePagination(loadListings);
+  let pagination = usePagination(loadListings);
   let pageLimit = 8;
+  let currentTagFilter = 'all';
+
+  // Search
+  async function handleSearch() {
+    const searchInput = document.getElementById("listing-search");
+    const query = searchInput.value.trim();
+
+    if (query) {
+      try {
+        const searchResults = await searchListings(query, '', pagination.getPage(), pageLimit);
+        const listings = searchResults.data || [];
+        const listingContainer = document.getElementById("listing-container");
+        const title = document.getElementById("listings-title");
+        listingContainer.innerHTML = "";
+        title.textContent = `Results for "${query}"`;
+        if (listings.length === 0) {
+          listingContainer.innerHTML = `<p class="text-black-500 col-span-full text-center">No results found for "${query}".</p>`;
+          listingContainer.classList.add("mb-40", "w-full");
+        } else {
+          listings.map((listing) => listingContainer.appendChild(listingCard(listing, handleSearch)));
+          countdownListings(listings);
+        }
+        pagination.updatePageCount(searchResults.meta.pageCount || 1);
+        renderPaginationControls(pagination);
+        renderIcons();
+      } catch (error) {
+        showToast('Search failed. Please try again.', 'error');
+      }
+    } else {
+      pagination = usePagination(loadListings);
+      loadListings();
+    }
+  }
+
+  async function handleTagFilterChange() {
+    const selectedTag = document.querySelector('input[name="tag"]:checked').value;
+    currentTagFilter = selectedTag;
+    if (selectedTag === 'all') {
+      pagination = usePagination(loadListings);
+      loadListings();
+    } else {
+      try {
+        if (selectedTag === 'ending-soon') {
+          currentTagFilter = ''; // Show all listings but sort by ending soon
+        }
+        let sortField = selectedTag === 'ending-soon' ? 'endsAt' : 'created'; // Sort by ending date for "Ending soon", otherwise sort by creation date
+        let sortOrder = selectedTag === 'ending-soon' ? 'asc' : 'desc'; // Sort ascending for "Ending soon" to show those ending first, otherwise sort descending to show newest first
+        let onlyActive = selectedTag === 'ending-soon' ? true : false; // Only show active listings for "Ending soon"
+        const searchResults = await filterListingsByTag(currentTagFilter, pagination.getPage(), pageLimit, sortField, sortOrder, onlyActive);
+        const listings = searchResults.data || [];
+        const listingContainer = document.getElementById("listing-container");
+        const title = document.getElementById("listings-title");
+        listingContainer.innerHTML = "";
+        title.textContent = selectedTag === 'ending-soon' ? 'Listings ending soon' : `Results for "${currentTagFilter}"`;
+        if (listings.length === 0) {
+          listingContainer.innerHTML = `<p class="text-black-500 col-span-full text-center">No results found for "${currentTagFilter}".</p>`;
+          listingContainer.classList.add("mb-40", "w-full");
+        } else {
+          listings.map((listing) => listingContainer.appendChild(listingCard(listing, handleTagFilterChange)));
+          countdownListings(listings);
+        }
+        pagination.updatePageCount(searchResults.meta.pageCount || 1);
+        renderPaginationControls(pagination);
+        renderIcons();
+      } catch (error) {
+        showToast('Search failed. Please try again.', 'error');
+      }
+    }
+  }
+
+  setTimeout(() => {
+    const searchForm = document.getElementById("listing-search-form");
+    const searchInput = document.getElementById("listing-search");
+    if (searchForm) {
+      searchForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        pagination = usePagination(handleSearch);
+        handleSearch();
+      });
+    }
+    if (searchInput) {
+      searchInput.addEventListener("input", () => {
+        if (searchInput.value.trim() === "") {
+          pagination = usePagination(loadListings);
+          loadListings();
+        }
+      });
+    }
+    const tagFilters = document.querySelectorAll('input[name="tag"]');
+    tagFilters.forEach((filter) => {
+      filter.addEventListener('change', () => {
+        pagination = usePagination(handleTagFilterChange);
+        handleTagFilterChange();
+        searchInput.value = ''; // Clear search input when changing tag filter
+      });
+    });
+  }, 0);
 
   // Fetch and render listings
   async function loadListings() {
@@ -32,12 +125,12 @@ export function home() {
       pagination.updatePageCount(response.meta.pageCount || 1);
 
       container.innerHTML = `
-        <h2 class="text-4xl font-medium mb-6">Active listings</h2>
+        <h2 id="listings-title" class="text-4xl font-medium mb-6">Active listings</h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-4" id="listing-container"></div>
         <div id="pagination-controls" class="flex items-center justify-center gap-2 md:gap-4 mt-8"></div>
       `;
       const listingContainer = document.getElementById("listing-container");
-      listings.map((listing) => listingContainer.appendChild(listingCard(listing)));
+      listings.map((listing) => listingContainer.appendChild(listingCard(listing, loadListings)));
       renderPaginationControls(pagination);
       countdownListings(listings);
     } catch (error) {
@@ -45,7 +138,7 @@ export function home() {
       showToast('Failed to load listings. Please try again later.', 'error');
       container.innerHTML = `
       <div class="px-6 md:px-8 lg:px-16 py-12">
-        <p class="text-red-500">Failed to load listings. Please try again later.</p>
+        <p class="text-feedback-error-text">Failed to load listings. Please try again later.</p>
       </div>
     `;
     }
@@ -68,46 +161,44 @@ export function home() {
         <h1 class="text-5xl max-w-[570px]">Bid, sell and discover with fellow students</h1>
         <p class="text-lg text-white-500/70 max-w-[570px]">A peer-to-peer auction platform exclusively for Noroff students. Start with 1,000 credits.</p>
         <div class="w-full">
-          <form class="flex my-8 gap-4 bg-white-500 rounded-default p-4 flex-col md:flex-row items-center w-full">
-            <div class="flex items-center gap-2 w-full">
-              <i data-lucide="search" class="text-black-500"></i>
-              <label for="listing-search" class="sr-only">Search listings</label>
-              <input type="search" id="listing-search" placeholder="Search listings - e.g. “laptop”" class="input-field">
+          <form id="listing-search-form" onsubmit="event.preventDefault()">
+            <!-- Search -->
+            <div class="flex my-8 gap-4 bg-white-500 rounded-default p-4 flex-col md:flex-row items-center w-full">
+              <div class="flex items-center gap-2 w-full">
+                <i data-lucide="search" class="text-black-500"></i>
+                <label for="listing-search" class="sr-only">Search listings</label>
+                <input type="search" id="listing-search" placeholder="Search listings - e.g. “laptop”" class="input-field">
+              </div>
+              <button type="submit" class="btn-medium btn-primary w-full md:w-fit">Search</button>
             </div>
-            <button type="submit" class="btn-medium btn-primary w-full md:w-fit">Search</button>
+            <!-- Filter -->
+            <fieldset id="tag-filter" class="flex flex-wrap gap-4 md:gap-2 mt-4 justify-center">
+              <div>
+                <input type="radio" id="all" name="tag" value="all" class="sr-only peer" checked />
+                <label for="all" class="cursor-pointer tag-medium tag-white-border transition peer-checked:bg-blue-light-300 peer-checked:border-blue-light-600 peer-checked:text-blue-medium-500">All</label>
+              </div>
+              <div>
+                <input type="radio" id="electronics" name="tag" value="electronics" class="sr-only peer" />
+                <label for="electronics" class="cursor-pointer tag-medium tag-white-border transition peer-checked:bg-blue-light-300 peer-checked:border-blue-light-600 peer-checked:text-blue-medium-500">Electronics</label>
+              </div>
+              <div>
+                <input type="radio" id="art" name="tag" value="art" class="sr-only peer" />
+                <label for="art" class="cursor-pointer tag-medium tag-white-border transition peer-checked:bg-blue-light-300 peer-checked:border-blue-light-600 peer-checked:text-blue-medium-500">Art</label>
+              </div>
+              <div>
+                <input type="radio" id="books" name="tag" value="books" class="sr-only peer" />
+                <label for="books" class="cursor-pointer tag-medium tag-white-border transition peer-checked:bg-blue-light-300 peer-checked:border-blue-light-600 peer-checked:text-blue-medium-500">Books</label>
+              </div>
+              <div>
+                <input type="radio" id="clothing" name="tag" value="clothing" class="sr-only peer" />
+                <label for="clothing" class="cursor-pointer tag-medium tag-white-border transition peer-checked:bg-blue-light-300 peer-checked:border-blue-light-600 peer-checked:text-blue-medium-500">Clothing</label>
+              </div>
+              <div>
+                <input type="radio" id="ending-soon" name="tag" value="ending-soon" class="sr-only peer" />
+                <label for="ending-soon" class="cursor-pointer tag-medium tag-white-border transition peer-checked:bg-blue-light-300 peer-checked:border-blue-light-600 peer-checked:text-blue-medium-500">Ending soon</label>
+              </div>
+            </fieldset>
           </form>
-          <ul class="flex flex-wrap gap-4 md:gap-2 mt-4 justify-center">
-            <li>
-              <button class="tag-medium tag-blue-light">
-                All
-              </button>
-            </li>
-            <li>
-              <button class="tag-medium tag-white-border">
-                Electronics
-              </button>
-            </li>
-            <li>
-              <button class="tag-medium tag-white-border">
-                Art & Design
-              </button>
-            </li>
-            <li>
-              <button class="tag-medium tag-white-border">
-                Books
-              </button>
-            </li>
-            <li>
-              <button class="tag-medium tag-white-border">
-                Clothing
-              </button>
-            </li>
-            <li>
-              <button class="tag-medium tag-white-border">
-                Ending soon
-              </button>
-            </li>
-          </ul>
         </div>
       </div>
     </section>

@@ -49,7 +49,35 @@ export async function getListingById(id) {
   return data;
 };
 
-/* Search listings */
+/* Search and filter listings */
+export async function searchListings(query, tag = '', page = 1, limit = 8, sort = 'created', sortOrder = 'desc') {
+  const auth = useAuth();
+  const token = auth.getToken();
+  const data = await useFetch(`/auction/listings/search/?q=${encodeURIComponent(query)}&_tag=${encodeURIComponent(tag)}&_bids=true&_seller=true&_comments=true&_reactions=true&page=${page}&limit=${limit}&sort=${sort}&sortOrder=${sortOrder}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+      "X-Noroff-API-Key": API_KEY
+    },
+  });
+  return data;
+};
+
+/* Filter listings by tag */
+export async function filterListingsByTag(tag, page = 1, limit = 8, sort = 'created', sortOrder = 'desc', onlyActive = true) {
+  const auth = useAuth();
+  const token = auth.getToken();
+  const data = await useFetch(`/auction/listings?_tag=${encodeURIComponent(tag)}&_bids=true&_seller=true&_comments=true&_reactions=true${onlyActive ? '&_active=true' : ''}&page=${page}&limit=${limit}&sort=${sort}&sortOrder=${sortOrder}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+      "X-Noroff-API-Key": API_KEY
+    },
+  });
+  return data;
+};
 
 /* Create listing */
 export async function createListing(listingData) {
