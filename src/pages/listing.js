@@ -13,9 +13,6 @@ export async function listing() {
   const { isLoggedIn, getUserData } = useAuth();
   const user = getUserData();
   /* Listing details */
-  const mainImage = listingData.media && listingData.media.length > 0 ? listingData.media[0].url : 'https://via.placeholder.com/400x300?text=No+Image';
-  const imageAlt = listingData.media && listingData.media.length > 0 ? listingData.media[0].alt : listingData.title || 'Listing Image';
-  /*const multipleImages = listingData.media && listingData.media.length > 1;*/
   const title = listingData.title || 'Untitled Listing';
   const description = listingData.description || 'No description available.';
   const tags = listingData.tags || [];
