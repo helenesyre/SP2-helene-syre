@@ -6,7 +6,7 @@ import { showToast } from '../toasts/toast.js';
  * Creates a modal for deleting a listing.
  * @returns {HTMLElement} The modal element to be rendered in the DOM.
  */
-export function deleteListingModal(listingId) {
+export function deleteListingModal(listingId, deleteAndRefreshFunction) {
   const { closeModal } = useModal();
 
   /* ---- Modal container ---- */
@@ -50,7 +50,7 @@ export function deleteListingModal(listingId) {
   cancelButton.textContent = 'Cancel';
   cancelButton.addEventListener('click', () => closeModal());
   submitButton.setAttribute('type', 'button');
-  submitButton.className = 'btn-medium btn-primary';
+  submitButton.className = 'btn-medium btn-error';
   submitButton.textContent = 'Delete';
   submitButton.addEventListener('click', async () => {
     try {
@@ -58,9 +58,7 @@ export function deleteListingModal(listingId) {
       if (response.status === 204) {
         showToast('Listing deleted successfully!', 'success');
         closeModal();
-        setTimeout(() => {
-          window.location.hash = ''; // Redirect to home page after deletion
-        }, 750);
+        deleteAndRefreshFunction(); // Call the function to refresh the listings
       } else {
         showToast('Failed to delete listing. Please try again.', 'error');
       }

@@ -102,6 +102,7 @@ export function createListingModal() {
 
   /* ---- Form ---- */
   const form = document.createElement('form');
+  form.className = 'mt-4';
   form.onsubmit = handleSubmit;
   document.addEventListener('modalClosed', clearForm);
 
@@ -126,14 +127,17 @@ export function createListingModal() {
 
   /* ---- Modal body input fields ---- */
   const inputFields = document.createElement('div');
-  inputFields.className = 'flex flex-col gap-4 p-3 bg-gray-100 rounded-default';
+  inputFields.className = 'flex flex-col gap-4 border border-gray-600 rounded-default p-4';
 
   /* Title */
+  const titleContainer = document.createElement('div');
+  titleContainer.className = 'flex flex-col gap-1';
   const titleLabel = document.createElement('label');
   const titleRequiredAsterisk = document.createElement('span');
   titleLabel.textContent = 'Title ';
+  titleLabel.className = 'text-sm font-semibold text-black-500';
   titleRequiredAsterisk.textContent = '*';
-  titleRequiredAsterisk.className = 'text-feedback-error-icon';
+  titleRequiredAsterisk.className = 'text-feedback-error-icon text-sm font-semibold';
   titleLabel.appendChild(titleRequiredAsterisk);
 
   const titleInput = document.createElement('input');
@@ -141,31 +145,45 @@ export function createListingModal() {
   titleInput.setAttribute('name', 'title');
   titleInput.setAttribute('placeholder', 'e.g. MacBook Air M1 2021');
   titleInput.setAttribute('aria-label', 'Write the title of your listing');
-  titleInput.classList = 'input-field';
+  titleInput.className = 'input-field';
   titleInput.required = true;
 
+  /* Tags and deadline container */
+  const tagsDeadlineContainer = document.createElement('div');
+  tagsDeadlineContainer.className = 'flex flex-col gap-4 md:flex-row md:gap-3';
+
   /* Tags */
+  const tagsContainer = document.createElement('div');
+  tagsContainer.className = 'flex-1 min-w-0 flex flex-col gap-1';
   const tagsLabel = document.createElement('label');
   const tagsRequiredAsterisk = document.createElement('span');
   tagsLabel.textContent = 'Category ';
+  tagsLabel.className = 'text-sm font-semibold text-black-500';
   tagsRequiredAsterisk.textContent = '*';
-  tagsRequiredAsterisk.className = 'text-feedback-error-icon';
+  tagsRequiredAsterisk.className = 'text-feedback-error-icon text-sm font-semibold';
   tagsLabel.appendChild(tagsRequiredAsterisk);
 
   const tagsInput = document.createElement('input');
+  const tagsHelpText = document.createElement('p');
   tagsInput.setAttribute('type', 'text');
   tagsInput.setAttribute('name', 'tags');
   tagsInput.setAttribute('placeholder', 'e.g. Electronics, Books, Art');
   tagsInput.setAttribute('aria-label', 'Write the categories of your listing, separated by commas');
-  tagsInput.classList = 'input-field';
+  tagsInput.className = 'input-field';
+  tagsHelpText.className = 'text-sm text-black-500';
+  tagsHelpText.textContent = 'Use commas to separate categories';
+  tagsHelpText.className = 'text-xs text-black-200';
   tagsInput.required = true;
 
   /* Auction deadline */
+  const deadlineContainer = document.createElement('div');
+  deadlineContainer.className = 'flex-1 min-w-0 flex flex-col gap-1';
   const deadlineLabel = document.createElement('label');
   const deadlineRequiredAsterisk = document.createElement('span');
   deadlineLabel.textContent = 'Auction deadline ';
+  deadlineLabel.className = 'text-sm font-semibold text-black-500';
   deadlineRequiredAsterisk.textContent = '*';
-  deadlineRequiredAsterisk.className = 'text-feedback-error-icon';
+  deadlineRequiredAsterisk.className = 'text-feedback-error-icon text-sm font-semibold';
   deadlineLabel.appendChild(deadlineRequiredAsterisk);
 
   const deadlineInput = document.createElement('input');
@@ -174,17 +192,21 @@ export function createListingModal() {
   deadlineInput.setAttribute('name', 'deadline');
   deadlineInput.setAttribute('placeholder', 'dd/ mm/ yyyy, --:--');
   deadlineInput.setAttribute('aria-label', 'Set the auction deadline for your listing');
-  deadlineInput.classList = 'input-field';
+  deadlineInput.className = 'input-field';
   deadlineHelpText.className = 'text-sm text-black-500';
   deadlineHelpText.textContent = 'Must be a future date';
+  deadlineHelpText.className = 'text-xs text-black-200';
   deadlineInput.required = true;
 
   /* Description */
+  const descriptionContainer = document.createElement('div');
+  descriptionContainer.className = 'flex flex-col gap-1';
   const descriptionLabel = document.createElement('label');
   const descriptionRequiredAsterisk = document.createElement('span');
   descriptionLabel.textContent = 'Description ';
+  descriptionLabel.className = 'text-sm font-semibold text-black-500';
   descriptionRequiredAsterisk.textContent = '*';
-  descriptionRequiredAsterisk.className = 'text-feedback-error-icon';
+  descriptionRequiredAsterisk.className = 'text-feedback-error-icon text-sm font-semibold';
   descriptionLabel.appendChild(descriptionRequiredAsterisk);
 
   const descriptionInput = document.createElement('textarea');
@@ -193,41 +215,50 @@ export function createListingModal() {
   descriptionInput.setAttribute('aria-label', 'Write a description for your listing');
   descriptionInput.classList = 'input-field h-32 resize-none';
   descriptionInput.required = true;
-  inputFields.appendChild(titleLabel);
-  inputFields.appendChild(titleInput);
-  inputFields.appendChild(tagsLabel);
-  inputFields.appendChild(tagsInput);
-  inputFields.appendChild(deadlineLabel);
-  inputFields.appendChild(deadlineInput);
-  inputFields.appendChild(deadlineHelpText);
-  inputFields.appendChild(descriptionLabel);
-  inputFields.appendChild(descriptionInput);
+  inputFields.appendChild(titleContainer);
+  titleContainer.appendChild(titleLabel);
+  titleContainer.appendChild(titleInput);
+  tagsDeadlineContainer.appendChild(tagsContainer);
+  tagsDeadlineContainer.appendChild(deadlineContainer);
+  inputFields.appendChild(tagsDeadlineContainer);
+  tagsContainer.appendChild(tagsLabel);
+  tagsContainer.appendChild(tagsInput);
+  tagsContainer.appendChild(tagsHelpText);
+  deadlineContainer.appendChild(deadlineLabel);
+  deadlineContainer.appendChild(deadlineInput);
+  deadlineContainer.appendChild(deadlineHelpText);
+  descriptionContainer.appendChild(descriptionLabel);
+  descriptionContainer.appendChild(descriptionInput);
+  inputFields.appendChild(descriptionContainer);
   modalBody.appendChild(inputFields);
 
   /* ---- Image section ---- */
-  const imageSectionContainer = document.createElement('div');
-  imageSectionContainer.className = 'flex flex-col gap-2';
+  const imageOuterContainer = document.createElement('div');
+  imageOuterContainer.className = 'flex flex-col gap-2';
 
   const imageTitle = document.createElement('h3');
   imageTitle.className = 'text-lg font-medium text-black-500';
   imageTitle.textContent = 'Images';
 
-  const imageContainer = document.createElement('div');
-  imageContainer.className = 'flex flex-col gap-2';
+  const imageSectionContainer = document.createElement('div');
+  imageSectionContainer.className = 'flex flex-col gap-2 border border-gray-600 rounded-default p-4';
 
-  imageSectionContainer.appendChild(imageTitle);
-  imageSectionContainer.appendChild(imageContainer);
+  imageOuterContainer.appendChild(imageTitle);
+  imageOuterContainer.appendChild(imageSectionContainer);
 
   const imageInputContainer = document.createElement('div');
-  imageInputContainer.className = 'flex items-center gap-2';
+  imageInputContainer.className = 'flex flex-col md:flex-row items-center gap-2';
 
   /* Image URL */
+  const imageUrlLabel = document.createElement('label');
+  imageUrlLabel.textContent = 'Image URL';
+  imageUrlLabel.className = 'sr-only';
   const imageUrlInput = document.createElement('input');
   imageUrlInput.setAttribute('type', 'text');
   imageUrlInput.setAttribute('name', 'image-url');
   imageUrlInput.setAttribute('placeholder', 'Paste an image URL - https://...');
   imageUrlInput.setAttribute('aria-label', 'Add an image to your listing by entering an image URL');
-  imageUrlInput.classList = 'input-field';
+  imageUrlInput.className = 'input-field';
 
   /* Image alt text */
   const imageAltInput = document.createElement('input');
@@ -235,26 +266,27 @@ export function createListingModal() {
   imageAltInput.setAttribute('name', 'image-alt');
   imageAltInput.setAttribute('placeholder', 'Image description');
   imageAltInput.setAttribute('aria-label', 'Write a description for the image you want to add');
-  imageAltInput.classList = 'input-field';
+  imageAltInput.className = 'input-field';
 
   /* Image add button */
   const imageUrlAddButton = document.createElement('button');
   imageUrlAddButton.setAttribute('type', 'button');
-  imageUrlAddButton.className = 'btn-medium btn-secondary';
+  imageUrlAddButton.className = 'btn-medium btn-secondary w-full md:w-fit';
   imageUrlAddButton.textContent = 'Add';
   imageUrlAddButton.onclick = addImageUrl;
 
   /* Image help text */
   const imageHelpText = document.createElement('p');
-  imageHelpText.className = 'text-sm text-black-500';
+  imageHelpText.className = 'text-xs text-black-200';
   imageHelpText.textContent = 'First image will be the listing cover. Min 1 image, max 8 images.';
 
+  imageInputContainer.appendChild(imageUrlLabel);
   imageInputContainer.appendChild(imageUrlInput);
   imageInputContainer.appendChild(imageAltInput);
   imageInputContainer.appendChild(imageUrlAddButton);
   imageSectionContainer.appendChild(imageInputContainer);
   imageSectionContainer.appendChild(imageHelpText);
-  modalBody.appendChild(imageSectionContainer);
+  modalBody.appendChild(imageOuterContainer);
 
   /* ---- Image list ---- */
   const imageListContainer = document.createElement('div');
@@ -264,13 +296,12 @@ export function createListingModal() {
   imageUrls.classList = 'flex flex-wrap gap-2';
 
   /* Image remove buttons */
-
   imageListContainer.appendChild(imageList);
-  modalBody.appendChild(imageListContainer);
+  imageSectionContainer.appendChild(imageListContainer);
 
   /* ---- Modal footer ---- */
   const modalFooter = document.createElement('div');
-  modalFooter.className = 'flex items-center justify-end gap-4';
+  modalFooter.className = 'flex items-center justify-end gap-4 mt-2';
 
   const cancelButton = document.createElement('button');
   const submitButton = document.createElement('button');
