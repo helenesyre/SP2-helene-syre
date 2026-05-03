@@ -89,6 +89,14 @@ export function home() {
         event.preventDefault();
         pagination = usePagination(handleSearch);
         handleSearch();
+        // If a tag filter is selected when performing a search, reset it to "All" to avoid confusion
+        tagFilters.forEach((filter) => {
+          if (filter.value === 'all') {
+            filter.checked = true;
+          } else {
+            filter.checked = false;
+          }
+        });
       });
     }
     if (searchInput) {
@@ -186,8 +194,8 @@ export function home() {
                 <label for="art" class="cursor-pointer tag-medium tag-white-border transition peer-checked:bg-blue-light-300 peer-checked:border-blue-light-600 peer-checked:text-blue-medium-500">Art</label>
               </div>
               <div>
-                <input type="radio" id="books" name="tag" value="books" class="sr-only peer" />
-                <label for="books" class="cursor-pointer tag-medium tag-white-border transition peer-checked:bg-blue-light-300 peer-checked:border-blue-light-600 peer-checked:text-blue-medium-500">Books</label>
+                <input type="radio" id="book" name="tag" value="book" class="sr-only peer" />
+                <label for="book" class="cursor-pointer tag-medium tag-white-border transition peer-checked:bg-blue-light-300 peer-checked:border-blue-light-600 peer-checked:text-blue-medium-500">Book</label>
               </div>
               <div>
                 <input type="radio" id="clothing" name="tag" value="clothing" class="sr-only peer" />
