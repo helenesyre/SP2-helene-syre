@@ -3,7 +3,7 @@ import useModal from "../../utils/useModal.js";
 import { editListingModal } from "../modals/editListingModal.js";
 import { deleteListingModal } from "../modals/deleteListingModal.js";
 
-export function listingCard(listing) {
+export function listingCard(listing, deleteAndRefreshFunction) {
   const cardContainer = document.createElement('a');
   cardContainer.href = `#/listing/${listing.id}`;
   cardContainer.classList = "group card flex flex-col gap-4";
@@ -113,7 +113,7 @@ export function listingCard(listing) {
       }
     });
 
-    const modalDeleteContent = deleteListingModal(listing.id);
+    const modalDeleteContent = deleteListingModal(listing.id, deleteAndRefreshFunction);
     deleteBtn.addEventListener('click', (event) => {
       if (event.target.closest('#delete-btn')) {
         event.preventDefault();

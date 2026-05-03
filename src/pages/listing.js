@@ -66,7 +66,7 @@ export async function listing() {
     if (isLoggedIn() && user.name === listingData.seller?.name) {
       const { openModal } = useModal();
       document.getElementById('edit-btn')?.addEventListener('click', () => openModal(editListingModal(listingData)));
-      document.getElementById('delete-btn')?.addEventListener('click', () => openModal(deleteListingModal(listingData.id)));
+      document.getElementById('delete-btn')?.addEventListener('click', () => openModal(deleteListingModal(listingData.id, () => { window.location.hash = ''; })));
     }
 
     renderImageGallery(mediaArr);
