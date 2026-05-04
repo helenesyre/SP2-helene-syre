@@ -1,5 +1,8 @@
 import { formatEndDate } from '../../utils/dateUtils.js';
 import { getUserCredits } from '../../utils/credits.js';
+import { placeBid } from '../../utils/fetch.js';
+import { showToast } from '../toasts/toast.js';
+import { useAuth } from '../../utils/useAuth.js';
 
 export async function listingBidCard({ listingData, activeTag, tags }) {
   /* Bids */
@@ -9,6 +12,47 @@ export async function listingBidCard({ listingData, activeTag, tags }) {
 
   /* Place bid */
   const credits = await getUserCredits();
+
+  async function handleBidSubmit() {
+    const bidAmount = document.getElementById("bid-amount").value;
+    // check if bid amount is valid
+    if (!bidAmount || isNaN(bidAmount) || Number(bidAmount) <= currentBid) {
+      showToast(`Please enter a valid bid amount greater than the current bid of $${currentBid}.`, 'error');
+      return;
+    }
+    // check if user have enough credit
+    if (Number(bidAmount) > credits) {
+      showToast(`You do not have enough credits to place this bid.`, 'error');
+      return;
+    }
+
+    // handle post data
+    const response = await placeBid(
+      listingData.id,
+      bidAmount,
+    );
+
+    if (response.data) {
+      showToast('Bid went through successfully!', 'success');
+      setTimeout(() => window.location.reload(), 750);
+    }
+  }
+
+  function clearForm() {
+    const bidAmountInputField = document.getElementById('bid-amount')
+    bidAmountInputField.value = '';
+  }
+
+  // Different state for form if user is not logged in, logged in or the owner
+
+  setTimeout(() => {
+    const bidform = document.getElementById("bid-form")
+    bidform.addEventListener("submit", (event) => {
+      event.preventDefault();
+      handleBidSubmit();
+      clearForm();
+    });
+  }, 0)
 
   return `
     <div class="card-large flex flex-col gap-8">
@@ -38,7 +82,7 @@ export async function listingBidCard({ listingData, activeTag, tags }) {
       <form id="bid-form" class="flex flex-col gap-4 items-center">
         <div class="flex flex-row gap-2 w-full">
           <label for="bid-amount" class="sr-only">Your bid</label>
-          <input type="number" id="bid-amount" name="bid-amount" placeholder="Enter bid amount" class="input-field flex-1">
+          <input type="number" id="bid-amount" placeholder="Enter bid amount" class="input-field flex-1">
           <button type="submit" class="btn-medium btn-primary">Place bid</button>
         </div>
         <p class="text-black-500/70 text-base font-normal">You have $${credits} credits available</p>

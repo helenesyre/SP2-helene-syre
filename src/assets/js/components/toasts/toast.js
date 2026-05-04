@@ -14,26 +14,28 @@ export function showToast(message, type = "success", wait = 5000) {
   const textContentElement = document.createElement("div");
   const closeButton = document.createElement("button");
 
-  toast.className = "rounded-default shadow-md flex justify-between items-start gap-4 p-4 text-lg animate-fadeIn";
+  toast.className = "rounded-default shadow-md flex justify-between items-start gap-4 p-4 text-lg w-fit max-w-[91vw] animate-fadeIn";
   switch (type) {
     case "success":
       toast.classList.add(`bg-feedback-success-bg`, `text-feedback-success-text`);
       textContentElement.appendChild(iconElement);
       textContentElement.classList.add("flex", "items-center", "gap-2");
       iconElement.setAttribute("data-lucide", "circle-check");
+      iconElement.classList.add("size-6", "shrink-0")
       break;
     case "error":
       toast.classList.add(`bg-feedback-error-bg`, `text-feedback-error-text`);
       textContentElement.appendChild(iconElement);
       textContentElement.classList.add("flex", "items-center", "gap-2");
       iconElement.setAttribute("data-lucide", "alert-circle");
-      iconElement.classList.add("text-feedback-error-icon");
+      iconElement.classList.add("size-6", "shrink-0", "text-feedback-error-icon");
       break;
     default:
       toast.classList.add(`bg-feedback-info-bg`, `text-feedback-info-text`);
       textContentElement.appendChild(iconElement);
       textContentElement.classList.add("flex", "items-center", "gap-2");
       iconElement.setAttribute("data-lucide", "info");
+      iconElement.classList.add("size-6", "shrink-0")
   }
 
   titleElement.textContent = message;

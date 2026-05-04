@@ -127,7 +127,20 @@ export async function deleteListing(id) {
 };
 
 /* Bid on listing */
-
+export async function placeBid(listingId, bidAmount) {
+  const auth = useAuth();
+  const token = auth.getToken();
+  const data = await useFetch(`/auction/listings/${listingId}/bids`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+      "X-Noroff-API-Key": API_KEY
+    },
+    body: JSON.stringify({ amount: Number(bidAmount) })
+  });
+  return data;
+};
 
 /* ────────────────────── Profiles ────────────────────── */
 
