@@ -5,6 +5,7 @@ import useModal from '../assets/js/utils/useModal.js';
 import { editListingModal } from '../assets/js/components/modals/editListingModal.js';
 import { deleteListingModal } from '../assets/js/components/modals/deleteListingModal.js';
 import { renderImageGallery } from "../assets/js/components/imageGallery/imageGallery.js";
+import { getUserCredits } from '../assets/js/utils/credits.js';
 
 export async function listing() {
   const id = window.location.hash.split('/')[2];
@@ -30,6 +31,9 @@ export async function listing() {
   const currentBid = listingData.bids && listingData.bids.length > 0 ? listingData.bids[listingData.bids.length - 1].amount : 0;
   const minNextBid = typeof currentBid === 'number' ? `$${currentBid + 1}` : 'Cannot calculate next bid';
   const bidsPlaced = listingData.bids ? listingData.bids.length : 0;
+
+  /* Place bid */
+  const credits = await getUserCredits();
 
   /* Bid history */
   const bidHistory = [...(listingData.bids || [])]
@@ -146,7 +150,7 @@ export async function listing() {
                 <input type="number" id="bid-amount" name="bid-amount" placeholder="Enter bid amount" class="input-field flex-1">
                 <button type="submit" class="btn-medium btn-primary">Place bid</button>
               </div>
-              <p class="text-black-500/70 text-base font-normal">You have $6,100 available</p>
+              <p class="text-black-500/70 text-base font-normal">You have $${credits} credits available</p>
             </form>
           </div>
           <div class="card-large">

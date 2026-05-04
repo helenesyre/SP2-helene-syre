@@ -3,6 +3,8 @@ import userProfile from '../../../images/user-profile.jpg';
 import { useAuth } from '../../utils/useAuth.js';
 import useModal from '../../utils/useModal.js';
 import { createListingModal } from '../modals/createListingModal.js';
+import { getUserCredits } from '../../utils/credits.js';
+import { renderIcons } from '../../utils/icons.js';
 
 function renderVisitorNav() {
   return `
@@ -16,7 +18,7 @@ function renderVisitorNav() {
   `;
 }
 
-function renderLoggedInNav() {
+async function renderLoggedInNav() {
   const { openModal } = useModal();
   const modalContent = createListingModal();
   addEventListener('click', (event) => {
@@ -25,6 +27,8 @@ function renderLoggedInNav() {
       openModal(modalContent);
     }
   });
+
+  const credits = await getUserCredits();
 
   return `
     <nav class="relative flex items-center justify-between p-6 md:px-8 lg:px-16 border-b border-border">
@@ -42,7 +46,7 @@ function renderLoggedInNav() {
         <li>
           <span class="tag-icon tag-blue-light">
             <i data-lucide="circle-dollar-sign" width="18px" height="18px"></i>
-            6,100
+            ${credits}
           </span>
         </li>
 
@@ -116,7 +120,7 @@ function renderLoggedInNav() {
             <p class="text-base font-bold mb-1">My credits:</p>
             <span class="tag-icon tag-blue-light">
               <i data-lucide="circle-dollar-sign" width="18px" height="18px"></i>
-              6,100
+              ${credits}
             </span>
           </div>
         </div>
@@ -125,17 +129,19 @@ function renderLoggedInNav() {
   `;
 }
 
-export function renderNavbar() {
+export async function renderNavbar() {
   const navContainer = document.getElementById('nav-container');
   if (navContainer) {
     const auth = useAuth();
     // If the user is logged in, show the logged-in nav, otherwise show the visitor nav.
     if (auth.isLoggedIn()) {
-      navContainer.innerHTML = renderLoggedInNav();
+      navContainer.innerHTML = await renderLoggedInNav();
     } else {
       navContainer.innerHTML = renderVisitorNav();
     }
   }
+
+  renderIcons();
 
   // Mobile menu toggle functionality
   const mobileMenu = document.getElementById('mobile-menu');
