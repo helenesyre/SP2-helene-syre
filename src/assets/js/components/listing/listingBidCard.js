@@ -1,6 +1,5 @@
 import { formatEndDate } from '../../utils/dateUtils.js';
 import { getUserCredits } from '../../utils/credits.js';
-import { placeBid } from '../../utils/fetch.js';
 
 export async function listingBidCard({ listingData, activeTag, tags }) {
   /* Bids */
