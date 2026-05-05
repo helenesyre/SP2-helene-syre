@@ -179,6 +179,19 @@ export async function getSingleProfileData(profileName) {
 /* All listings by profile */
 
 /* All bids by profile */
+export async function getBidsByProfile(profileName) {
+  const auth = useAuth();
+  const token = auth.getToken();
+  const data = await useFetch(`/auction/profiles/${profileName}/bids?_listings=true`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+      "X-Noroff-API-Key": API_KEY
+    },
+  });
+  return data;
+};
 
 /* All wins by profile */
 
