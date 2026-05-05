@@ -304,10 +304,12 @@ export function createListingModal() {
   modalFooter.className = 'flex items-center justify-end gap-4 mt-2';
 
   const cancelButton = document.createElement('button');
-  const submitButton = document.createElement('button');
+  cancelButton.setAttribute('type', 'button');
   cancelButton.className = 'btn-medium btn-ghost';
   cancelButton.textContent = 'Cancel';
   cancelButton.onclick = closeModal;
+
+  const submitButton = document.createElement('button');
   submitButton.setAttribute('type', 'submit');
   submitButton.className = 'btn-medium btn-primary';
   submitButton.textContent = 'Create listing';
