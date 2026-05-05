@@ -16,7 +16,7 @@ export const routes = [
     view: home,
   },
   {
-    path: /^#\/profile$/,
+    path: /^#\/profile\/([^\/]+)/,
     view: profile,
   },
   {
