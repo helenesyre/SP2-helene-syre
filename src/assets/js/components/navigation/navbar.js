@@ -5,6 +5,7 @@ import useModal from '../../utils/useModal.js';
 import { createListingModal } from '../modals/createListingModal.js';
 import { getUserCredits } from '../../utils/credits.js';
 import { renderIcons } from '../../utils/icons.js';
+import { getSingleProfileData } from '../../utils/fetch.js';
 
 function renderVisitorNav() {
   return `
@@ -30,6 +31,15 @@ async function renderLoggedInNav() {
 
   const credits = await getUserCredits();
 
+  // Fetch user profile data to display profile picture and name in the navbar
+  const auth = useAuth();
+  const userData = auth.getUserData();
+  const profileResponse = await getSingleProfileData(userData.name);
+  const userProfilePicture = profileResponse.data?.avatar?.url || 'https://placehold.co/40x40/dadada/aaa?text=User';
+  const userProfileAlt = profileResponse.data?.avatar?.alt || `${userData.name}'s avatar` || 'User profile picture';
+  const userProfileName = profileResponse.data?.name || userData.name || 'User';
+  const userProfileUsername = profileResponse.data?.username || userData.name || 'username';
+
   return `
     <nav class="relative flex items-center justify-between p-6 md:px-8 lg:px-16 border-b border-border">
       <a href="#/" class="w-24 md:w-32 lg:w-40">${logo}</a>
@@ -51,7 +61,7 @@ async function renderLoggedInNav() {
         </li>
 
         <!-- User profile -->
-        <li class="hidden md:block"><a href="#/profile"><img src="${userProfile}" alt="User Profile" class="size-10 object-cover rounded-default"></a></li>
+        <li class="hidden md:block"><a href="#/profile/${userProfileName}"><img src="${userProfilePicture}" alt="${userProfileAlt}" class="size-10 object-cover rounded-default"></a></li>
 
         <!-- Log out -->
         <li class="hidden md:block">
@@ -78,10 +88,10 @@ async function renderLoggedInNav() {
           </div>
 
           <div class="flex flex-row items-center gap-4">
-            <a href="#/profile"><img src="${userProfile}" alt="User Profile" class="size-14 object-cover rounded-default"></a>
+            <a href="#/profile/${userProfileName}"><img src="${userProfilePicture}" alt="${userProfileAlt}" class="size-14 object-cover rounded-default"></a>
             <div>
-              <p class="text-lg font-bold text-black-500">Helene Syre</p>
-              <p class="text-base font-normal text-black-300">@helenesyre</p>
+              <p class="text-lg font-bold text-black-500">${userProfileName}</p>
+              <p class="text-base font-normal text-black-300">@${userProfileUsername}</p>
             </div>
           </div>
 
@@ -101,7 +111,7 @@ async function renderLoggedInNav() {
               </a>
             </li>
             <li>
-              <a href="#" class="flex gap-2 items-center px-4 py-2 rounded-default text-base/5.5 font-bold hover:bg-gray-200">
+              <a href="#/profile/${userProfileName}" class="flex gap-2 items-center px-4 py-2 rounded-default text-base/5.5 font-bold hover:bg-gray-200">
               <i data-lucide="user" width="18px" height="18px"></i>
                 Profile
               </a>
