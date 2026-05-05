@@ -43,7 +43,50 @@ export async function listingBidCard({ listingData, activeTag, tags }) {
     bidAmountInputField.value = '';
   }
 
-  // Different state for form if user is not logged in, logged in or the owner
+  // Different state of the bid form if user is not logged in, logged in or the owner
+  function getBidState({ loggedIn, isOwner, isClosed }) {
+    if (isClosed && !loggedIn) return 'hidden';
+    if (!loggedIn) return 'disabled';
+    if (isOwner) return 'hidden';
+    if (isClosed) return 'hidden';
+    return 'active';
+  }
+
+  function renderBidForm() {
+    const state = getBidState({
+      loggedIn: useAuth().isLoggedIn(),
+      isOwner: useAuth().getUserData()?.name === listingData.seller?.name,
+      isClosed: new Date(listingData.endsAt) < new Date(),
+    });
+    switch (state) {
+      case 'disabled':
+        return `
+          <form id="bid-form" class="flex flex-col gap-4 items-center">
+            <div class="flex flex-row gap-2 w-full">
+              <label for="bid-amount" class="sr-only">Your bid</label>
+              <input type="number" id="bid-amount" placeholder="Login to place a bid" class="input-field flex-1" disabled>
+              <button type="button" class="btn-medium btn-disabled" disabled>Place bid</button>
+            </div>
+            <a href="#/login" class="text-black-500/70 text-base font-normal hover:text-black-500 hover:underline">Log in to place a bid</a>
+          </form>
+        `;
+      case 'hidden':
+        return '';
+      case 'active':
+        return `
+          <form id="bid-form" class="flex flex-col gap-4 items-center">
+            <div class="flex flex-row gap-2 w-full">
+              <label for="bid-amount" class="sr-only">Your bid</label>
+              <input type="number" id="bid-amount" placeholder="Enter bid amount" class="input-field flex-1">
+              <button type="submit" class="btn-medium btn-primary">Place bid</button>
+            </div>
+            <p class="text-black-500/70 text-base font-normal">You have $${credits} credits available</p>
+          </form>
+        `;
+      default:
+        return '';
+    }
+  }
 
   setTimeout(() => {
     const bidform = document.getElementById("bid-form")
@@ -78,15 +121,7 @@ export async function listingBidCard({ listingData, activeTag, tags }) {
         </div>
         <span id="countdown-${listingData.id}" class="tag-medium tag-blue-border"></span>
       </div>
-
-      <form id="bid-form" class="flex flex-col gap-4 items-center">
-        <div class="flex flex-row gap-2 w-full">
-          <label for="bid-amount" class="sr-only">Your bid</label>
-          <input type="number" id="bid-amount" placeholder="Enter bid amount" class="input-field flex-1">
-          <button type="submit" class="btn-medium btn-primary">Place bid</button>
-        </div>
-        <p class="text-black-500/70 text-base font-normal">You have $${credits} credits available</p>
-      </form>
+      ${renderBidForm()}
     </div>
   `;
 }

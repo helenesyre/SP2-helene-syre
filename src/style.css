@@ -234,6 +234,10 @@
     @apply bg-feedback-error-icon text-white-500 cursor-pointer hover:bg-feedback-error-text hover:drop-shadow-sm/16;
   }
 
+  .btn-disabled {
+    @apply bg-black-50 text-gray-800 cursor-not-allowed;
+  }
+
   /* Tags */
   .tag-icon {
     @apply font-helvetica inline-flex gap-1 items-center pl-3 pr-4 py-1 rounded-default text-sm font-bold;
