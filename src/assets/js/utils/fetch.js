@@ -175,6 +175,20 @@ export async function getSingleProfileData(profileName) {
 };
 
 /* Update profile */
+export async function updateProfile(profileName, profileData) {
+  const auth = useAuth();
+  const token = auth.getToken();
+  const data = await useFetch(`/auction/profiles/${profileName}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+      "X-Noroff-API-Key": API_KEY
+    },
+    body: JSON.stringify(profileData)
+  });
+  return data;
+};
 
 /* All listings by profile */
 
