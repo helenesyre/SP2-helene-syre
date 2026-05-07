@@ -5,7 +5,7 @@ import useModal from '../assets/js/utils/useModal.js';
 import { editListingModal } from '../assets/js/components/modals/editListingModal.js';
 import { deleteListingModal } from '../assets/js/components/modals/deleteListingModal.js';
 import { renderImageGallery } from "../assets/js/components/imageGallery/imageGallery.js";
-import { listingBidCard } from '../assets/js/components/listing/listingBidCard.js';
+import { listingBidCard } from '../assets/js/components/cards/listingBidCard.js';
 
 export async function listing() {
   const id = window.location.hash.split('/')[2];
