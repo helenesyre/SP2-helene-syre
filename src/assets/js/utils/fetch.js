@@ -191,12 +191,25 @@ export async function updateProfile(profileName, profileData) {
 };
 
 /* All listings by profile */
+export async function getSingleProfileListings(profileId) {
+  const auth = useAuth();
+  const token = auth.getToken();
+  const data = await useFetch(`/auction/profiles/${profileId}/listings?_bids=true&_seller=true&_comments=true&_reactions=true`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+      "X-Noroff-API-Key": API_KEY
+    },
+  });
+  return data;
+};
 
 /* All bids by profile */
 export async function getBidsByProfile(profileName) {
   const auth = useAuth();
   const token = auth.getToken();
-  const data = await useFetch(`/auction/profiles/${profileName}/bids?_listings=true`, {
+  const data = await useFetch(`/auction/profiles/${profileName}/bids?_listings=true&_bids=true`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -208,5 +221,18 @@ export async function getBidsByProfile(profileName) {
 };
 
 /* All wins by profile */
+export async function getWinsByProfile(profileName) {
+  const auth = useAuth();
+  const token = auth.getToken();
+  const data = await useFetch(`/auction/profiles/${profileName}/wins?_listings=true`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+      "X-Noroff-API-Key": API_KEY
+    },
+  });
+  return data;
+};
 
 /* Search profiles */

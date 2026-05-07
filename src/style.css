@@ -275,6 +275,15 @@
     @apply bg-feedback-error-bg border border-feedback-error-icon/20 text-feedback-error-text;
   }
 
+  /* Tabs */
+  .tab-active {
+    @apply text-blue-medium-500 border-b-2 border-blue-medium-500 px-6;
+  }
+
+  .tab-inactive {
+    @apply text-black-500/60 border-b-2 border-transparent px-6 cursor-pointer hover:text-black-500;
+  }
+
   /* Input fields */
   .input-field {
     @apply bg-transparent border border-gray-600 rounded-default px-4 py-2.25 w-full text-sm text-text-primary placeholder:text-text-placeholder focus:outline-none focus:ring-2 focus:ring-blue-medium-100;

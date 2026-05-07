@@ -1,9 +1,12 @@
-import { getSingleProfileData, getBidsByProfile } from '../assets/js/utils/fetch.js';
+import { getSingleProfileData, getBidsByProfile, getSingleProfileListings, getWinsByProfile } from '../assets/js/utils/fetch.js';
 import { getUserCredits } from '../assets/js/utils/credits.js';
-
 import useModal from '../assets/js/utils/useModal.js';
 import { editProfileModal } from '../assets/js/components/modals/editProfileModal.js';
 import { useAuth } from '../assets/js/utils/useAuth.js';
+import useTabs, { createTab } from '../assets/js/utils/useTabs.js';
+import { listingCard } from '../assets/js/components/cards/listingCard.js';
+import { listingCountdown, renderBidListingCountdown } from '../assets/js/utils/dateUtils.js';
+import { bidOnCard } from '../assets/js/components/cards/bidOnCard.js';
 
 export async function profile() {
   // Get profile name from URL hash
@@ -26,7 +29,6 @@ export async function profile() {
 
   // Extract profile data
   const profileData = profile.data;
-  console.log('Profile data:', profileData); // Log the profile data for debugging
   // Name
   const profileName = profileData.name || profileData.username || 'User';
   // Username
@@ -39,19 +41,18 @@ export async function profile() {
   const profileAvatarAlt = profileData.avatar?.alt || `${profileName}'s avatar` || 'User profile picture';
   // Bio
   const profileBio = profileData.bio || 'This user has not provided a bio yet.';
-  // Listings
-  const profileListings = profileData.listings || [];
   // Bids placed
-  const bidsByProfile = await getBidsByProfile(urlProfileName);
-  const profileTotalBids = bidsByProfile.data ? bidsByProfile.data.length : 0;
-  console.log('Bids by profile:', bidsByProfile); // Log the bids data for debugging
+  const bidsByProfile = await getBidsByProfile(profileName);
+  const bidsByProfileData = bidsByProfile?.data || [];
+  const profileTotalBids = bidsByProfileData.length;
   // Credits
   const profileCredits = await getUserCredits();
 
-  console.log('Wins:', profileData.wins); // Log wins data for debugging
+  const bidsWonByProfile = await getWinsByProfile(profileName);
+  const bidsWonByProfileData = bidsWonByProfile?.data || [];
 
-  // My listings and my bids tabs
-
+  const profileListings = await getSingleProfileListings(profileName);
+  const profileListingsData = profileListings?.data || [];
   // Edit profile modal
   setTimeout(() => {
     // Only show edit/delete buttons if the user is logged in and is the seller of the listing
@@ -61,7 +62,44 @@ export async function profile() {
       const { openModal } = useModal();
       document.getElementById('edit-btn')?.addEventListener('click', () => openModal(editProfileModal(profileData)));
     }
+    countdownListings(profileListingsData);
   }, 0);
+
+  // Countdown for listings
+  function countdownListings(listings) {
+    listings.forEach((listing) => {
+      const countdownElement = document.getElementById(`countdown-${listing.id}`);
+      if (countdownElement) listingCountdown(countdownElement, listing.endsAt);
+    });
+  }
+
+  // Create listing cards
+  const listingHTML = document.createElement('div');
+  listingHTML.classList = "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-4";
+  if (profileListingsData.length > 0) {
+    profileListingsData.forEach(listing => {
+      listingHTML.appendChild(listingCard(listing, () => { }));
+    });
+  } else {
+    listingHTML.innerHTML = '<p>You have not created any listings yet.</p>';
+  }
+
+  // Create bid cards
+  const bidsHTML = document.createElement('div');
+  bidsHTML.classList = "grid grid-cols-1 lg:grid-cols-2 gap-6";
+  if (bidsByProfileData.length > 0) {
+    bidsByProfileData.forEach(bid => {
+      bidsHTML.appendChild(bidOnCard(bid, bidsWonByProfileData.some(wonBid => wonBid.id === bid.listing.id))); // Check if the bid is a winning bid
+    });
+  } else {
+    bidsHTML.innerHTML = '<p>You have not placed any bids yet.</p>';
+  }
+
+  // set up tabs
+  const bidsTab = createTab('My bids', bidsHTML);
+  const listingTab = createTab('My listings', listingHTML);
+
+  const tabs = useTabs([listingTab, bidsTab]);
 
   return `
     <h1 class="sr-only">${profileName} profile</h1>
@@ -71,7 +109,7 @@ export async function profile() {
         <div class="flex flex-col lg:flex-row flex-wrap items-center lg:items-end mb-6 gap-6 md:gap-9 justify-between">
           <div class="flex flex-col md:flex-row items-center md:items-end gap-6 md:gap-9">
             <img src="${profileAvatar}" alt="${profileAvatarAlt}" class="size-40 md:size-60 lg:size-64 xl:size-80 rounded-default object-cover" />
-            <div class="max-w-md xl:mb-10">
+            <div class="lg:max-w-md xl:mb-10">
               <div class="flex flex-row gap-3 items-start justify-between md:justify-normal">
                 <div class="flex flex-col gap-1">
                   <h2 class="text-3xl font-semibold text-black-500 capitalize">${profileName}</h2>
@@ -85,9 +123,9 @@ export async function profile() {
               <p class="text-base font-normal text-black-500 mt-4">${profileBio}</p>
             </div>
           </div>
-          <ul class="grid grid-cols-3 gap-2 xl:mb-10">
+          <ul class="grid grid-cols-3 gap-2 md:gap-4 xl:mb-10">
             <li class="flex flex-col items-center px-4.5 py-4 border border-gray-600 rounded-default">
-              <p class="text-xl md:text-3xl text-blue-medium-500 font-bold">${profileListings.length}</p>
+              <p class="text-xl md:text-3xl text-blue-medium-500 font-bold">${profileListingsData.length}</p>
               <p class="text-sm md:text-base text-black-300 whitespace-nowrap">Listings</p>
             </li>
             <li class="flex flex-col items-center px-4.5 py-4 border border-gray-600 rounded-default">
@@ -102,23 +140,8 @@ export async function profile() {
         </div>
       </section>
       <section class="flex flex-col gap-6 px-6 md:px-8 lg:px-16 mt-14 lg:mt-12">
-        <nav class="flex justify-center md:justify-start gap-8 mb-6 text-base font-semibold border-b border-gray-600">
-          <button id="my-listings-btn" class="text-blue-medium-500 border-b-2 border-blue-medium-500 px-6">My listings</button>
-          <button id="my-bids-btn" class="text-black-500/60 border-b-2 border-transparent px-6 cursor-pointer hover:text-black-500">My bids</button>
-        </nav>
-        <div id="profile-content" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          ${profileListings.length > 0 ? profileListings.map(listing => `
-            <div class="card-small flex flex-col gap-4">
-              <h4 class="text-lg font-semibold">${listing.title || 'Untitled Listing'}</h4>
-              <p class="text-sm text-black-300">${listing.description || 'No description provided.'}</p>
-            </div>
-          `).join('') : '<p>You have not created any listings yet.</p>'}
-        </div>
-        <div id="pagination" class="flex items-center justify-center gap-4 mt-6">
-          <button id="prev-page-btn" class="btn-small btn-ghost">Previous</button>
-          <span id="current-page" class="text-sm text-black-300">Page 1</span>
-          <button id="next-page-btn" class="btn-small btn-ghost">Next</button>
-        </div>
+        ${tabs.renderTabs().tabsNav.outerHTML}
+        ${tabs.renderTabs().tabsContent.outerHTML}
       </section>
     </div>
   `;
