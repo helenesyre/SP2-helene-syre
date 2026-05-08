@@ -13,6 +13,7 @@ export function router() {
     const route = routes.find(route => route.path.test(hash));
 
     if (route) {
+      document.title = route.title || 'Nudge';
       const content = await route.view();
       app.innerHTML = content;
     } else {

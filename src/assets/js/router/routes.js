@@ -14,25 +14,31 @@ export const routes = [
   {
     path: /^#\/$/,
     view: home,
+    title: 'Nudge | Home',
   },
   {
     path: /^#\/profile\/([^\/]+)/,
     view: profile,
+    title: 'Nudge | Profile',
   },
   {
     path: /^#\/listing\/([^\/]+)/,
     view: listing,
+    title: 'Nudge | Listing',
   },
   {
     path: /^#\/register$/,
     view: register,
+    title: 'Nudge | Register',
   },
   {
     path: /^#\/login$/,
     view: login,
+    title: 'Nudge | Login',
   },
   {
     path: /^#\/coming-soon$/,
-    view: comingSoon
+    view: comingSoon,
+    title: 'Nudge | Coming Soon',
   },
 ]
