@@ -112,7 +112,7 @@ export function editProfileModal(profileData) {
 
   const bannerPreview = document.createElement('img');
   bannerPreview.className = 'w-36 h-20 object-cover';
-  bannerPreview.src = profileData.banner?.url || 'https://via.placeholder.com/600x200?text=No+Banner';
+  bannerPreview.src = profileData.banner?.url || 'https://placehold.co/600x200/dadada/aaa?text=No+Banner';
   bannerPreview.alt = profileData.banner?.alt || 'Profile banner preview';
 
   const bannerPreviewLabel = document.createElement('p');
@@ -191,7 +191,7 @@ export function editProfileModal(profileData) {
 
   const avatarPreview = document.createElement('img');
   avatarPreview.className = 'size-24 object-cover';
-  avatarPreview.src = profileData.avatar?.url || 'https://via.placeholder.com/150?text=No+Avatar';
+  avatarPreview.src = profileData.avatar?.url || 'https://placehold.co/150x150/dadada/aaa?text=No+Avatar';
   avatarPreview.alt = profileData.avatar?.alt || 'Profile image preview';
 
   const avatarPreviewLabel = document.createElement('p');

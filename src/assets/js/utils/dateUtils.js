@@ -1,4 +1,11 @@
-// SOURCE: inspiration from https://www.youtube.com/watch?v=34kbdFLpff8 (27.apr. 2026)
+/**
+ * Code inspiration source from:
+ * Create a Count Down Timer in 5 Minutes | HTML CSS & JavaScript
+ * @publisher: Html Camp
+ * @date: 03 October 2024
+ * accessed: 28 April 2026
+ * link: https://www.youtube.com/watch?v=34kbdFLpff8
+*/
 export function listingCountdown(element, endsAt) {
   function tick() {
     const timeRemaining = new Date(endsAt) - new Date();
