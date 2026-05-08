@@ -52,9 +52,9 @@ export function validatePassword(password) {
  */
 export function validationErrorMessageHTML(message = "Validation error") {
   return `
-  <div class="bg-feedback-error-bg border text-feedback-error-text px-4 py-3 rounded relative mb-4 form_error" role="alert">
-    <strong class="font-bold feedback-error-icon">Error!</strong>
-    <span class="block sm:inline">${message}</span>
+  <div class="text-feedback-error-icon relative mb-2 flex flex-row gap-2" role="alert">
+    <i data-lucide="alert-circle" class="shrink-0 size-5"></i>
+    <span class="block sm:inline text-sm">${message}</span>
   </div>
 `;
 };

@@ -1,5 +1,6 @@
 import { useAuth } from "../../utils/useAuth";
 import { validateNoroffEmail, validatePassword, validationErrorMessageHTML } from "../../utils/validation";
+import { renderIcons } from "../../utils/icons";
 
 export function setupLoginFormListeners() {
   const form = document.querySelector('#loginForm');
@@ -29,6 +30,7 @@ export function setupLoginFormListeners() {
           break;
       };
     };
+    renderIcons();
 
     if (isValid) {
       // Submit the form to API
@@ -43,19 +45,29 @@ export function setupLoginFormListeners() {
 export function loginForm() {
   const form = document.createElement('form');
   form.id = 'loginForm';
-  form.className = 'flex flex-col gap-6 mt-12 text-sm';
+  form.className = 'flex flex-col gap-6 text-sm text-start';
 
   form.innerHTML = `
-    <div class="flex flex-col gap-1">
-      <label for="email" class="font-semibold">Email<span class="text-feedback-error-icon">*</span></label>
-      <input type="email" id="email" name="email" aria-label="Email" placeholder="Email" class="input-field" required>
+    <div class="flex flex-col gap-4">
+      <div class="flex flex-col gap-2">
+        <div class="flex flex-col gap-1">
+          <label for="email" class="font-semibold">Email<span class="text-feedback-error-icon">*</span></label>
+          <input type="email" id="email" name="email" aria-label="Email" placeholder="Email" class="input-field" required>
+        </div>
+
+        <div class="flex flex-col gap-1">
+          <label for="password" class="font-semibold">Password<span class="text-feedback-error-icon">*</span></label>
+          <input type="password" id="password" name="password" aria-label="Password" placeholder="Password" class="input-field" required>
+        </div>
+      </div>
+
+      <p class="text-base text-blue-medium-500 cursor-pointer hover:underline">Having trouble sign in?</p>
     </div>
 
-    <div class="flex flex-col gap-1">
-      <label for="password" class="font-semibold">Password<span class="text-feedback-error-icon">*</span></label>
-      <input type="password" id="password" name="password" aria-label="Password" placeholder="Password" class="input-field" required>
-    </div>
-    <button type="submit" class="btn-medium btn-primary w-full">Login</button>
+    <button type="submit" class="btn-medium btn-primary w-full">
+      Sign in
+      <i data-lucide="log-in"></i>
+    </button>
   `;
   return form.outerHTML;
 };

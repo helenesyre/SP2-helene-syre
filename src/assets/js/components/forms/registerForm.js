@@ -1,5 +1,6 @@
 import { useAuth } from "../../utils/useAuth";
 import { validateNoroffEmail, validatePassword, validateUsername, validationErrorMessageHTML } from "../../utils/validation";
+import { renderIcons } from "../../utils/icons";
 
 
 export function setupRegisterFormListeners() {
@@ -42,6 +43,8 @@ export function setupRegisterFormListeners() {
           break;
       };
     };
+    renderIcons();
+
     if (isValid) {
       // Submit the form - API registration
       const username = formData.get('username');
@@ -57,24 +60,36 @@ export function setupRegisterFormListeners() {
 export function registerForm() {
   const form = document.createElement('form');
   form.id = 'registerForm';
-  form.className = 'flex flex-col gap-4 w-full max-w-sm';
+  form.className = 'flex flex-col gap-6 text-sm text-start';
 
   form.innerHTML = `
-    <div class="flex flex-col gap-1">
-      <label for="username" class="font-semibold">Username<span class="text-feedback-error-icon">*</span></label>
-      <input type="text" id="username" name="username" aria-label="Username" placeholder="Username" class="input-field" required>
+    <div class="flex flex-col gap-4">
+      <div class="flex flex-col gap-2">
+        <div class="flex flex-col gap-1">
+          <label for="username" class="font-semibold">Username<span class="text-feedback-error-icon">*</span></label>
+          <input type="text" id="username" name="username" aria-label="Username" placeholder="Username" class="input-field" required>
+        </div>
+
+        <div class="flex flex-col gap-1">
+          <label for="email" class="font-semibold">Email<span class="text-feedback-error-icon">*</span></label>
+          <input type="email" id="email" name="email" aria-label="Email" placeholder="Email" class="input-field" required>
+        </div>
+
+        <div class="flex flex-col gap-1">
+          <label for="password" class="font-semibold">Password<span class="text-feedback-error-icon">*</span></label>
+          <input type="password" id="password" name="password" aria-label="Password" placeholder="Password" class="input-field" required>
+        </div>
+      </div>
+      <div class="flex flex-row gap-2">
+        <input type="checkbox" id="terms" name="terms" required>
+        <label for="terms" class="text-sm text-black-500">I agree to the <span class="text-blue-medium-500 font-bold cursor-pointer hover:underline">Terms</span> and <span class="text-blue-medium-500 font-bold cursor-pointer hover:underline">Privacy Policy</span></label>
+      </div>
     </div>
 
-    <div class="flex flex-col gap-1">
-      <label for="email" class="font-semibold">Email<span class="text-feedback-error-icon">*</span></label>
-      <input type="email" id="email" name="email" aria-label="Email" placeholder="Email" class="input-field" required>
-    </div>
-
-    <div class="flex flex-col gap-1">
-      <label for="password" class="font-semibold">Password<span class="text-feedback-error-icon">*</span></label>
-      <input type="password" id="password" name="password" aria-label="Password" placeholder="Password" class="input-field" required>
-    </div>
-    <button type="submit" class="btn-medium btn-primary w-full">Register</button>
+    <button type="submit" class="btn-medium btn-primary w-full">
+      Register
+      <i data-lucide="log-in"></i>
+    </button>
   `;
   return form.outerHTML;
 };

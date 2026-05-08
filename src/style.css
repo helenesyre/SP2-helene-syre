@@ -298,6 +298,10 @@
     @apply bg-surface rounded-default p-6 shadow-sm hover:shadow-md transition-shadow duration-200;
   }
 
+  .card-auth {
+    @apply bg-surface rounded-default px-6 py-10 md:p-16 shadow-sm hover:shadow-md transition-shadow duration-200;
+  }
+
   /* Pagination buttons */
   .pagination-btn {
     @apply size-10 inline-flex items-center justify-center rounded-small text-base font-semibold;
