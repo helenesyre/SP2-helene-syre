@@ -6,7 +6,7 @@ import { useAuth } from '../../utils/useAuth.js';
 
 export async function listingBidCard({ listingData, activeTag, tags }) {
   /* Bids */
-  const currentBid = listingData.bids && listingData.bids.length > 0 ? listingData.bids[listingData.bids.length - 1].amount : 0;
+  const currentBid = listingData.bids && listingData.bids.length > 0 ? Math.max(...listingData.bids.map(bid => bid.amount)) : 0;
   const minNextBid = typeof currentBid === 'number' ? `$${currentBid + 1}` : 'Cannot calculate next bid';
   const bidsPlaced = listingData.bids ? listingData.bids.length : 0;
 
