@@ -66,7 +66,7 @@ export function loginForm() {
 
     <button type="submit" class="btn-medium btn-primary w-full">
       Sign in
-      <i data-lucide="log-in"></i>
+      <i data-lucide="log-in" class="size-6"></i>
     </button>
   `;
   return form.outerHTML;

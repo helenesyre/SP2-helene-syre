@@ -43,7 +43,7 @@ async function renderLoggedInNav() {
       <!-- New listing -->
         <li class="hidden md:block">
           <button id="new-listing-btn" class="btn-small md:btn-medium btn-ghost">
-            <i data-lucide="circle-plus" width="18px" height="18px"></i>
+            <i data-lucide="circle-plus" class="size-5"></i>
             New listing
           </button>
         </li>
@@ -51,7 +51,7 @@ async function renderLoggedInNav() {
         <!-- Credits -->
         <li>
           <span class="tag-icon tag-blue-light">
-            <i data-lucide="circle-dollar-sign" width="18px" height="18px"></i>
+            <i data-lucide="circle-dollar-sign" class="size-5"></i>
             ${credits}
           </span>
         </li>
@@ -69,7 +69,7 @@ async function renderLoggedInNav() {
         <!-- Hamburger menu for mobile -->
         <li class="block md:hidden">
           <button id="hamburger-btn" class="text-black-500 hover:text-blue-500 cursor-pointer flex items-center">
-            <i data-lucide="menu"></i>
+            <i data-lucide="menu" class="size-6"></i>
           </button>
         </li>
       </ul>
@@ -79,7 +79,7 @@ async function renderLoggedInNav() {
         <div id="mobile-menu" class="hidden md:hidden absolute top-0 right-0 p-6 w-6/7 h-screen bg-white border border-border shadow-md z-70">
           <div class="flex justify-end">
             <button id="close-mobile-menu" class="text-black-500 hover:text-blue-500 cursor-pointer">
-              <i data-lucide="x"></i>
+              <i data-lucide="x" class="size-6"></i>
             </button>
           </div>
 
@@ -96,25 +96,25 @@ async function renderLoggedInNav() {
           <ul class="flex flex-col gap-1">
             <li>
               <a href="#/" class="flex gap-2 items-center px-4 py-2 rounded-default text-base/5.5 font-bold hover:bg-gray-200">
-              <i data-lucide="home" width="18px" height="18px"></i>
+              <i data-lucide="home" class="size-5"></i>
                 Home
               </a>
             </li>
             <li>
               <a id="new-listing-btn-mobile" href="#" class="flex gap-2 items-center px-4 py-2 rounded-default text-base/5.5 font-bold hover:bg-gray-200">
-              <i data-lucide="circle-plus" width="18px" height="18px"></i>
+              <i data-lucide="circle-plus" class="size-5"></i>
                 New listing
               </a>
             </li>
             <li>
               <a href="#/profile/${userProfileName}" class="flex gap-2 items-center px-4 py-2 rounded-default text-base/5.5 font-bold hover:bg-gray-200">
-              <i data-lucide="user" width="18px" height="18px"></i>
+              <i data-lucide="user" class="size-5"></i>
                 Profile
               </a>
             </li>
             <li>
               <button id="logout-button-mobile" class="flex w-full cursor-pointer gap-2 items-center px-4 py-2 rounded-default text-base/5.5 font-bold hover:bg-gray-200">
-              <i data-lucide="log-out" width="18px" height="18px"></i>
+              <i data-lucide="log-out" class="size-5"></i>
                 Log out
               </button>
             </li>
@@ -125,7 +125,7 @@ async function renderLoggedInNav() {
           <div>
             <p class="text-base font-bold mb-1">My credits:</p>
             <span class="tag-icon tag-blue-light">
-              <i data-lucide="circle-dollar-sign" width="18px" height="18px"></i>
+              <i data-lucide="circle-dollar-sign" class="size-5"></i>
               ${credits}
             </span>
           </div>

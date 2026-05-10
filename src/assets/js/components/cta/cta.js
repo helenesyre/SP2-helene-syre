@@ -13,7 +13,7 @@ function renderVisitorCta() {
       <div class="flex flex-col gap-2 w-full md:w-fit md:shrink-0 md:items-end">
         <a href="#/register" class="btn-large btn-border-black w-full md:w-fit">
           Create account
-          <i data-lucide="arrow-right" width="20px" height="20px"></i>
+          <i data-lucide="arrow-right" class="size-5"></i>
         </a>
         <a href="#/login" class="btn-large btn-border-black w-full md:w-fit">Already have an account?</a>
       </div>
@@ -33,7 +33,7 @@ function renderLoggedInCta() {
       </div>
       <a href="#/coming-soon" class="btn-large btn-border-black w-full md:w-fit">
           Create a listing
-          <i data-lucide="circle-plus" width="20px" height="20px"></i>
+          <i data-lucide="circle-plus" class="size-5"></i>
         </a>
     </section>
   `;

@@ -88,7 +88,7 @@ export function registerForm() {
 
     <button type="submit" class="btn-medium btn-primary w-full">
       Register
-      <i data-lucide="log-in"></i>
+      <i data-lucide="log-in" class="size-6"></i>
     </button>
   `;
   return form.outerHTML;

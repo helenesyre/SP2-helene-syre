@@ -80,7 +80,7 @@ export async function profile() {
                 </div>
                 <button id="edit-btn" class="btn-border btn-medium">
                   Edit profile
-                  <i data-lucide="pencil" width="16px" height="16px"></i>
+                  <i data-lucide="pencil" class="size-5"></i>
                 </button>
               </div>
               <p class="text-base font-normal text-black-500 mt-4">${profileBio}</p>

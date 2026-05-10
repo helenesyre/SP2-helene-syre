@@ -39,7 +39,7 @@ export function showToast(message, type = "success", wait = 5000) {
   }
 
   titleElement.textContent = message;
-  closeButton.innerHTML = `<i data-lucide="x"></i>`;
+  closeButton.innerHTML = `<i data-lucide="x" class="size-6"></i>`;
   closeButton.onclick = () => {
     toast.remove();
   };

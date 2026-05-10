@@ -166,7 +166,7 @@ export function home() {
             <!-- Search -->
             <div class="flex my-8 gap-4 bg-white-500 rounded-default p-4 flex-col md:flex-row items-center w-full">
               <div class="flex items-center gap-2 w-full">
-                <i data-lucide="search" class="text-black-500"></i>
+                <i data-lucide="search" class="text-black-500 size-6"></i>
                 <label for="listing-search" class="sr-only">Search listings</label>
                 <input type="search" id="listing-search" placeholder="Search listings - e.g. “laptop”" class="input-field">
               </div>

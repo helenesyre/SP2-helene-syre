@@ -14,13 +14,13 @@ export function renderPaginationControls(pagination) {
   const previousButton = document.createElement("button");
   previousButton.classList = `pagination-btn pagination-btn-default ${pagination.getPage() === 1 ? 'pagination-btn-disabled' : ''}`;
   previousButton.disabled = pagination.getPage() === 1;
-  previousButton.innerHTML = `<i data-lucide="chevron-left"></i>`;
+  previousButton.innerHTML = `<i data-lucide="chevron-left" class="size-6"></i>`;
   previousButton.onclick = pagination.previousPage;
 
   const nextButton = document.createElement("button");
   nextButton.classList = `pagination-btn pagination-btn-default ${pagination.getPage() === pagination.getPageCount() ? 'pagination-btn-disabled' : ''}`;
   nextButton.disabled = pagination.getPage() === pagination.getPageCount();
-  nextButton.innerHTML = `<i data-lucide="chevron-right"></i>`;
+  nextButton.innerHTML = `<i data-lucide="chevron-right" class="size-6"></i>`;
   nextButton.onclick = pagination.nextPage;
 
   if (pagination.getPageCount() <= 6) {
