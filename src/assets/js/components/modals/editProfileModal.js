@@ -2,6 +2,7 @@ import useModal from '../../utils/useModal.js';
 import { updateProfile } from "../../utils/fetch.js";
 import { validateImgUrl } from "../../utils/validation.js";
 import { showToast } from '../toasts/toast.js';
+import { useAuth } from '../../utils/useAuth.js';
 
 export function editProfileModal(profileData) {
   const { closeModal } = useModal();
@@ -42,6 +43,9 @@ export function editProfileModal(profileData) {
       avatar: avatarUrl ? { url: avatarUrl, alt: avatarAlt } : null,
       bio,
     });
+
+    const auth = useAuth();
+    await auth.updateStoreUserData();
 
     if (response.data) {
       showToast('Profile updated successfully!', 'success');

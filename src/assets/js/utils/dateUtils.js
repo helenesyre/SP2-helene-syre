@@ -129,3 +129,10 @@ export function renderBidListingCountdown(element, endsAt) {
   tick();
   return setInterval(tick, 1000);
 }
+
+export default function countdownListings(listings) {
+  listings.forEach((listing) => {
+    const countdownElement = document.getElementById(`countdown-${listing.id}`);
+    if (countdownElement) listingCountdown(countdownElement, listing.endsAt);
+  });
+}

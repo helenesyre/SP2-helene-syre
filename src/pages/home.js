@@ -5,7 +5,7 @@ import { filterListingsByTag, getPaginatedListings, searchListings } from '../as
 import { showToast } from '../assets/js/components/toasts/toast';
 import { usePagination } from '../assets/js/utils/usePagination';
 import { renderPaginationControls } from '../assets/js/components/pagination/paginationControls.js';
-import { listingCountdown } from '../assets/js/utils/dateUtils.js';
+import countdownListings from '../assets/js/utils/dateUtils.js';
 
 export function home() {
   // Pagination
@@ -151,13 +151,6 @@ export function home() {
     `;
     }
     renderIcons();
-  }
-
-  function countdownListings(listings) {
-    listings.forEach((listing) => {
-      const countdownElement = document.getElementById(`countdown-${listing.id}`);
-      if (countdownElement) listingCountdown(countdownElement, listing.endsAt);
-    });
   }
   setTimeout(loadListings, 0);
 

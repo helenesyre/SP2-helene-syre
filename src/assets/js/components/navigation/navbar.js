@@ -1,11 +1,8 @@
 import { logo } from '../../../logo/logo.js';
-import userProfile from '../../../images/user-profile.jpg';
 import { useAuth } from '../../utils/useAuth.js';
 import useModal from '../../utils/useModal.js';
 import { createListingModal } from '../modals/createListingModal.js';
-import { getUserCredits } from '../../utils/credits.js';
 import { renderIcons } from '../../utils/icons.js';
-import { getSingleProfileData } from '../../utils/fetch.js';
 
 function renderVisitorNav() {
   return `
@@ -29,16 +26,15 @@ async function renderLoggedInNav() {
     }
   });
 
-  const credits = await getUserCredits();
-
   // Fetch user profile data to display profile picture and name in the navbar
   const auth = useAuth();
   const userData = auth.getUserData();
-  const profileResponse = await getSingleProfileData(userData.name);
-  const userProfilePicture = profileResponse.data?.avatar?.url || 'https://placehold.co/40x40/dadada/aaa?text=User';
-  const userProfileAlt = profileResponse.data?.avatar?.alt || `${userData.name}'s avatar` || 'User profile picture';
-  const userProfileName = profileResponse.data?.name || userData.name || 'User';
-  const userProfileUsername = profileResponse.data?.username || userData.name || 'username';
+  const profileResponse = await auth.getStoreUserData();
+  const userProfilePicture = profileResponse?.avatar?.url || 'https://placehold.co/40x40/dadada/aaa?text=User';
+  const userProfileAlt = profileResponse?.avatar?.alt || `${userData.name}'s avatar` || 'User profile picture';
+  const userProfileName = profileResponse?.name || userData.name || 'User';
+  const userProfileUsername = profileResponse?.username || userData.name || 'username';
+  const credits = profileResponse?.credits || 0;
 
   return `
     <nav class="relative flex items-center justify-between p-6 md:px-8 lg:px-16 border-b border-border">

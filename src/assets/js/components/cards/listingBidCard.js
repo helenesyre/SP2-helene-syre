@@ -32,6 +32,9 @@ export async function listingBidCard({ listingData, activeTag, tags }) {
       bidAmount,
     );
 
+    const auth = useAuth();
+    await auth.updateStoreUserData();
+
     if (response.data) {
       showToast('Bid went through successfully!', 'success');
       setTimeout(() => window.location.reload(), 750);

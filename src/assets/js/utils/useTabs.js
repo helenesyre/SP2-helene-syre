@@ -19,10 +19,9 @@ export default function useTabs(tabs) {
         button.classList.toggle('tab-active', button === target);
         button.classList.toggle('tab-inactive', button !== target);
       });
-
-      tabContents.forEach(content => {
-        content.classList.toggle('hidden', `#${content.id}` !== target.dataset.tabTarget);
-      });
+      // handle content rendering for the active tab
+      const activeTab = tabs.find(tab => `#tab-content-${tabs.indexOf(tab)}` === target.dataset.tabTarget);
+      if (activeTab) activeTab.content();
     }
   }
 
@@ -44,22 +43,18 @@ export default function useTabs(tabs) {
 
     setupEventListeners();
 
-    const tabContents = tabs.map((tab, index) => {
-      const contentContainer = document.createElement('div');
-      contentContainer.id = `tab-content-${index}`;
-      contentContainer.dataset.tabContent = '';
-      contentContainer.classList = index === 0 ? '' : 'hidden';
-      contentContainer.appendChild(tab.content);
-      return contentContainer;
-    });
-
     const tabsNav = document.createElement('nav');
     tabsNav.classList = "flex justify-center md:justify-start gap-8 mb-6 text-base font-semibold border-b border-gray-600";
     tabButtons.forEach(button => tabsNav.appendChild(button));
 
     const tabsContent = document.createElement('div');
+    tabsContent.id = 'tab-content'
     tabsContent.classList = "mb-6";
-    tabContents.forEach(content => tabsContent.appendChild(content));
+    tabs.forEach((tab, index) => {
+      if (index === 0) {
+        tab.content()
+      };
+    });
 
     return { tabsNav, tabsContent };
   }

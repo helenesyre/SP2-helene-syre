@@ -1,4 +1,5 @@
 import { showToast } from "../components/toasts/toast";
+import { getSingleProfileData } from "./fetch";
 import useFetch from "./useFetch";
 
 /**
@@ -95,6 +96,22 @@ export function useAuth() {
     return userData ? JSON.parse(userData) : null;
   };
 
+  async function updateStoreUserData() {
+    const response = await getSingleProfileData(getUserData().name);
+    localStorage.setItem('storeUserData', JSON.stringify(response.data));
+    return response.data;
+  }
+
+  async function getStoreUserData() {
+    const storedData = localStorage.getItem('storeUserData');
+    if (storedData) {
+      return JSON.parse(storedData);
+    } else {
+      const updatedData = await updateStoreUserData();
+      return updatedData;
+    }
+  }
+
   /**
    * Logs out the current user by clearing local storage and redirecting to the home page.
    */
@@ -102,6 +119,7 @@ export function useAuth() {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('profileName');
     localStorage.removeItem('userData');
+    localStorage.removeItem('storeUserData');
     showToast(`Logged out successfully! Redirecting to home...`, 'success', 5000);
     window.location.hash = '';
   };
@@ -127,6 +145,8 @@ export function useAuth() {
     login,
     register,
     getUserData,
+    getStoreUserData,
+    updateStoreUserData,
     isLoggedIn,
     logout,
     getToken,

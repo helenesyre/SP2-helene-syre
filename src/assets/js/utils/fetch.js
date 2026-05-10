@@ -191,10 +191,10 @@ export async function updateProfile(profileName, profileData) {
 };
 
 /* All listings by profile */
-export async function getSingleProfileListings(profileId) {
+export async function getSingleProfileListings(profileId, page = 1, limit = 8) {
   const auth = useAuth();
   const token = auth.getToken();
-  const data = await useFetch(`/auction/profiles/${profileId}/listings?_bids=true&_seller=true&_comments=true&_reactions=true`, {
+  const data = await useFetch(`/auction/profiles/${profileId}/listings?_bids=true&_seller=true&_comments=true&_reactions=true&page=${page}&limit=${limit}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -206,10 +206,10 @@ export async function getSingleProfileListings(profileId) {
 };
 
 /* All bids by profile */
-export async function getBidsByProfile(profileName) {
+export async function getBidsByProfile(profileName, page = 1, limit = 8) {
   const auth = useAuth();
   const token = auth.getToken();
-  const data = await useFetch(`/auction/profiles/${profileName}/bids?_listings=true&_bids=true`, {
+  const data = await useFetch(`/auction/profiles/${profileName}/bids?_listings=true&_bids=true&page=${page}&limit=${limit}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -221,10 +221,10 @@ export async function getBidsByProfile(profileName) {
 };
 
 /* All wins by profile */
-export async function getWinsByProfile(profileName) {
+export async function getWinsByProfile(profileName, page = 1, limit = 100) {
   const auth = useAuth();
   const token = auth.getToken();
-  const data = await useFetch(`/auction/profiles/${profileName}/wins?_listings=true`, {
+  const data = await useFetch(`/auction/profiles/${profileName}/wins?_listings=true&page=${page}&limit=${limit}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
