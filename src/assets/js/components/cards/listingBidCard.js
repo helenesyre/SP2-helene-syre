@@ -1,5 +1,4 @@
 import { formatEndDate } from '../../utils/dateUtils.js';
-import { getUserCredits } from '../../utils/credits.js';
 import { placeBid } from '../../utils/fetch.js';
 import { showToast } from '../toasts/toast.js';
 import { useAuth } from '../../utils/useAuth.js';
@@ -10,9 +9,10 @@ export async function listingBidCard({ listingData, activeTag, tags }) {
   const minNextBid = typeof currentBid === 'number' ? `$${currentBid + 1}` : 'Cannot calculate next bid';
   const bidsPlaced = listingData.bids ? listingData.bids.length : 0;
 
+  const auth = useAuth();
   /* Place bid */
-  const userData = await useAuth().getStoreUserData();
-  const credits = userData.credits;
+  let userData = auth.isLoggedIn() ? await auth.getStoreUserData() : null;
+  const credits = userData ? userData.credits : 0;
 
   async function handleBidSubmit() {
     const bidAmount = document.getElementById("bid-amount").value;
