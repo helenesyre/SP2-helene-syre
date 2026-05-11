@@ -97,7 +97,7 @@ export function useAuth() {
   };
 
   async function updateStoreUserData() {
-    const response = await getSingleProfileData(getUserData().name);
+    const response = await getSingleProfileData(getUserData());
     localStorage.setItem('storeUserData', JSON.stringify(response.data));
     return response.data;
   }
