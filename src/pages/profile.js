@@ -37,10 +37,6 @@ export async function profile() {
   const profileAvatarAlt = profileData.avatar?.alt || `${profileName}'s avatar` || 'User profile picture';
   // Bio
   const profileBio = profileData.bio || 'This user has not provided a bio yet.';
-  // Bids placed
-  const bidsByProfile = await getBidsByProfile(profileName);
-  const bidsByProfileData = bidsByProfile?.data || [];
-  const profileTotalBids = bidsByProfileData.length;
 
   // Tabs
   const { renderListings } = profileListings(urlProfileName);
@@ -87,15 +83,15 @@ export async function profile() {
             </div>
           </div>
           <ul class="grid grid-cols-3 gap-2 md:gap-4 xl:mb-10">
-            <li class="flex flex-col items-center px-4.5 py-4 border border-gray-600 rounded-default">
-              <p class="text-xl md:text-3xl text-blue-medium-500 font-bold">${profileData.listings.length}</p>
+            <li class="flex flex-col items-center px-4.5 md:px-7 xl:px-9 py-4 border border-gray-600 rounded-default">
+              <p class="text-xl md:text-3xl text-blue-medium-500 font-bold">${profileData._count?.listings}</p>
               <p class="text-sm md:text-base text-black-300 whitespace-nowrap">Listings</p>
             </li>
-            <li class="flex flex-col items-center px-4.5 py-4 border border-gray-600 rounded-default">
-              <p class="text-xl md:text-3xl text-blue-medium-500 font-bold">${profileTotalBids}</p>
-              <p class="text-sm md:text-base text-black-300 whitespace-nowrap">Bids placed</p>
+            <li class="flex flex-col items-center px-4.5 md:px-7 xl:px-9 py-4 border border-gray-600 rounded-default">
+              <p class="text-xl md:text-3xl text-blue-medium-500 font-bold">${profileData._count?.wins}</p>
+              <p class="text-sm md:text-base text-black-300 whitespace-nowrap">Bids won</p>
             </li>
-            <li class="flex flex-col items-center px-4.5 py-4 border border-gray-600 rounded-default">
+            <li class="flex flex-col items-center px-4.5 md:px-7 xl:px-9 py-4 border border-gray-600 rounded-default">
               <p class="text-xl md:text-3xl text-blue-medium-500 font-bold">${profileData.credits}</p>
               <p class="text-sm md:text-base text-black-300 whitespace-nowrap">Credits</p>
             </li>
