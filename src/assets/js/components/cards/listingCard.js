@@ -114,15 +114,20 @@ export function listingCard(listing, deleteAndRefreshFunction) {
     });
 
     const modalDeleteContent = deleteListingModal(listing.id, deleteAndRefreshFunction);
-    deleteBtn.addEventListener('click', (event) => {
-      if (event.target.closest('#delete-btn')) {
-        event.preventDefault();
-        openModal(modalDeleteContent);
-      }
-    });
+
 
     buttonContainer.appendChild(editButton);
-    buttonContainer.appendChild(deleteBtn);
+
+    if (listing._count?.bids <= 0) {
+      deleteBtn.addEventListener('click', (event) => {
+        if (event.target.closest('#delete-btn')) {
+          event.preventDefault();
+          openModal(modalDeleteContent);
+        }
+      });
+      buttonContainer.appendChild(deleteBtn);
+    }
+
     contentContainerBody.appendChild(buttonContainer);
 
   } else if (isLoggedIn()) {

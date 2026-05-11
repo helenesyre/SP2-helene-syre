@@ -93,6 +93,7 @@ export async function listingBidCard({ listingData, activeTag, tags }) {
 
   setTimeout(() => {
     const bidform = document.getElementById("bid-form")
+    if (!bidform) return;
     bidform.addEventListener("submit", (event) => {
       event.preventDefault();
       handleBidSubmit();

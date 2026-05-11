@@ -67,13 +67,17 @@ export async function listing() {
         </nav>
         ${(isLoggedIn() && user.name === listingData.seller?.name) ? `
           <div id="seller-listings-actions" class="flex items-center gap-2">
-            <button id="edit-btn" class="btn-border btn-medium">
-              Edit listing
-              <i data-lucide="pencil" class="size-5"></i>
-            </button>
-            <button id="delete-btn" class="btn-icon btn-ghost hover:bg-feedback-error-bg hover:text-feedback-error-icon">
-              <i data-lucide="trash-2" class="size-5"></i>
-            </button>
+            ${new Date(listingData.endsAt) < new Date() ? '' : `
+              <button id="edit-btn" class="btn-border btn-medium">
+                Edit listing
+                <i data-lucide="pencil" class="size-5"></i>
+              </button>
+            `}
+            ${listingData._count?.bids > 0 ? '' : `
+              <button id="delete-btn" class="btn-icon btn-ghost hover:bg-feedback-error-bg hover:text-feedback-error-icon">
+                <i data-lucide="trash-2" class="size-5"></i>
+              </button>
+            `}
           </div>
           `
       : ''
