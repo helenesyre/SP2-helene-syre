@@ -13,7 +13,7 @@ export default function useTabs(tabs) {
     const target = event.target;
     if (target.dataset.tabTarget) {
       const tabButtons = target.parentElement.querySelectorAll('button');
-      const tabContents = document.querySelectorAll('[data-tab-content]');
+      const tabContents = document.getElementById('tab-content');
 
       tabButtons.forEach(button => {
         button.classList.toggle('tab-active', button === target);
@@ -21,6 +21,8 @@ export default function useTabs(tabs) {
       });
       // handle content rendering for the active tab
       const activeTab = tabs.find(tab => `#tab-content-${tabs.indexOf(tab)}` === target.dataset.tabTarget);
+
+      tabContents.innerHTML = '<p>Loading...</p>';
       if (activeTab) activeTab.content();
     }
   }
@@ -49,6 +51,7 @@ export default function useTabs(tabs) {
 
     const tabsContent = document.createElement('div');
     tabsContent.id = 'tab-content'
+    tabsContent.innerHTML = '<p>Loading...</p>';
     tabsContent.classList = "mb-6";
     tabs.forEach((tab, index) => {
       if (index === 0) {

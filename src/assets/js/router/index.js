@@ -14,6 +14,7 @@ export function router() {
 
     if (route) {
       document.title = route.title || 'Nudge';
+      app.innerHTML = '<p>Loading...</p>';
       const content = await route.view();
       app.innerHTML = content;
     } else {

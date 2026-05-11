@@ -38,9 +38,13 @@ export async function listing() {
     <div class="flex items-center justify-between">
       <div class="flex flex-col md:flex-row lg:flex-col xl:flex-row items-center gap-1 md:gap-4 lg:gap-1 xl:gap-4">
         <div class="flex items-center gap-4">
-          <img src="${bid.bidder.avatar?.url || 'https://placehold.co/40x40/dadada/aaa?text=User'}" alt="${bid.bidder.avatar?.alt || `${bid.bidder.name}'s avatar`}" class="size-14 object-cover rounded-full">
+          <a href="#/profile/${bid.bidder.name}" class="hover:opacity-90 transform transition-opacity duration-200">
+            <img src="${bid.bidder.avatar?.url || 'https://placehold.co/40x40/dadada/aaa?text=User'}" alt="${bid.bidder.avatar?.alt || `${bid.bidder.name}'s avatar`}" class="size-14 object-cover rounded-full">
+          </a>
           <div>
-            <p class="text-lg font-bold text-black-500">@${bid.bidder.name}</p>
+            <a href="#/profile/${bid.bidder.name}" class="hover:underline">
+              <p class="text-lg font-bold text-black-500">@${bid.bidder.name}</p>
+            </a>
             <p class="text-base font-medium text-black-300">${new Date(bid.created).toLocaleString()}</p>
           </div>
         </div>
@@ -73,7 +77,7 @@ export async function listing() {
                 <i data-lucide="pencil" class="size-5"></i>
               </button>
             `}
-            ${listingData._count?.bids > 0 ? '' : `
+            ${listingData._count?.bids > 0 || new Date(listingData.endsAt) < new Date() ? '' : `
               <button id="delete-btn" class="btn-icon btn-ghost hover:bg-feedback-error-bg hover:text-feedback-error-icon">
                 <i data-lucide="trash-2" class="size-5"></i>
               </button>
@@ -95,9 +99,13 @@ export async function listing() {
             <p class="text-black-500 text-base w-full xl:w-3/4">${description}</p>
             <hr class="my-4 border-border">
             <div class="flex items-center gap-4">
-              <img src="${sellerImage}" alt="${sellerImageAlt}" class="size-14 object-cover rounded-full">
+              <a href="#/profile/${listingData.seller?.name}" class="hover:opacity-90 transform transition-opacity duration-200">
+                <img src="${sellerImage}" alt="${sellerImageAlt}" class="size-14 object-cover rounded-full">
+              </a>
               <div>
-                <p class="text-lg font-bold text-black-500">${sellerName}</p>
+                <a href="#/profile/${listingData.seller?.name}" class="hover:underline">
+                  <p class="text-lg font-bold text-black-500">${sellerName}</p>
+                </a>
                 <p class="text-base font-medium text-black-300">@${sellerName}</p>
               </div>
             </div>

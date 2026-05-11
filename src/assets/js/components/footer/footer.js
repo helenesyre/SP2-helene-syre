@@ -1,5 +1,16 @@
 export function renderFooter() {
   const footerContainer = document.getElementById('footer-container');
+  // Check what page the user is on, if on home scroll to top, if not, navigate to home
+  const currentPath = window.location.hash;
+  const isHomePage = currentPath === '#/' || currentPath === '#/index.html';
+  footerContainer.addEventListener('click', () => {
+    if (isHomePage) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      window.location.href = '#/';
+    }
+  });
+
   footerContainer.className = 'footer-gradient text-white-500 border-border border-t p-6 py-12 md:px-8 lg:px-16 text-base';
   footerContainer.innerHTML = `
     <section class="flex flex-col gap-2">

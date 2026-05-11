@@ -60,6 +60,8 @@ export async function profile() {
     }
   }, 0);
 
+  const isLoggedInUser = useAuth().isLoggedIn() && useAuth().getUserData().name === profileData.name;
+
   return `
     <h1 class="sr-only">${profileName} profile</h1>
     <div>
@@ -74,28 +76,32 @@ export async function profile() {
                   <h2 class="text-3xl font-semibold text-black-500 capitalize">${profileName}</h2>
                   <p class="text-base font-normal text-black-300">@${profileUsername}</p>
                 </div>
+                ${isLoggedInUser ? `
                 <button id="edit-btn" class="btn-border btn-medium">
                   Edit profile
                   <i data-lucide="pencil" class="size-5"></i>
                 </button>
+              ` : ''}
               </div>
               <p class="text-base font-normal text-black-500 mt-4">${profileBio}</p>
             </div>
           </div>
-          <ul class="grid grid-cols-3 gap-2 md:gap-4 xl:mb-10">
-            <li class="flex flex-col items-center px-4.5 md:px-7 xl:px-9 py-4 border border-gray-600 rounded-default">
-              <p class="text-xl md:text-3xl text-blue-medium-500 font-bold">${profileData._count?.listings}</p>
-              <p class="text-sm md:text-base text-black-300 whitespace-nowrap">Listings</p>
-            </li>
-            <li class="flex flex-col items-center px-4.5 md:px-7 xl:px-9 py-4 border border-gray-600 rounded-default">
-              <p class="text-xl md:text-3xl text-blue-medium-500 font-bold">${profileData._count?.wins}</p>
-              <p class="text-sm md:text-base text-black-300 whitespace-nowrap">Bids won</p>
-            </li>
-            <li class="flex flex-col items-center px-4.5 md:px-7 xl:px-9 py-4 border border-gray-600 rounded-default">
-              <p class="text-xl md:text-3xl text-blue-medium-500 font-bold">${profileData.credits}</p>
-              <p class="text-sm md:text-base text-black-300 whitespace-nowrap">Credits</p>
-            </li>
-          </ul>
+            <ul class="grid ${isLoggedInUser ? 'grid-cols-3' : 'grid-cols-2'} gap-2 md:gap-4 xl:mb-10">
+              <li class="flex flex-col items-center px-4.5 md:px-7 xl:px-9 py-4 border border-gray-600 rounded-default">
+                <p class="text-xl md:text-3xl text-blue-medium-500 font-bold">${profileData._count?.listings}</p>
+                <p class="text-sm md:text-base text-black-300 whitespace-nowrap">Listings</p>
+              </li>
+              <li class="flex flex-col items-center px-4.5 md:px-7 xl:px-9 py-4 border border-gray-600 rounded-default">
+                <p class="text-xl md:text-3xl text-blue-medium-500 font-bold">${profileData._count?.wins}</p>
+                <p class="text-sm md:text-base text-black-300 whitespace-nowrap">Bids won</p>
+              </li>
+              ${isLoggedInUser ? `
+                <li class="flex flex-col items-center px-4.5 md:px-7 xl:px-9 py-4 border border-gray-600 rounded-default">
+                  <p class="text-xl md:text-3xl text-blue-medium-500 font-bold">${profileData.credits}</p>
+                  <p class="text-sm md:text-base text-black-300 whitespace-nowrap">Credits</p>
+                </li>
+              ` : ''}
+            </ul>
         </div>
       </section>
       <section class="flex flex-col gap-6 px-6 md:px-8 lg:px-16 mt-14 lg:mt-12">

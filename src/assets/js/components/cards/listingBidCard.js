@@ -11,7 +11,8 @@ export async function listingBidCard({ listingData, activeTag, tags }) {
   const bidsPlaced = listingData.bids ? listingData.bids.length : 0;
 
   /* Place bid */
-  const credits = await getUserCredits();
+  const userData = await useAuth().getStoreUserData();
+  const credits = userData.credits;
 
   async function handleBidSubmit() {
     const bidAmount = document.getElementById("bid-amount").value;
@@ -20,7 +21,7 @@ export async function listingBidCard({ listingData, activeTag, tags }) {
       showToast(`Please enter a valid bid amount greater than the current bid of $${currentBid}.`, 'error');
       return;
     }
-    // check if user have enough credit
+    // check if user have enough credits
     if (Number(bidAmount) > credits) {
       showToast(`You do not have enough credits to place this bid.`, 'error');
       return;

@@ -1,4 +1,5 @@
 import image404 from '../assets/images/404.png';
+import { useAuth } from '../assets/js/utils/useAuth';
 
 export function pageNotFound() {
   return `
@@ -6,7 +7,10 @@ export function pageNotFound() {
       <img src="${image404}" alt="404 Error - Page Not Found" class="w-full max-w-2xl">
       <h1 class="text-4xl font-bold">Oops! Page not found</h1>
       <p class="text-lg">The page you are looking for does not exist. Please check the URL or return to the home page.</p>
-      <a href="#/" class="btn-small btn-border">Go to Home</a>
+      <div class="flex flex-row gap-4 justify-center">
+        <a href="#/" class="btn-small btn-border">Go to Home</a>
+        ${useAuth().isLoggedIn() ? `<a href="#/profile/${useAuth().getUserData().name}" class="btn-small btn-border">Go to Profile</a>` : `<a href="#/login" class="btn-small btn-border">Login</a>`}
+      </div>
     </div>
   `;
 }

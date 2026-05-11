@@ -133,7 +133,7 @@ export function home() {
       pagination.updatePageCount(response.meta.pageCount || 1);
 
       container.innerHTML = `
-        <h2 id="listings-title" class="text-4xl font-medium mb-6">Active listings</h2>
+        <h2 id="listings-title" class="text-2xl md:text-4xl font-medium mb-6">Active listings</h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-4" id="listing-container"></div>
         <div id="pagination-controls" class="flex items-center justify-center gap-2 md:gap-4 mt-8"></div>
       `;
@@ -159,8 +159,8 @@ export function home() {
       <img src="${headerHome}" alt="Hero image" class="w-full h-162.5 object-cover">
       <div class="absolute inset-0 bg-blue-800/80"></div>
       <div class="absolute inset-0 flex flex-col items-center justify-center text-center max-w-[650px] mx-auto p-6">
-        <h1 class="text-5xl max-w-[570px]">Bid, sell and discover with fellow students</h1>
-        <p class="text-lg text-white-500/70 max-w-[570px]">A peer-to-peer auction platform exclusively for Noroff students. Start with 1,000 credits.</p>
+        <h1 class="text-3xl md:text-5xl max-w-[570px]">Bid, sell and discover with fellow students</h1>
+        <p class="text-base md:text-lg text-white-500/70 max-w-[570px]">A peer-to-peer auction platform exclusively for Noroff students. Start with 1,000 credits.</p>
         <div class="w-full">
           <form id="listing-search-form" onsubmit="event.preventDefault()">
             <!-- Search -->

@@ -63,6 +63,9 @@ export function listingCard(listing, deleteAndRefreshFunction) {
   const currentBidLabel = document.createElement('p');
   currentBidLabel.classList = "text-sm font-medium text-black-500";
   currentBidLabel.textContent = "Current bid";
+  if (new Date(listing.endsAt) < new Date()) {
+    currentBidLabel.textContent = "Final price";
+  }
 
   const currentBidValue = document.createElement('p');
   currentBidValue.classList = "text-xl font-bold text-blue-medium-500";
