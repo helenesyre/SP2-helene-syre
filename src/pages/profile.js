@@ -12,10 +12,10 @@ export async function profile() {
   const profilePageMatch = hash.match(/^#\/profile\/([^\/]+)/);
   const urlProfileName = profilePageMatch ? profilePageMatch[1] : null;
 
-  let profile;
+  let profileResponse;
   try {
-    profile = await getSingleProfileData(urlProfileName);
-    if (!profile.data) {
+    profileResponse = await getSingleProfileData(urlProfileName);
+    if (!profileResponse.data) {
       throw Error("Profile not found");
     }
   } catch {
@@ -24,7 +24,7 @@ export async function profile() {
   }
 
   // Extract profile data
-  const profileData = profile.data;
+  const profileData = profileResponse.data;
   // Name
   const profileName = profileData.name || profileData.username || 'User';
   // Username
