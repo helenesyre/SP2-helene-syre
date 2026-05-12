@@ -52,7 +52,7 @@ export function validatePassword(password) {
  */
 export function validationErrorMessageHTML(message = "Validation error") {
   return `
-  <div class="text-feedback-error-icon relative mb-2 flex flex-row gap-2" role="alert">
+  <div class="form_error text-feedback-error-icon relative mb-2 flex flex-row gap-2" role="alert">
     <i data-lucide="alert-circle" class="shrink-0 size-5"></i>
     <span class="block sm:inline text-sm">${message}</span>
   </div>
