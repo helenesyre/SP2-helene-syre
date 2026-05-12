@@ -30,7 +30,7 @@ export function profileListings(profileId) {
 
       tabContentContainer.innerHTML = "";
       if (listingData.length > 0) {
-        listingData.forEach(listing => tabContentContainer.appendChild(listingCard(listing, () => { })));
+        listingData.forEach(listing => tabContentContainer.appendChild(listingCard(listing, renderListings)));
       } else {
         tabContentContainer.innerHTML = `${isLoggedInUser ? '<p>You have not created any listings yet.</p>' : '<p>This user has not created any listings yet.</p>'}`;
       }
