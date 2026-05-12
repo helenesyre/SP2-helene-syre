@@ -105,7 +105,7 @@ export async function listingBidCard({ listingData, activeTag, tags }) {
   return `
     <div class="card-large flex flex-col gap-8">
       <div>
-        <h1 class="mb-2 text-3xl mb:text-4xl">${listingData.title || 'Untitled Listing'}</h1>
+        <h1 class="mb-2 text-3xl mb:text-4xl text-ellipsis line-clamp-2 break-word">${listingData.title || 'Untitled Listing'}</h1>
         <div class="flex flex-wrap items-center gap-2">
           ${activeTag}
           ${tags.map(tag => `<span class="tag-medium tag-blue-light">${tag}</span>`).join('')}

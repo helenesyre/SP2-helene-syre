@@ -111,3 +111,17 @@
 **Link:** [https://www.youtube.com/watch?v=5L6h_MrNvsk](https://www.youtube.com/watch?v=5L6h_MrNvsk)
 
 ---
+
+**Title:** How to make line-clamp-2 work without needing to add 3 words
+
+**Page Publisher:** ChenBr
+
+**Date:** 06 March 2023
+
+**Used for:** `Truncating listing titles`
+
+**Usage:** I used it for my listing titles. I wanted to make sure that the titles would be truncated correctly without needing to add extra words.
+
+**Accessed:** 12 May 2026
+
+**Link:** [https://stackoverflow.com/questions/75651431/how-to-make-line-clamp-2-work-without-needing-to-add-3-words](https://stackoverflow.com/questions/75651431/how-to-make-line-clamp-2-work-without-needing-to-add-3-words)

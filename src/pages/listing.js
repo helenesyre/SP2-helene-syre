@@ -66,7 +66,7 @@ export async function listing() {
           <ol class="list-reset flex text-black-200">
             <li><a href="#/" class="hover:underline">Home</a></li>
             <li><span class="mx-2">/</span></li>
-            <li class="text-blue-500">${title}</li>
+            <li class="text-blue-500 truncate max-w-64 md:max-w-96">${title}</li>
           </ol>
         </nav>
         ${(isLoggedIn() && user.name === listingData.seller?.name) ? `
@@ -96,7 +96,7 @@ export async function listing() {
           </div>
           <div class="card-large">
             <h2 class="text-xl font-semibold mb-2">About this listing</h2>
-            <p class="text-black-500 text-base w-full xl:w-3/4">${description}</p>
+            <p class="text-black-500 text-base w-full xl:w-3/4 overflow-hidden text-ellipsis">${description}</p>
             <hr class="my-4 border-border">
             <div class="flex items-center gap-4">
               <a href="#/profile/${listingData.seller?.name}" class="hover:opacity-90 transform transition-opacity duration-200">
