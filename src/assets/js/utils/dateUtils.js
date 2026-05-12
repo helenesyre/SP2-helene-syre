@@ -24,13 +24,6 @@ export function listingCountdown(element, endsAt) {
       element.classList.add('tag-blue-light');
     }
 
-    // if less than 1 minute left, show seconds
-    if (timeRemaining < 60000 && timeRemaining > 0) {
-      element.textContent = `${Math.floor(timeRemaining / 1000)}s left`;
-      element.classList.remove('tag-blue-light');
-      element.classList.add('tag-red');
-    }
-
     // if 0 days left, show hours and minutes only
     if (days === 0 && timeRemaining > 0) {
       element.textContent = `${hours}h ${minutes}m left`;
@@ -39,6 +32,13 @@ export function listingCountdown(element, endsAt) {
     // if 0 days and 0 hours left, show minutes only
     if (days === 0 && hours === 0 && timeRemaining > 0) {
       element.textContent = `${minutes}m left`;
+    }
+
+    // if less than 1 minute left, show seconds
+    if (timeRemaining < 60000 && timeRemaining > 0) {
+      element.textContent = `${Math.floor(timeRemaining / 1000)}s left`;
+      element.classList.remove('tag-blue-light');
+      element.classList.add('tag-red');
     }
   }
 
@@ -64,13 +64,6 @@ export function singleListingCountdown(element, endsAt) {
       element.classList.add('tag-medium', 'tag-blue-border');
     }
 
-    // if less than 1 minute left, show seconds
-    if (timeRemaining < 60000 && timeRemaining > 0) {
-      element.textContent = `${Math.floor(timeRemaining / 1000)}s left`;
-      element.classList.remove('tag-blue-light');
-      element.classList.add('tag-red');
-    }
-
     // if 0 days left, show hours and minutes only
     if (days === 0 && timeRemaining > 0) {
       element.textContent = `${hours}h ${minutes}m left`;
@@ -79,6 +72,13 @@ export function singleListingCountdown(element, endsAt) {
     // if 0 days and 0 hours left, show minutes only
     if (days === 0 && hours === 0 && timeRemaining > 0) {
       element.textContent = `${minutes}m left`;
+    }
+
+    // if less than 1 minute left, show seconds
+    if (timeRemaining < 60000 && timeRemaining > 0) {
+      element.textContent = `${Math.floor(timeRemaining / 1000)}s left`;
+      element.classList.remove('tag-blue-light');
+      element.classList.add('tag-red');
     }
   }
 
@@ -110,11 +110,6 @@ export function renderBidListingCountdown(element, endsAt) {
       element.textContent = `${days}d ${hours}h ${minutes}m left`;
     }
 
-    // if less than 1 minute left, show seconds
-    if (timeRemaining < 60000 && timeRemaining > 0) {
-      element.textContent = `${Math.floor(timeRemaining / 1000)}s left`;
-    }
-
     // if 0 days left, show hours and minutes only
     if (days === 0 && timeRemaining > 0) {
       element.textContent = `${hours}h ${minutes}m left`;
@@ -123,6 +118,11 @@ export function renderBidListingCountdown(element, endsAt) {
     // if 0 days and 0 hours left, show minutes only
     if (days === 0 && hours === 0 && timeRemaining > 0) {
       element.textContent = `${minutes}m left`;
+    }
+
+    // if less than 1 minute left, show seconds
+    if (timeRemaining < 60000 && timeRemaining > 0) {
+      element.textContent = `${Math.floor(timeRemaining / 1000)}s left`;
     }
   }
 
