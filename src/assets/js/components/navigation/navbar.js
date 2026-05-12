@@ -5,12 +5,14 @@ import { createListingModal } from '../modals/createListingModal.js';
 import { renderIcons } from '../../utils/icons.js';
 
 function renderVisitorNav() {
+  const hash = window.location.hash || '#/';
+  const isActive = (path) => hash === path ? 'btn-primary' : 'btn-border';
   return `
     <nav class="flex items-center justify-between p-6 md:px-8 lg:px-16 border-b border-border">
       <a href="#/" class="w-24 md:w-32 lg:w-40">${logo}</a>
       <ul class="flex flex-row items-center gap-2 md:gap-4">
-        <li><a href="#/login" class="btn-small md:btn-medium btn-border">Log in</a></li>
-        <li><a href="#/register" class="btn-small md:btn-medium btn-border">Register</a></li>
+        <li><a href="#/login" class="btn-small md:btn-medium ${isActive('#/login')}">Log in</a></li>
+        <li><a href="#/register" class="btn-small md:btn-medium ${isActive('#/register')}">Register</a></li>
       </ul>
     </nav>
   `;
