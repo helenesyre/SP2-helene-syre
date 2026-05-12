@@ -38,7 +38,8 @@ export async function listingBidCard({ listingData, activeTag, tags }) {
 
     if (response.data) {
       showToast('Bid went through successfully!', 'success');
-      setTimeout(() => window.location.reload(), 750);
+      const loadEvent = new Event('reloadRoute');
+      window.dispatchEvent(loadEvent);
     }
   }
 

@@ -85,7 +85,8 @@ export function editListingModal(listing) {
     if (response.data) {
       showToast('Listing updated successfully!', 'success');
       closeModal();
-      setTimeout(() => window.location.reload(), 750);
+      const loadEvent = new Event('reloadRoute');
+      window.dispatchEvent(loadEvent);
     } else {
       showToast('Failed to update listing. Please try again.', 'error');
     }

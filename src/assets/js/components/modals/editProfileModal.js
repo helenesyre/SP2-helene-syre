@@ -50,7 +50,8 @@ export function editProfileModal(profileData) {
     if (response.data) {
       showToast('Profile updated successfully!', 'success');
       closeModal();
-      setTimeout(() => window.location.reload(), 750);
+      const loadEvent = new Event('reloadRoute');
+      window.dispatchEvent(loadEvent);
     } else {
       showToast('Failed to update profile. Please try again.', 'error');
     }

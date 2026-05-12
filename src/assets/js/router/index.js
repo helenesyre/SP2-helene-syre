@@ -5,7 +5,7 @@ import { renderIcons } from '../utils/icons.js';
 import { renderCta } from '../components/cta/cta.js';
 
 export function router() {
-  async function handleRoute() {
+  async function renderRoute() {
     const hash = window.location.hash || '#/';
     const app = document.getElementById('app');
 
@@ -24,9 +24,14 @@ export function router() {
     renderNavbar();
     renderCta();
     renderIcons();
+  }
+
+  async function handleRoute() {
+    await renderRoute();
     window.scrollTo(0, 0);
   }
 
   window.addEventListener('hashchange', handleRoute);
   window.addEventListener('load', handleRoute);
+  window.addEventListener('reloadRoute', renderRoute);
 }

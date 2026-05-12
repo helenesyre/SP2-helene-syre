@@ -77,7 +77,8 @@ export function createListingModal() {
     if (response.data) {
       showToast('Listing created successfully!', 'success');
       closeModal();
-      setTimeout(() => window.location.reload(), 750);
+      const loadEvent = new Event('reloadRoute');
+      window.dispatchEvent(loadEvent);
     } else {
       showToast('Failed to create listing. Please try again.', 'error');
     }
