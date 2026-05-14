@@ -155,7 +155,7 @@ export function home() {
   return `
     <section class="relative text-white-500 mb-8 h-162.5 bg-black-500">
       <div class="absolute inset-0 z-30 bg-blue-800/80"></div>
-      <img src="${headerHome}" alt="Hero image" class="relative z-20 w-full h-162.5 object-cover">
+      <img src="${headerHome}" alt="Hero" class="relative z-20 w-full h-162.5 object-cover">
       <div class="absolute inset-0 z-40 flex flex-col items-center justify-center text-center max-w-[650px] mx-auto p-6">
         <h1 class="text-3xl md:text-5xl max-w-[570px]">Bid, sell and discover with fellow students</h1>
         <p class="text-base md:text-lg text-white-500/70 max-w-[570px]">A peer-to-peer auction platform exclusively for Noroff students. Start with 1,000 credits.</p>
