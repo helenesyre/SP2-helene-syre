@@ -9,7 +9,16 @@ import { listingBidCard } from '../assets/js/components/cards/listingBidCard.js'
 
 export async function listing() {
   const id = window.location.hash.split('/')[2];
-  const response = await getListingById(id);
+  let response;
+  try {
+    response = await getListingById(id);
+    if (!response.data) {
+      throw Error("Listing not found");
+    }
+  } catch {
+    window.location.hash = '#/page-not-found';
+    return;
+  }
   const listingData = response.data;
   const { isLoggedIn, getUserData } = useAuth();
   const user = getUserData();
