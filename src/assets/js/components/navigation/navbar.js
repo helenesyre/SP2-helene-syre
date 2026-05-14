@@ -4,6 +4,10 @@ import useModal from '../../utils/useModal.js';
 import { createListingModal } from '../modals/createListingModal.js';
 import { renderIcons } from '../../utils/icons.js';
 
+/**
+ * Renders visitor navigation.
+ * @returns {string} The HTML string for the visitor navigation bar.
+ */
 function renderVisitorNav() {
   const hash = window.location.hash || '#/';
   const isActive = (path) => hash === path ? 'btn-primary' : 'btn-border';
@@ -18,6 +22,10 @@ function renderVisitorNav() {
   `;
 }
 
+/**
+ * Renders logged-in user's navigation, including a mobile menu.
+ * @returns {Promise<string>} The HTML string for the logged-in navigation bar.
+ */
 async function renderLoggedInNav() {
   const { openModal } = useModal();
   const modalContent = createListingModal();
@@ -137,6 +145,10 @@ async function renderLoggedInNav() {
   `;
 }
 
+/**
+ * Renders the appropriate navigation bar based on the user's authentication status. If the user is logged in, it shows the logged-in nav; otherwise, it shows the visitor nav. Also sets up event listeners for the mobile menu toggle and logout functionality.
+ * @returns {Promise<void>} The function does not return a value but updates the DOM with the appropriate navigation bar.
+ */
 export async function renderNavbar() {
   const navContainer = document.getElementById('nav-container');
   if (navContainer) {

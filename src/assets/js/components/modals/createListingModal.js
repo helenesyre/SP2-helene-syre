@@ -5,13 +5,17 @@ import { showToast } from '../toasts/toast.js';
 
 /**
  * Creates a modal for creating a new listing.
- * @returns {HTMLElement} The modal element to be rendered in the DOM.
+ * @returns {HTMLElement} The modal element.
  */
 export function createListingModal() {
   const { closeModal } = useModal();
 
   let imageUrls = [];
 
+  /**
+   * Handles adding an image URL to the listing.
+   * Validates and updates the image list with a preview and remove option.
+   */
   function addImageUrl() {
     const url = imageUrlInput.value.trim();
     const alt = imageAltInput.value.trim();
@@ -58,6 +62,10 @@ export function createListingModal() {
     imageAltInput.value = '';
   };
 
+  /**
+   * Handles the form submission for creating a new listing.
+   * @param {Event} event - The form submission event.
+   */
   async function handleSubmit(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
@@ -84,6 +92,9 @@ export function createListingModal() {
     }
   };
 
+  /**
+   * Clears the form inputs and resets the image list when the modal is closed.
+   */
   function clearForm() {
     titleInput.value = '';
     descriptionInput.value = '';

@@ -6,6 +6,11 @@ import useTabs, { createTab } from '../assets/js/utils/useTabs.js';
 import { profileListings } from '../assets/js/components/tabs/profile/profileListings.js';
 import { profileBids } from '../assets/js/components/tabs/profile/profileBids.js';
 
+/**
+ * Profile page view: fetches profile data by username from URL, renders profile details, listings and bids tabs.
+ * Also handles edit profile action if the user is viewing their own profile.
+ * @returns {string} HTML string representing the profile page.
+ */
 export async function profile() {
   // Get profile name from URL hash
   const hash = window.location.hash;

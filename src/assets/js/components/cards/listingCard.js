@@ -3,6 +3,12 @@ import useModal from "../../utils/useModal.js";
 import { editListingModal } from "../modals/editListingModal.js";
 import { deleteListingModal } from "../modals/deleteListingModal.js";
 
+/**
+ * Renders a listing card component showing listing info, price and available actions.
+ * @param {Object} listing - Listing data including media, bids and seller info.
+ * @param {Function} deleteAndRefreshFunction - Callback for deleting a listing and refreshing the view.
+ * @returns {HTMLElement} The listing card element.
+ */
 export function listingCard(listing, deleteAndRefreshFunction) {
   const cardContainer = document.createElement('a');
   cardContainer.href = `#/listing/${listing.id}`;

@@ -4,9 +4,20 @@ import { validateImgUrl } from "../../utils/validation.js";
 import { showToast } from '../toasts/toast.js';
 import { useAuth } from '../../utils/useAuth.js';
 
+/**
+ * Creates a modal for editing the user's profile.
+ * @param {Object} profileData - The current profile data of the user.
+ * @returns {HTMLElement} The modal element.
+ */
 export function editProfileModal(profileData) {
   const { closeModal } = useModal();
 
+  /**
+   * Adds a banner image URL to the profile.
+   * @param {string} url - The banner image URL to add.
+   * @param {string} alt - The alt text for the banner image.
+   * @returns {void}
+   */
   function addBannerUrl(url = '', alt = '') {
     const bannerUrl = url || bannerUrlInput.value.trim();
     const bannerAlt = alt || bannerAltInput.value.trim();
@@ -18,6 +29,12 @@ export function editProfileModal(profileData) {
     bannerPreview.alt = bannerAlt || 'Profile banner';
   }
 
+  /**
+   * Adds an avatar image URL to the profile.
+   * @param {string} url - The avatar image URL to add.
+   * @param {string} alt - The alt text for the avatar image.
+   * @returns {void}
+   */
   function addAvatarUrl(url = '', alt = '') {
     const avatarUrl = url || avatarUrlInput.value.trim();
     const avatarAlt = alt || avatarAltInput.value.trim();
@@ -29,6 +46,10 @@ export function editProfileModal(profileData) {
     avatarPreview.alt = avatarAlt || 'Profile image';
   }
 
+  /**
+   * Handles the form submission for editing the profile.
+   * @param {Event} event - The form submission event.
+   */
   async function handleSubmit(event) {
     event.preventDefault();
     const formData = new FormData(form);

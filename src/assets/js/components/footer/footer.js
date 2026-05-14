@@ -1,3 +1,6 @@
+/**
+ * Renders the site footer.
+ */
 export function renderFooter() {
   const footerContainer = document.getElementById('footer-container');
   // Check what page the user is on, if on home scroll to top, if not, navigate to home

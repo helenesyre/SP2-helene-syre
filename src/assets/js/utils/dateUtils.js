@@ -6,6 +6,13 @@
  * accessed: 28 April 2026
  * link: https://www.youtube.com/watch?v=34kbdFLpff8
 */
+
+/**
+ * Starts a countdown timer for a listing element.
+ * @param {HTMLElement} element - Where the countdown text will be displayed.
+ * @param {string} endsAt - ISO date string.
+ * @returns {number} Interval ID.
+ */
 export function listingCountdown(element, endsAt) {
   function tick() {
     const timeRemaining = new Date(endsAt) - new Date();
@@ -46,6 +53,12 @@ export function listingCountdown(element, endsAt) {
   return setInterval(tick, 1000);
 }
 
+/**
+ * Starts a countdown timer for a single listing element.
+ * @param {HTMLElement} element - Where the countdown text will be displayed.
+ * @param {string} endsAt - ISO date string.
+ * @returns {number} Interval ID.
+ */
 export function singleListingCountdown(element, endsAt) {
   function tick() {
     const timeRemaining = new Date(endsAt) - new Date();
@@ -86,7 +99,11 @@ export function singleListingCountdown(element, endsAt) {
   return setInterval(tick, 1000);
 }
 
-// Function to format end date in "DD MMM YYYY" format
+/**
+ * Formats a date string into "DD MMM YYYY" format.
+ * @param {string} dateString - The date string in ISO format.
+ * @returns {string} The formatted date string.
+ */
 export function formatEndDate(dateString) {
   return new Date(dateString).toLocaleDateString('en-GB', {
     day: '2-digit',
@@ -95,6 +112,12 @@ export function formatEndDate(dateString) {
   });
 }
 
+/**
+ * Starts a countdown timer for a bid listing element.
+ * @param {HTMLElement} element - Where the countdown text will be displayed.
+ * @param {string} endsAt - ISO date string.
+ * @returns {number} Interval ID.
+ */
 export function renderBidListingCountdown(element, endsAt) {
   function tick() {
     const timeRemaining = new Date(endsAt) - new Date();
@@ -130,6 +153,10 @@ export function renderBidListingCountdown(element, endsAt) {
   return setInterval(tick, 1000);
 }
 
+/**
+ * Initializes countdown timers for multiple listings.
+ * @param {Array} listings - An array of listing objects, each containing an `id` and `endsAt` property.
+ */
 export default function countdownListings(listings) {
   listings.forEach((listing) => {
     const countdownElement = document.getElementById(`countdown-${listing.id}`);

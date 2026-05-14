@@ -5,6 +5,10 @@ import { renderIcons } from '../utils/icons.js';
 import { renderCta } from '../components/cta/cta.js';
 import loader from '../utils/loader.js';
 
+/**
+ * Initializes the client-side router and listens for route changes.
+ * Renders the matching view or a 404 page if no route matches.
+ */
 export function router() {
   async function renderRoute() {
     const hash = window.location.hash || '#/';

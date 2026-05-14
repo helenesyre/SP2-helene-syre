@@ -7,10 +7,18 @@ import { listingCard } from "../../cards/listingCard";
 import { renderPaginationControls } from "../../pagination/paginationControls";
 import { showToast } from "../../toasts/toast";
 
+/**
+ * Profile listings tab logic.
+ * @param {string} profileId - The user profile ID for which to fetch and render listings.
+ * @returns {Object} - The renderListings function to update the listings display.
+ */
 export function profileListings(profileId) {
   const pagination = usePagination(renderListings);
   let pageLimit = 8;
 
+  /**
+   * Rendering the listings for the given profile.
+   */
   async function renderListings() {
     try {
       // Fetch data and update page count

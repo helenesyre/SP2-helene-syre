@@ -5,7 +5,12 @@ const API_KEY = import.meta.env.VITE_API_KEY;
 
 /* ────────────────────── Listings ────────────────────── */
 
-/* All listings */
+/**
+ * Fetches all listings from the API with optional sorting.
+ * @param {string} sort - The field to sort by (default is 'created').
+ * @param {string} sortOrder - The order of sorting, either 'asc' or 'desc' (default is 'desc').
+ * @returns {Promise<Object>} The data returned from the API.
+ */
 export async function getAllListings(sort = 'created', sortOrder = 'desc') {
   const auth = useAuth();
   const token = auth.getToken();
@@ -20,6 +25,14 @@ export async function getAllListings(sort = 'created', sortOrder = 'desc') {
   return data;
 };
 
+/**
+ * Fetches paginated listings from the API with optional sorting.
+ * @param {number} page - The page number to fetch.
+ * @param {number} limit - Limited to 8 listings per page.
+ * @param {string} sort - Sorted by created date.
+ * @param {string} sortOrder - Sort order is set to descending.
+ * @returns {Promise<Object>} The data returned from the API.
+ */
 export async function getPaginatedListings(page = 1, limit = 8, sort = 'created', sortOrder = 'desc') {
   const auth = useAuth();
   const token = auth.getToken();
@@ -34,7 +47,11 @@ export async function getPaginatedListings(page = 1, limit = 8, sort = 'created'
   return data;
 };
 
-/* Single listing */
+/**
+ * Fetches a single listing by its ID from the API.
+ * @param {string} id - The ID of the listing to fetch.
+ * @returns {Promise<Object>} The data returned from the API.
+ */
 export async function getListingById(id) {
   const auth = useAuth();
   const token = auth.getToken();
@@ -49,7 +66,16 @@ export async function getListingById(id) {
   return data;
 };
 
-/* Search and filter listings */
+/**
+ * Searches listings based on a query and optional filters.
+ * @param {string} query
+ * @param {string} tag - The tag to filter by.
+ * @param {number} page - The page number to fetch.
+ * @param {number} limit - Limited to 8 listings per page.
+ * @param {string} sort - Sorted by created date.
+ * @param {string} sortOrder - Sort order is set to descending.
+ * @returns {Promise<Object>} The data returned from the API.
+ */
 export async function searchListings(query, tag = '', page = 1, limit = 8, sort = 'created', sortOrder = 'desc') {
   const auth = useAuth();
   const token = auth.getToken();
@@ -64,7 +90,16 @@ export async function searchListings(query, tag = '', page = 1, limit = 8, sort 
   return data;
 };
 
-/* Filter listings by tag */
+/**
+ * Filters listings based on a tag and optional parameters.
+ * @param {string} tag - The tag to filter by.
+ * @param {number} page - The page number to fetch.
+ * @param {number} limit - Limited to 8 listings per page.
+ * @param {string} sort - Sorted by created date.
+ * @param {string} sortOrder - Sort order is set to descending.
+ * @param {boolean} onlyActive - Whether to fetch only active listings (default is true).
+ * @returns {Promise<Object>} The data returned from the API.
+ */
 export async function filterListingsByTag(tag, page = 1, limit = 8, sort = 'created', sortOrder = 'desc', onlyActive = true) {
   const auth = useAuth();
   const token = auth.getToken();
@@ -79,7 +114,11 @@ export async function filterListingsByTag(tag, page = 1, limit = 8, sort = 'crea
   return data;
 };
 
-/* Create listing */
+/**
+ * Creates a new listing.
+ * @param {Object} listingData - The data for the new listing.
+ * @returns {Promise<Object>} The data returned from the API.
+ */
 export async function createListing(listingData) {
   const auth = useAuth();
   const token = auth.getToken();
@@ -95,7 +134,12 @@ export async function createListing(listingData) {
   return data;
 };
 
-/* Update listing */
+/**
+ * Updates an existing listing.
+ * @param {string} listingId - The ID of the listing to update.
+ * @param {Object} listingData - The data to update the listing with.
+ * @returns {Promise<Object>} The data returned from the API.
+ */
 export async function updateListing(listingId, listingData) {
   const auth = useAuth();
   const token = auth.getToken();
@@ -111,7 +155,11 @@ export async function updateListing(listingId, listingData) {
   return data;
 };
 
-/* Delete listing */
+/**
+ * Deletes a listing.
+ * @param {string} id - The ID of the listing to delete.
+ * @returns {Promise<Object>} The data returned from the API.
+ */
 export async function deleteListing(id) {
   const auth = useAuth();
   const token = auth.getToken();
@@ -126,7 +174,12 @@ export async function deleteListing(id) {
   return data;
 };
 
-/* Bid on listing */
+/**
+ * Places a bid on a listing.
+ * @param {string} listingId - The ID of the listing to bid on.
+ * @param {number} bidAmount - The amount to bid.
+ * @returns {Promise<Object>} The data returned from the API.
+ */
 export async function placeBid(listingId, bidAmount) {
   const auth = useAuth();
   const token = auth.getToken();
@@ -144,7 +197,10 @@ export async function placeBid(listingId, bidAmount) {
 
 /* ────────────────────── Profiles ────────────────────── */
 
-/* All profiles */
+/**
+ * Fetches all profiles from the API.
+ * @returns {Promise<Object>} The data returned from the API.
+ */
 export async function getAllProfiles() {
   const auth = useAuth();
   const token = auth.getToken();
@@ -159,7 +215,11 @@ export async function getAllProfiles() {
   return data;
 };
 
-/* Single profile */
+/**
+ * Fetches data for a single profile.
+ * @param {string} profileName - The name of the profile to fetch.
+ * @returns {Promise<Object>} The data returned from the API.
+ */
 export async function getSingleProfileData(profileName) {
   const auth = useAuth();
   const token = auth.getToken();
@@ -174,7 +234,12 @@ export async function getSingleProfileData(profileName) {
   return data;
 };
 
-/* Update profile */
+/**
+ * Updates an existing profile.
+ * @param {string} profileName - The name of the profile to update.
+ * @param {Object} profileData - The data to update the profile with.
+ * @returns {Promise<Object>} The data returned from the API.
+ */
 export async function updateProfile(profileName, profileData) {
   const auth = useAuth();
   const token = auth.getToken();
@@ -190,7 +255,13 @@ export async function updateProfile(profileName, profileData) {
   return data;
 };
 
-/* All listings by profile */
+/**
+ * Fetches listings for a single profile.
+ * @param {string} profileId - The ID of the profile to fetch listings for.
+ * @param {number} page - The page number to fetch.
+ * @param {number} limit - The number of listings per page.
+ * @returns {Promise<Object>} The data returned from the API.
+ */
 export async function getSingleProfileListings(profileId, page = 1, limit = 8) {
   const auth = useAuth();
   const token = auth.getToken();
@@ -205,7 +276,13 @@ export async function getSingleProfileListings(profileId, page = 1, limit = 8) {
   return data;
 };
 
-/* All bids by profile */
+/**
+ * Fetches bids for a single profile.
+ * @param {string} profileName - The name of the profile to fetch bids for.
+ * @param {number} page - The page number to fetch.
+ * @param {number} limit - The number of bids per page.
+ * @returns {Promise<Object>} The data returned from the API.
+ */
 export async function getBidsByProfile(profileName, page = 1, limit = 8) {
   const auth = useAuth();
   const token = auth.getToken();
@@ -220,7 +297,13 @@ export async function getBidsByProfile(profileName, page = 1, limit = 8) {
   return data;
 };
 
-/* All wins by profile */
+/**
+ * Fetches wins for a single profile.
+ * @param {string} profileName - The name of the profile to fetch wins for.
+ * @param {number} page - The page number to fetch.
+ * @param {number} limit - The number of wins per page.
+ * @returns {Promise<Object>} The data returned from the API.
+ */
 export async function getWinsByProfile(profileName, page = 1, limit = 100) {
   const auth = useAuth();
   const token = auth.getToken();
@@ -234,5 +317,3 @@ export async function getWinsByProfile(profileName, page = 1, limit = 100) {
   });
   return data;
 };
-
-/* Search profiles */

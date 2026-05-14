@@ -1,6 +1,10 @@
 import image404 from '../assets/images/404.png';
 import { useAuth } from '../assets/js/utils/useAuth';
 
+/**
+ * Renders a "Page Not Found" page with a message and links to navigate back to home and profile or login page.
+ * @returns {string} HTML string representing the "Page Not Found" page.
+ */
 export function pageNotFound() {
   return `
     <div class="flex flex-col items-center gap-6 py-16 px-6 md:px-8 lg:px-16 text-center">

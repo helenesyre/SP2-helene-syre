@@ -7,6 +7,11 @@ import { deleteListingModal } from '../assets/js/components/modals/deleteListing
 import { renderImageGallery } from "../assets/js/components/imageGallery/imageGallery.js";
 import { listingBidCard } from '../assets/js/components/cards/listingBidCard.js';
 
+/**
+ * Listing page view: fetches listing data by ID, renders listing details, bid history and bidding UI.
+ * Also handles edit and delete actions for the listing if the user is the seller.
+ * @returns {string} HTML string representing the listing page.
+ */
 export async function listing() {
   const id = window.location.hash.split('/')[2];
   let response;

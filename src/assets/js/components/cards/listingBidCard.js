@@ -3,6 +3,14 @@ import { placeBid } from '../../utils/fetch.js';
 import { showToast } from '../toasts/toast.js';
 import { useAuth } from '../../utils/useAuth.js';
 
+/**
+ * Renders a listing bid card with bidding UI, pricing info and auction info.
+ * @param {Object} params
+ * @param {Object} params.listingData - Listing data including bids and metadata.
+ * @param {string} params.activeTag - Active tag for the listing (e.g., "Live", "Closed").
+ * @param {Array} params.tags - List of tags for the listing.
+ * @returns {string} The HTML string for the bid card.
+ */
 export async function listingBidCard({ listingData, activeTag, tags }) {
   /* Bids */
   const currentBid = listingData.bids && listingData.bids.length > 0 ? Math.max(...listingData.bids.map(bid => bid.amount)) : 0;
@@ -14,6 +22,9 @@ export async function listingBidCard({ listingData, activeTag, tags }) {
   let userData = auth.isLoggedIn() ? await auth.getStoreUserData() : null;
   const credits = userData ? userData.credits : 0;
 
+  /**
+   * Handles bid form submission and validation.
+   */
   async function handleBidSubmit() {
     const bidAmount = document.getElementById("bid-amount").value;
     // check if bid amount is valid
@@ -43,12 +54,22 @@ export async function listingBidCard({ listingData, activeTag, tags }) {
     }
   }
 
+  /**
+   * Clears the bid amount input field after a bid is placed.
+   */
   function clearForm() {
     const bidAmountInputField = document.getElementById('bid-amount')
     bidAmountInputField.value = '';
   }
 
-  // Different state of the bid form if user is not logged in, logged in or the owner
+  /**
+   * Determines the current bid form state based on the user and auction status.
+   * @param {Object} params
+   * @param {boolean} params.loggedIn - If the user is logged in.
+   * @param {boolean} params.isOwner - If the user is the owner of the listing.
+   * @param {boolean} params.isClosed - If the auction has ended.
+   * @returns {'hidden' | 'disabled' | 'active'}
+   */
   function getBidState({ loggedIn, isOwner, isClosed }) {
     if (isClosed && !loggedIn) return 'hidden';
     if (!loggedIn) return 'disabled';
@@ -57,6 +78,9 @@ export async function listingBidCard({ listingData, activeTag, tags }) {
     return 'active';
   }
 
+  /**
+   * Renders the bid form based on the current bid state.
+   */
   function renderBidForm() {
     const state = getBidState({
       loggedIn: useAuth().isLoggedIn(),

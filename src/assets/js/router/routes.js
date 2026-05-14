@@ -7,8 +7,9 @@ import { profile } from "../../../pages/profile";
 
 /**
  * Defines the routes for the application, mapping URL hash patterns to their corresponding
- * view functions and layout configurations. Each route object contains a regex pattern for
- * matching the URL hash, a view function that returns the HTML content for that route.
+ * view functions and page titles. Each route object contains a regular expression for
+ * matching the URL hash, a view function that returns the HTML content for that route,
+ * and a title for the page.
  */
 export const routes = [
   {

@@ -2,6 +2,9 @@ import { useAuth } from "../../utils/useAuth";
 import { validateNoroffEmail, validatePassword, validationErrorMessageHTML } from "../../utils/validation";
 import { renderIcons } from "../../utils/icons";
 
+/**
+ * Attaches submit handler and validation to the login form.
+ */
 export function setupLoginFormListeners() {
   const form = document.querySelector('#loginForm');
   form.addEventListener('submit', async function (event) {
@@ -42,6 +45,10 @@ export function setupLoginFormListeners() {
   });
 };
 
+/**
+ * Creates the login form element.
+ * @returns {string} The HTML string for the login form.
+ */
 export function loginForm() {
   const form = document.createElement('form');
   form.id = 'loginForm';

@@ -1,3 +1,7 @@
+/**
+ * Renders the logo.
+ * @returns {string} An HTML string representing the logo.
+ */
 export const logo = `
   <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 200 54.18">
   <defs>

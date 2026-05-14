@@ -36,6 +36,10 @@ export default function useTabs(tabs) {
     }, 0);
   }
 
+  /**
+   * Renders the tab navigation and content area based on the provided tabs.
+   * @returns {Object} - An object containing the tabsNav and tabsContent elements to be rendered in the DOM.
+   */
   function renderTabs() {
     const tabButtons = tabs.map((tab, index) => {
       const button = document.createElement('button');

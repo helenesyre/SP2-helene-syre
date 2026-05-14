@@ -8,13 +8,19 @@ import { renderPaginationControls } from '../assets/js/components/pagination/pag
 import countdownListings from '../assets/js/utils/dateUtils.js';
 import loader from '../assets/js/utils/loader.js';
 
+/**
+ * Home page view: initializes listings, search, filters and pagination.
+ * @returns {string} HTML string representing the home page.
+ */
 export function home() {
   // Pagination
   let pagination = usePagination(loadListings);
   let pageLimit = 8;
   let currentTagFilter = 'all';
 
-  // Search
+  /**
+   * Handles search form submission. Validates and fetches search results.
+   */
   async function handleSearch() {
     const searchInput = document.getElementById("listing-search");
     const query = searchInput.value.trim();
@@ -46,6 +52,9 @@ export function home() {
     }
   }
 
+  /**
+   * Handles tag filter changes. Fetches and displays listings based on the selected tag.
+   */
   async function handleTagFilterChange() {
     const selectedTag = document.querySelector('input[name="tag"]:checked').value;
     currentTagFilter = selectedTag;
@@ -118,7 +127,9 @@ export function home() {
     });
   }, 0);
 
-  // Fetch and render listings
+  /**
+   * Loads listings from the server and updates the DOM. Handles loading states and errors.
+   */
   async function loadListings() {
     const container = document.getElementById('listings-container');
     if (!container) return;
@@ -140,7 +151,6 @@ export function home() {
       renderPaginationControls(pagination);
       countdownListings(listings);
     } catch (error) {
-      console.error('Error loading listings:', error);
       showToast('Failed to load listings. Please try again later.', 'error');
       container.innerHTML = `
       <div class="px-6 md:px-8 lg:px-16 py-12">

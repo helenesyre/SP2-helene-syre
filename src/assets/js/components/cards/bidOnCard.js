@@ -1,5 +1,11 @@
 import { renderBidListingCountdown } from "../../utils/dateUtils";
 
+/**
+ * Renders a bid card element for displaying a specific user's bids on the profile page.
+ * @param {Object} bid - The bid data with associated listing information.
+ * @param {boolean} [bidWon=false] - Indicates if the bid was won.
+ * @returns {HTMLElement} The bid card element.
+ */
 export function bidOnCard(bid, bidWon = false) {
   const cardContainer = document.createElement('a');
   cardContainer.href = `#/listing/${bid.listing?.id}`;

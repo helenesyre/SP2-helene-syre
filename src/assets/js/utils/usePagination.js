@@ -1,3 +1,8 @@
+/**
+ * Manage pagination, providing functions to navigate between pages and track the current page and total page count.
+ * @param {Function} fetchDataFunction - The function to fetch data for the current page.
+ * @returns {Object} - An object containing pagination functions and state.
+ */
 export function usePagination(fetchDataFunction) {
   let page = 1;
   let pageCount = 1;

@@ -1,3 +1,5 @@
+import { renderIcons } from '../../utils/icons.js';
+
 /**
  * Show a toast notification
  * @param {string} message - The message to display in the toast
@@ -5,8 +7,6 @@
  * @param {number} [wait=5000] - The duration in milliseconds before the toast disappears
  * @returns {void}
  */
-import { renderIcons } from '../../utils/icons.js';
-
 export function showToast(message, type = "success", wait = 5000) {
   const toast = document.createElement("div");
   const iconElement = document.createElement("i");

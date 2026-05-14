@@ -1,3 +1,9 @@
+/**
+ * Creates a pagination button for a given page number.
+ * @param {number} pageNumber - The page number for the button.
+ * @param {object} pagination - Pagination controller (getPage, setPage).
+ * @returns {HTMLButtonElement}
+ */
 function paginationButton(pageNumber, pagination) {
   const button = document.createElement("button")
   button.textContent = pageNumber
@@ -6,6 +12,11 @@ function paginationButton(pageNumber, pagination) {
   return button
 }
 
+/**
+ * Renders pagination controls into the DOM.
+ * @param {object} pagination - Pagination controller for page navigation.
+ * @returns {void}
+ */
 export function renderPaginationControls(pagination) {
   const container = document.getElementById("pagination-controls");
   if (!container) return;

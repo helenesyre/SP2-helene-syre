@@ -4,7 +4,9 @@ import { showToast } from '../toasts/toast.js';
 
 /**
  * Creates a modal for deleting a listing.
- * @returns {HTMLElement} The modal element to be rendered in the DOM.
+ * @param {number} listingId - The ID of the listing to be deleted.
+ * @param {Function} deleteAndRefreshFunction - Callback to refresh the UI after deletion.
+ * @returns {HTMLElement} The modal element.
  */
 export function deleteListingModal(listingId, deleteAndRefreshFunction) {
   const { closeModal } = useModal();
@@ -58,7 +60,7 @@ export function deleteListingModal(listingId, deleteAndRefreshFunction) {
       if (response.status === 204) {
         showToast('Listing deleted successfully!', 'success');
         closeModal();
-        deleteAndRefreshFunction(); // Call the function to refresh the listings
+        deleteAndRefreshFunction(); // Call the function to refresh the UI after deletion
       } else {
         showToast('Failed to delete listing. Please try again.', 'error');
       }

@@ -1,3 +1,7 @@
+/**
+ * Renders image gallery for a listing.
+ * @param {Array} media - Array of images with url and alt text.
+ */
 export function renderImageGallery(media) {
   const galleryContainer = document.getElementById('listing-images');
   const mainImage = document.createElement('img');

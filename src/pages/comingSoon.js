@@ -1,5 +1,9 @@
 import { useAuth } from "../assets/js/utils/useAuth";
 
+/**
+ * Renders a "Coming Soon" page with a message and links to navigate back to home and profile or login page.
+ * @returns {string} HTML string representing the "Coming Soon" page.
+ */
 export function comingSoon() {
   return `
     <div class="flex flex-col items-center gap-6 py-16 px-6 md:px-8 lg:px-16 text-center">

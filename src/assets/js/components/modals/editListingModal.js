@@ -5,13 +5,18 @@ import { showToast } from '../toasts/toast.js';
 
 /**
  * Creates a modal for editing an existing listing.
- * @returns {HTMLElement} The modal element to be rendered in the DOM.
+ * @param {Object} listing - The current listing data to be edited.
+ * @returns {HTMLElement} The modal element.
  */
 export function editListingModal(listing) {
   const { closeModal } = useModal();
 
   let imageUrls = listing.media ? [...listing.media] : [];
 
+  /**
+   * Handles adding an image URL to the listing.
+   * Validates and updates the image list with a preview and remove option.
+   */
   function renderImageList() {
     imageList.innerHTML = '';
     imageUrls.forEach((image, index) => {
@@ -51,6 +56,12 @@ export function editListingModal(listing) {
     });
   }
 
+  /**
+   * Adds an image URL to the listing.
+   * @param {string} url - The image URL to add.
+   * @param {string} alt - The alt text for the image.
+   * @returns {void}
+   */
   function addImageUrl(url = '', alt = '') {
     const imageUrl = url || imageUrlInput.value.trim();
     const imageAlt = alt || imageAltInput.value.trim();
@@ -65,6 +76,10 @@ export function editListingModal(listing) {
     imageAltInput.value = '';
   };
 
+  /**
+   * Handles the form submission for editing a listing.
+   * @param {Event} event - The form submission event.
+   */
   async function handleSubmit(event) {
     event.preventDefault();
     const formData = new FormData(event.target);

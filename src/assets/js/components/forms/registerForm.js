@@ -2,7 +2,9 @@ import { useAuth } from "../../utils/useAuth";
 import { validateNoroffEmail, validatePassword, validateUsername, validationErrorMessageHTML } from "../../utils/validation";
 import { renderIcons } from "../../utils/icons";
 
-
+/**
+ * Attaches submit handler and validation to the register form.
+ */
 export function setupRegisterFormListeners() {
   const form = document.getElementById('registerForm');
   if (!form) return;
@@ -57,6 +59,10 @@ export function setupRegisterFormListeners() {
   });
 };
 
+/**
+ * Creates the register form element.
+ * @returns {string} The HTML string for the register form.
+ */
 export function registerForm() {
   const form = document.createElement('form');
   form.id = 'registerForm';

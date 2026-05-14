@@ -7,10 +7,18 @@ import { bidOnCard } from "../../cards/bidOnCard";
 import { renderPaginationControls } from "../../pagination/paginationControls";
 import { showToast } from "../../toasts/toast";
 
+/**
+ * Profile bids tab logic.
+ * @param {string} profileId - The user profile ID for which to fetch and render bids.
+ * @returns {Object} - The renderBids function to update the bids display.
+ */
 export function profileBids(profileId) {
   const pagination = usePagination(renderBids);
   let pageLimit = 8;
 
+  /**
+   * Rendering the bids for the given profile.
+   */
   async function renderBids() {
     try {
       // Fetch data and update page count

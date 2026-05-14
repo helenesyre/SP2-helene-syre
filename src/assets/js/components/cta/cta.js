@@ -1,5 +1,8 @@
 import { useAuth } from "../../utils/useAuth";
 
+/**
+ * Visitor CTA section markup.
+ */
 function renderVisitorCta() {
   return `
     <section class="bg-green-light-500 p-8 mb-16 md:mb-20 rounded-default flex flex-col gap-10 md:gap-20 md:flex-row items-center md:items-end md:justify-between max-w-5xl mx-auto">
@@ -21,6 +24,9 @@ function renderVisitorCta() {
   `;
 }
 
+/**
+ * Logged-in user CTA section markup.
+ */
 function renderLoggedInCta() {
   return `
     <section class="bg-green-light-500 p-8 mb-16 md:mb-20 rounded-default flex flex-col gap-10 md:gap-20 md:flex-row items-center md:items-end md:justify-between max-w-5xl mx-auto">
@@ -39,6 +45,11 @@ function renderLoggedInCta() {
   `;
 }
 
+/**
+ * Renders the appropriate CTA section based on the user's authentication status.
+ * Shows either visitor or logged-in version.
+ * @returns {void}
+ */
 export function renderCta() {
   const ctaContainer = document.getElementById('cta-container');
   if (ctaContainer) {
