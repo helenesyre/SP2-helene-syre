@@ -60,11 +60,11 @@ export function renderFooter() {
           </div>
           <!-- Social Media -->
           <div class="flex gap-4 justify-start lg:justify-end">
-            <a target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/" class="flex items-center justify-center size-9 bg-blue-300 hover:bg-blue-400 rounded-default">
+            <a target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/" aria-label="Facebook" class="flex items-center justify-center size-9 bg-blue-300 hover:bg-blue-400 rounded-default">
               <i class="fa-brands fa-facebook-f text-xl"></i>
             </a>
 
-            <a target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/" class="flex items-center justify-center size-9 bg-blue-300 hover:bg-blue-400 rounded-default">
+            <a target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/" aria-label="Instagram" class="flex items-center justify-center size-9 bg-blue-300 hover:bg-blue-400 rounded-default">
               <i class="fa-brands fa-instagram text-xl"></i>
             </a>
           </div>
