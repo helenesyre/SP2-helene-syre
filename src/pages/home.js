@@ -165,7 +165,7 @@ export function home() {
             <div class="flex my-8 gap-4 bg-white-500 rounded-default p-4 flex-col md:flex-row items-center w-full">
               <div class="flex items-center gap-2 w-full">
                 <i data-lucide="search" class="text-black-500 size-6"></i>
-                <label for="listing-search" class="sr-only text-white-500">Search listings</label>
+                <label for="listing-search" class="sr-only text-black-500">Search listings</label>
                 <input type="search" id="listing-search" placeholder="Search listings - e.g. “laptop”" class="input-field">
               </div>
               <button type="submit" class="btn-medium btn-primary w-full md:w-fit">Search</button>
