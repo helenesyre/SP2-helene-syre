@@ -12,7 +12,7 @@
 
 **Accessed:** 23 April 2026
 
-**Link:** [https://stackoverflow.com/questions/15551779/open-link-in-new-tab-or-window ](https://stackoverflow.com/questions/15551779/open-link-in-new-tab-or-window)
+**Link:** [https://stackoverflow.com/questions/15551779/open-link-in-new-tab-or-window](https://stackoverflow.com/questions/15551779/open-link-in-new-tab-or-window)
 
 ---
 
@@ -125,3 +125,19 @@
 **Accessed:** 12 May 2026
 
 **Link:** [https://stackoverflow.com/questions/75651431/how-to-make-line-clamp-2-work-without-needing-to-add-3-words](https://stackoverflow.com/questions/75651431/how-to-make-line-clamp-2-work-without-needing-to-add-3-words)
+
+---
+
+**Title:** CSS Loaders
+
+**Page Publisher:** CSS Loaders
+
+**Date:** N/A
+
+**Used for:** `Displaying loading animations`
+
+**Usage:** I used it to insert a loading animation for my website.
+
+**Accessed:** 14 May 2026
+
+**Link:** [https://cssloaders.github.io/](https://cssloaders.github.io/)
