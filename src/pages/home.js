@@ -6,6 +6,7 @@ import { showToast } from '../assets/js/components/toasts/toast';
 import { usePagination } from '../assets/js/utils/usePagination';
 import { renderPaginationControls } from '../assets/js/components/pagination/paginationControls.js';
 import countdownListings from '../assets/js/utils/dateUtils.js';
+import loader from '../assets/js/utils/loader.js';
 
 export function home() {
   // Pagination
@@ -122,10 +123,7 @@ export function home() {
     const container = document.getElementById('listings-container');
     if (!container) return;
 
-    // CHANGE LATER to a spinning loader
-    container.innerHTML = `
-    <p class="text-black-500/60">Loading listings…</p>
-  `;
+    container.innerHTML = loader();
 
     try {
       const response = await getPaginatedListings(pagination.getPage(), pageLimit, 'created', 'desc');

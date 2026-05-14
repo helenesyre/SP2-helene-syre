@@ -3,6 +3,7 @@ import { pageNotFound } from '../../../pages/pageNotFound.js';
 import { renderNavbar } from '../components/navigation/navbar.js';
 import { renderIcons } from '../utils/icons.js';
 import { renderCta } from '../components/cta/cta.js';
+import loader from '../utils/loader.js';
 
 export function router() {
   async function renderRoute() {
@@ -14,7 +15,7 @@ export function router() {
 
     if (route) {
       document.title = route.title || 'Nudge';
-      app.innerHTML = '<p>Loading...</p>';
+      app.innerHTML = loader();
       const content = await route.view();
       app.innerHTML = content;
     } else {

@@ -1,3 +1,5 @@
+import loader from "./loader";
+
 export function createTab(title, content) {
   return { title, content };
 }
@@ -22,7 +24,7 @@ export default function useTabs(tabs) {
       // handle content rendering for the active tab
       const activeTab = tabs.find(tab => `#tab-content-${tabs.indexOf(tab)}` === target.dataset.tabTarget);
 
-      tabContents.innerHTML = '<p>Loading...</p>';
+      tabContents.innerHTML = loader();
       if (activeTab) activeTab.content();
     }
   }
@@ -51,7 +53,7 @@ export default function useTabs(tabs) {
 
     const tabsContent = document.createElement('div');
     tabsContent.id = 'tab-content'
-    tabsContent.innerHTML = '<p>Loading...</p>';
+    tabsContent.innerHTML = loader();
     tabsContent.classList = "mb-6";
     tabs.forEach((tab, index) => {
       if (index === 0) {
