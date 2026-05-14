@@ -154,7 +154,7 @@ export function home() {
 
   return `
     <section class="relative text-white-500 mb-8 h-162.5">
-      <div class="absolute inset-0 z-30 bg-blue-800/80"></div>
+      <div class="absolute inset-0 z-30 bg-black/80"></div>
       <img src="${headerHome}" alt="Hero image" class="relative z-20 w-full h-162.5 object-cover">
       <div class="absolute inset-0 z-10 bg-black-500"></div>
       <div class="absolute inset-0 z-40 flex flex-col items-center justify-center text-center max-w-[650px] mx-auto p-6">
