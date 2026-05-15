@@ -27,7 +27,7 @@ export function bidOnCard(bid, bidWon = false) {
   // Title
   const title = document.createElement('h3');
   title.textContent = bid.listing?.title || 'Untitled Listing';
-  title.classList = "text-xl font-semibold text-black-500  max-w-sm";
+  title.classList = "text-xl font-semibold text-black-500 max-w-sm line-clamp-2 break-all";
 
   // Bid amount
   const amountContainer = document.createElement('div');
@@ -71,7 +71,7 @@ export function bidOnCard(bid, bidWon = false) {
 
   // Date
   const date = document.createElement('p');
-  date.classList = "text-sm font-normal text-black-500";
+  date.classList = "text-sm text-right font-normal text-black-500";
   renderBidListingCountdown(date, bid.listing?.endsAt);
 
   // Append elements to the card container
