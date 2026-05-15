@@ -207,20 +207,14 @@ export function editListingModal(listing) {
   deadlineInput.setAttribute('type', 'datetime-local');
   deadlineInput.setAttribute('name', 'deadline');
   deadlineInput.setAttribute('placeholder', 'dd/ mm/ yyyy, --:--');
-  deadlineInput.setAttribute('aria-label', 'Set the auction deadline for your listing');
+  deadlineInput.setAttribute('aria-label', 'Deadline cannot be changed.');
   deadlineInput.className = 'input-field';
   deadlineHelpText.className = 'text-sm text-black-500';
-  deadlineHelpText.textContent = 'Must be a future date';
+  deadlineInput.disabled = true;
+  deadlineHelpText.textContent = 'Deadline cannot be changed';
   deadlineHelpText.className = 'text-xs text-black-200';
   deadlineInput.required = true;
   deadlineInput.value = listing.endsAt ? new Date(listing.endsAt).toISOString().slice(0, 16) : '';
-  // If listing has been bid in on, disable changing the deadline to prevent confusion
-  if (listing._count?.bids > 0) {
-    deadlineInput.disabled = true;
-    deadlineHelpText.textContent = 'Deadline cannot be changed because there are already bids on this listing';
-  } else {
-    deadlineInput.disabled = false;
-  }
 
   /* Description */
   const descriptionContainer = document.createElement('div');
