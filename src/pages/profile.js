@@ -76,7 +76,7 @@ export async function profile() {
           <div class="flex flex-col md:flex-row items-center md:items-end gap-6 md:gap-9">
             <img src="${profileAvatar}" alt="${profileAvatarAlt}" class="size-40 md:size-60 lg:size-64 xl:size-80 rounded-default object-cover" />
             <div class="lg:max-w-md xl:mb-10">
-              <div class="flex flex-row gap-3 items-start justify-between md:justify-normal">
+              <div class="flex flex-row flex-wrap gap-3 items-start justify-between md:justify-normal">
                 <div class="flex flex-col gap-1">
                   <h2 class="text-3xl font-semibold text-black-500 capitalize">${profileName}</h2>
                   <p class="text-base font-normal text-black-300">@${profileUsername}</p>
